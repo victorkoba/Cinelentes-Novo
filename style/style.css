@@ -729,7 +729,7 @@ a {
 .main-container section {
   margin-bottom: 4rem;
   padding: 2rem 0;
-  border-top: 2px solid #ccc;
+
 }
 
 .input-titulo-projeto,
@@ -771,13 +771,31 @@ a {
   align-items: center;
   justify-content: center;
 }
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.titulo-secao h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+.titulo-secao .linha-preta {
+  height: 2px;
+  background-color: black;
+  flex-grow: 1;
+}
 
 .botao-upload:hover {
   background-color: #cc0000;
 }
 
 .botao-confirmar {
-  background-color: #ff0000;
+  background-color: #cc0000;
   color: white;
   border: none;
   border-radius: 20px;
@@ -790,7 +808,7 @@ a {
 }
 
 .botao-confirmar:hover {
-  background-color: #cc0000;
+  background-color: #ff0000;
 }
 
 .upload-final-video,
@@ -885,22 +903,6 @@ a {
   text-align: center;
   margin-top: 1rem;
 }
-
-.titulo-pagina {
-  text-align: center; 
-  margin-top: 20px;   
-  margin-bottom: 30px; 
-  color: #333; 
-  font-size: 2.5em; 
-}
-.main-container {
-    padding-top: 20px; 
-    padding-bottom: 40px;
-}
-.secao-inicial {
-    margin-top: 0; 
-}
-
 
 @media (max-width: 480px) {
   .card-login,

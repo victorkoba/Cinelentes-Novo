@@ -23,7 +23,7 @@
                 <div id="myDropdown" class="dropdown-content">
                     <a href="edicao2023-adm.php">EDIÇÃO 2023</a>
                     <a href="edicao2024-adm.php">EDIÇÃO 2024</a>
-                    <a href="dicao2025-adm.php">EDIÇÃO 2025</a>
+                    <a href="edicao2025-adm.php">EDIÇÃO 2025</a>
                 </div>
             </div>
             <li><a class="informacoes-navbar-menu" href="./php/quem-somos.php">QUEM SOMOS</a></li>
@@ -34,20 +34,24 @@
 </header>
 
 <main class="main-container">
-    <h1 class="titulo-pagina">CRIAR PROJETO</h1>  
+    <h1 class="titulo-pagina">CRIAR PROJETO</h1>
     <section class="secao-inicial">
-  <div class="informacoes-iniciais">
-    <input type="text" placeholder="Digite o título do projeto" class="input-titulo-projeto">
-    <textarea placeholder="Digite aqui o conteúdo de apresentação do projeto. (Sobre e a data de realização do projeto)" class="textarea-conteudo-projeto"></textarea>
-  </div>
+        <div class="informacoes-iniciais">
+            <input type="text" placeholder="Digite o título do projeto" class="input-titulo-projeto">
+            <div class="linha-preta"></div>
+            <textarea placeholder="Digite aqui o conteúdo de apresentação do projeto. (Sobre e a data de realização do projeto)" class="textarea-conteudo-projeto"></textarea>
+        </div>
+        <div class="upload-final-video">
+            <p>Faça o upload do vídeo final do projeto</p>
+            <button class="botao-upload"> Upload de Vídeo</button>
+        </div>
+    </section>
 
-  <div class="upload-final-video">
-    <p>Faça o upload do vídeo final do projeto</p>
-    <button class="botao-upload"> Upload de Vídeo</button>
-  </div>
-</section>
-    <section class="secao-curta-metragem">
-        <h2>Curta-metragem</h2>
+    <section class="secao-curta">
+        <div class="titulo-secao">
+            <h2>Curta-metragem</h2>
+            <div class="linha-preta"></div>
+        </div>
         <div class="upload-buttons">
             <div>
                 <p>Faça o upload do curta-metragem</p>
@@ -57,7 +61,10 @@
         </div>
     </section>
     <section class="secao-fotos">
-        <h2>Fotos</h2>
+        <div class="titulo-secao">
+            <h2>Fotos</h2>
+            <div class="linha-preta"></div>
+        </div>
         <div class="upload-buttons">
             <div>
                 <p>Faça o upload das fotos</p>
@@ -66,7 +73,10 @@
         </div>
     </section>
     <section class="secao-videos">
-        <h2>Vídeos</h2>
+        <div class="titulo-secao">
+            <h2>Vídeos</h2>
+            <div class="linha-preta"></div>
+        </div>
         <div class="upload-buttons">
             <div>
                 <p>Faça o upload de vídeo</p>
@@ -80,8 +90,12 @@
             </div>
         </div>
     </section>
+
     <section class="secao-musicas">
-        <h2>Músicas</h2>
+        <div class="titulo-secao">
+            <h2>Músicas</h2>
+            <div class="linha-preta"></div>
+        </div>
         <div class="musica-item">
             <button class="botao-upload"> Upload de Link</button>
             <span class="icone-play">▶</span>
@@ -99,23 +113,28 @@
         </div>
     </section>
     <section class="secao-habilidades">
-        <h2>Habilidades desenvolvidas</h2>
+        <div class="titulo-secao">
+            <h2>Habilidades desenvolvidas</h2>
+            <div class="linha-preta"></div>
+        </div>
         <textarea placeholder="Digite aqui as expectativas trabalhadas e as hashtags (se tiver)." class="textarea-habilidades"></textarea>
     </section>
     <section class="secao-feedback">
-        <h2>Deixe seu Feedback</h2>
+        <div class="titulo-secao">
+            <h2>Deixe seu Feedback</h2>
+            <div class="linha-preta"></div>
+        </div>
         <textarea placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)." class="textarea-feedback"></textarea>
     </section>
     <section class="secao-feedback">
-        <h2>Agenda</h2>
+        <div class="titulo-secao">
+            <h2>Agenda</h2>
+            <div class="linha-preta"></div>
+        </div>
         <textarea placeholder="Digite a data de algum projeto que irá acontecer..." class="textarea-feedback"></textarea>
         <button class="botao-confirmar">Confirmar</button>
     </section>
-
-
 </main>
-
-
 
 <footer class="footer-container">
     <div class="footer-topo">
@@ -123,7 +142,6 @@
         <div class="footer-logo-container">
             <img id="logo-cinelentes-footer" src="../img/logo-cinelentes.png" alt="CineLentes">
         </div>
-
         <div class="botao-login-container">
             <a href="../index.php" class="botao-login">Logout</a>
         </div>
@@ -135,7 +153,6 @@
         <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
 </footer>
-
 
 </body>
 </html>
