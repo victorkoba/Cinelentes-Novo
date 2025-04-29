@@ -21,9 +21,9 @@
             <div class="dropdown">
                 <a onclick="myFunction()" class="dropbtn">EDIÇÕES</a>
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="./php/edicao2023.php">EDIÇÃO 2023</a>
-                    <a href="./php/edicao2024.php">EDIÇÃO 2024</a>
-                    <a href="./php/edicao2025.php">EDIÇÃO 2025</a>
+                    <a href="edicao2023-adm.php">EDIÇÃO 2023</a>
+                    <a href="edicao2024-adm.php">EDIÇÃO 2024</a>
+                    <a href="dicao2025-adm.php">EDIÇÃO 2025</a>
                 </div>
             </div>
             <li><a class="informacoes-navbar-menu" href="./php/quem-somos.php">QUEM SOMOS</a></li>
@@ -34,6 +34,7 @@
 </header>
 
 <main class="main-container">
+    <h1 class="titulo-pagina">CRIAR PROJETO</h1>  
     <section class="secao-inicial">
   <div class="informacoes-iniciais">
     <input type="text" placeholder="Digite o título do projeto" class="input-titulo-projeto">
@@ -42,7 +43,7 @@
 
   <div class="upload-final-video">
     <p>Faça o upload do vídeo final do projeto</p>
-    <button class="botao-upload">⬆️ Upload de Vídeo</button>
+    <button class="botao-upload"> Upload de Vídeo</button>
   </div>
 </section>
     <section class="secao-curta-metragem">
@@ -50,8 +51,8 @@
         <div class="upload-buttons">
             <div>
                 <p>Faça o upload do curta-metragem</p>
-                <button class="botao-upload">⬆️ Upload de Vídeo</button>
-                <button class="botao-upload">🔗 Upload por Link</button>
+                <button class="botao-upload">Upload de Vídeo</button>
+                <button class="botao-upload">Upload por Link</button>
             </div>
         </div>
     </section>
@@ -60,7 +61,7 @@
         <div class="upload-buttons">
             <div>
                 <p>Faça o upload das fotos</p>
-                <button class="botao-upload">⬆️ Upload de Fotos</button>
+                <button class="botao-upload">Upload de Fotos</button>
             </div>
         </div>
     </section>
@@ -69,31 +70,31 @@
         <div class="upload-buttons">
             <div>
                 <p>Faça o upload de vídeo</p>
-                <button class="botao-upload">⬆️ Upload de Vídeo</button>
-                <button class="botao-upload">🔗 Upload por Link</button>
+                <button class="botao-upload">Upload de Vídeo</button>
+                <button class="botao-upload">Upload por Link</button>
             </div>
             <div>
                 <p>Faça o upload de vídeo</p>
-                <button class="botao-upload">⬆️ Upload de Vídeo</button>
-                <button class="botao-upload">🔗 Upload por Link</button>
+                <button class="botao-upload">Upload de Vídeo</button>
+                <button class="botao-upload">Upload por Link</button>
             </div>
         </div>
     </section>
     <section class="secao-musicas">
         <h2>Músicas</h2>
         <div class="musica-item">
-            <button class="botao-upload">🔗 Upload de Link</button>
-            <span class="icone-play">▶️</span>
+            <button class="botao-upload"> Upload de Link</button>
+            <span class="icone-play">▶</span>
             <input type="text" placeholder="Digite o nome da Música" class="input-musica">
         </div>
         <div class="musica-item">
-            <button class="botao-upload">🔗 Upload de Link</button>
-            <span class="icone-play">▶️</span>
+            <button class="botao-upload">Upload de Link</button>
+            <span class="icone-play">▶</span>
             <input type="text" placeholder="Digite o nome da Música" class="input-musica">
         </div>
         <div class="musica-item">
-            <button class="botao-upload">🔗 Upload de Link</button>
-            <span class="icone-play">▶️</span>
+            <button class="botao-upload"> Upload de Link</button>
+            <span class="icone-play">▶</span>
             <input type="text" placeholder="Digite o nome da Música" class="input-musica">
         </div>
     </section>
@@ -104,8 +105,13 @@
     <section class="secao-feedback">
         <h2>Deixe seu Feedback</h2>
         <textarea placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)." class="textarea-feedback"></textarea>
+    </section>
+    <section class="secao-feedback">
+        <h2>Agenda</h2>
+        <textarea placeholder="Digite a data de algum projeto que irá acontecer..." class="textarea-feedback"></textarea>
         <button class="botao-confirmar">Confirmar</button>
     </section>
+
 
 </main>
 

@@ -777,7 +777,7 @@ a {
 }
 
 .botao-confirmar {
-  background-color: #28a745;
+  background-color: #ff0000;
   color: white;
   border: none;
   border-radius: 20px;
@@ -790,7 +790,7 @@ a {
 }
 
 .botao-confirmar:hover {
-  background-color: #218838;
+  background-color: #cc0000;
 }
 
 .upload-final-video,
@@ -885,6 +885,22 @@ a {
   text-align: center;
   margin-top: 1rem;
 }
+
+.titulo-pagina {
+  text-align: center; 
+  margin-top: 20px;   
+  margin-bottom: 30px; 
+  color: #333; 
+  font-size: 2.5em; 
+}
+.main-container {
+    padding-top: 20px; 
+    padding-bottom: 40px;
+}
+.secao-inicial {
+    margin-top: 0; 
+}
+
 
 @media (max-width: 480px) {
   .card-login,

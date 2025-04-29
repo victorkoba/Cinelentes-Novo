@@ -268,12 +268,7 @@
     </section>
 
     <!-- Agenda -->
-    <section class="agenda">
-      <h2 class="agenda-h2">Agenda</h2>
-      <textarea class="areatexto-agenda"  placeholder="Digite a data de algum projeto que irá acontecer..." rows="4"></textarea>
-      <button class="botao-confirmar">Confirmar</button>
-    </section>
-
+    
   </main>
 
   <footer class="footer-container">
