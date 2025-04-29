@@ -44,12 +44,55 @@
                 <img src="../img/logo-cinelentes.png" alt="">
             </div>
         </div>
-        <div id="grid-destaques">
+                <!-- Destaques -->
+                <div id="grid-destaques">
             <div id="titulo">
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
             </div>
             <div class="linha-destaques"></div>
 
+            <!-- Carrossel -->
+            <section class="carousel-section">
+                <div class="carousel-container">
+                    <div class="carousel-wrapper" id="carouselWrapper">
+                    <div class="carousel-slide">
+                        <a href="mes-mulher.php">
+                            <img src="../img/img-mes-mulher.jpg" alt="Slide 1">
+                            <div class="overlay">
+                                <h2>Mês da Mulher</h2>
+                                <p>Homenagem especial às mulheres que fazem a diferença.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="carousel-slide">
+                        <a href="mes-mulher.php">
+                            <img src="../img/img-mes-trabalho.jpg" alt="Slide 1">
+                            <div class="overlay">
+                            <h2>Mês do Trabalho</h2>
+                            <p>Homenagem especial aos trabalhadores brasileiros.</p>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="carousel-slide">
+                    <a href="mes-mulher.php">
+                        <img src="../img/img-inclusao.jpg" alt="Slide 1">
+                        <div class="overlay">
+                            <h2>Homenagem à Inclusão</h2>
+                            <p>Homenagem especial às crianças e pessoas com deficiência.</p>
+                        </div>
+                    </div>
+                    </a>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button onclick="prevSlide()">&#10094;</button>
+                        <button onclick="nextSlide()">&#10095;</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Agenda -->
         <div id="grid-agenda">
             <div id="titulo-agenda">
                 <h1 class="titulo-pagina-inicial">Agenda</h1>

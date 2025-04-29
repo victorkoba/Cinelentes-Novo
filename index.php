@@ -31,24 +31,70 @@
         </div>
     </header>
     <main>
+        <!-- Introdução -->
         <div id="grid-introducao">
             <div id="titulo">
                 <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
             </div>
             <div class="linha-oque-cinelentes"></div>
             <div class="introducao-texto">
-                <p class="conteudo-introducao">O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar, democratizando o acesso ao cinema e outras linguagens artísticas/culturais. Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados a datas comemorativas relevantes daquele mês.</p>
+                <p class="conteudo-introducao">
+                O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar, democratizando o acesso ao cinema e outras linguagens artísticas/culturais. Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados a datas comemorativas relevantes daquele mês.                </p>
             </div>
             <div class="logo-introducao">
-                <img src="./img/logo-cinelentes.png" alt="">
+                <img src="./img/logo-cinelentes.png" alt="Logo Cinelentes">
             </div>
         </div>
+
+        <!-- Destaques -->
         <div id="grid-destaques">
             <div id="titulo">
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
             </div>
             <div class="linha-destaques"></div>
 
+            <!-- Carrossel -->
+            <section class="carousel-section">
+                <div class="carousel-container">
+                    <div class="carousel-wrapper" id="carouselWrapper">
+                    <div class="carousel-slide">
+                        <a href="./php/mes-mulher.php">
+                            <img src="./img/img-mes-mulher.jpg" alt="Slide 1">
+                            <div class="overlay">
+                                <h2>Mês da Mulher</h2>
+                                <p>Homenagem especial às mulheres que fazem a diferença.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="carousel-slide">
+                        <a href="./php/mes-mulher.php">
+                            <img src="./img/img-mes-trabalho.jpg" alt="Slide 1">
+                            <div class="overlay">
+                            <h2>Mês do Trabalho</h2>
+                            <p>Homenagem especial aos trabalhadores brasileiros.</p>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="carousel-slide">
+                    <a href="./php/mes-mulher.php">
+                        <img src="./img/img-inclusao.jpg" alt="Slide 1">
+                        <div class="overlay">
+                            <h2>Homenagem à Inclusão</h2>
+                            <p>Homenagem especial às crianças e pessoas com deficiência.</p>
+                        </div>
+                    </div>
+                    </a>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button onclick="prevSlide()">&#10094;</button>
+                        <button onclick="nextSlide()">&#10095;</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Agenda -->
         <div id="grid-agenda">
             <div id="titulo-agenda">
                 <h1 class="titulo-pagina-inicial">Agenda</h1>

@@ -27,6 +27,7 @@
                 </div>
                 <li><a class="informacoes-navbar-menu" href="quem-somos-adm.php">QUEM SOMOS</a></li>
                 <li><a class="informacoes-navbar-menu" href="pagina-inicial-adm.php#grid-agenda">AGENDA</a></li>
+                <li><a class="informacoes-navbar-menu" href="pagina-edicao-exclusao-criar-eventos-adm.php">GERENCIAR PROJETOS</a></li>
             </ul>     
         </div>
     </header>
@@ -38,7 +39,7 @@
     
     <section class="acervo">
       <div class="titulo-acervo">
-        <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2025</h1>
+        <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2023</h1>
         <div class="linha-preta-acervo-titulo"></div>
 
       </div>
@@ -115,7 +116,7 @@
     <!-- Acervo 2024 -->
     <section class="acervo">
     <div class="titulo-acervo">
-        <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2025</h1>
+        <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2024</h1>
         <div class="linha-preta-acervo-titulo"></div>
 
       </div>

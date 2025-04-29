@@ -173,24 +173,6 @@
         <video src="Versão Final - Cinelentes.mp4" controls></video>
     </div>
 </div>
-
-
-    <div class="music-section">
-        <div class="section-title">Músicas</div>
-        <div class="music-item">
-            <img src="musica1.jpg" alt="Capa 1">
-            Não precisa ser Amélia - Elza Soares
-        </div>
-        <div class="music-item">
-            <img src="musica2.jpg" alt="Capa 2">
-            Triste, Louca ou Má - Francisco, el Hombre
-        </div>
-        <div class="music-item">
-            <img src="musica3.jpg" alt="Capa 3">
-            Escrever - Galera da Cidade
-        </div>
-    </div>
-
     <div class="skills-section">
         <div class="section-title">Habilidades desenvolvidas</div>
         <p>1. Leitura e discussão sobre a temática proposta; 2. Roteirização de curta-metragem; 3. Edição de vídeo; 4. Produção de material fotográfico; 5. Gravação de músicas; 6. Trabalho em equipe; 7. Desenvolvimento da criatividade; 8. Pensamento crítico.</p>
