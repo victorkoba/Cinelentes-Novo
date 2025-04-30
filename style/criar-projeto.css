@@ -1,0 +1,519 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* ---------------------- HEADER ---------------------- */
+  .header-container {
+    background-color: black;
+  }
+  
+  .parte-cima-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 115px;
+  }
+  
+  #logo-sesi-senai {
+    position: absolute;
+    left: 20px;
+    height: 40px;
+  }
+  
+  #logo-cinelentes {
+    width: auto;
+    height: 100px;
+  }
+  
+  .linha-branca {
+    border-top: 2px solid white;
+    width: 100%;
+  }
+  
+  .navbar-menu-container {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+  
+  .informacoes-navbar-menu,
+  .dropbtn {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-right: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .informacoes-navbar-menu:hover,
+  .dropbtn:hover {
+    color: rgba(255, 255, 255, 0.5);
+    transition: 0.7s;
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 140px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .show {
+    display: block;
+  }
+  
+  /* ---------------------- FOOTER ---------------------- */
+  .footer-container {
+    background-color: black;
+    width: 100%;
+    padding-top: 4px;
+  }
+  
+  .footer-topo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 32px;
+    height: 100px;
+  }
+  
+  .div-vazia {
+    width: 150px;
+  }
+  
+  .footer-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #logo-cinelentes-footer {
+    height: 70px;
+    width: auto;
+    margin-right: 150px;
+  }
+  
+  .botao-login-container {
+    position: absolute;
+    right: 32px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .botao-login {
+    background-color: #c0392b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .botao-login:hover {
+    background-color: #e74c3c;
+  }
+  
+  .linha-branca-footer {
+    border-top: 2px solid white;
+    width: 100%;
+  }
+  
+  .linha-preta-footer {
+    background-color: black;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .footer-direitos {
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  
+  /* --- CRIAR PROJETO --- */
+  .main-container {
+    padding: 2rem;
+    background-color: #f5f5f5;
+    color: #000;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .main-container section {
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+  }
+  
+  .input-titulo-projeto,
+  .textarea-conteudo-projeto,
+  .textarea-habilidades,
+  .textarea-feedback,
+  .input-musica {
+    width: 100%;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #000;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .input-titulo-projeto::placeholder,
+  .textarea-conteudo-projeto::placeholder,
+  .textarea-habilidades::placeholder,
+  .textarea-feedback::placeholder,
+  .input-musica::placeholder {
+    color: #333;
+  }
+  
+  .botao-upload {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .titulo-secao {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .titulo-secao h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+  
+  .titulo-secao .linha-preta {
+    height: 2px;
+    background-color: black;
+    flex-grow: 1;
+  }
+  
+  .botao-upload:hover {
+    background-color: #cc0000;
+  }
+  
+  .botao-confirmar {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: block;
+    margin: 2rem auto 0 auto;
+    transition: background-color 0.3s ease;
+  }
+  
+  .botao-confirmar:hover {
+    background-color: #ff0000;
+  }
+  
+  .upload-final-video,
+  .upload-buttons>div {
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .upload-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    align-items: center;
+  }
+  
+  .secao-inicial {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .musica-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #000;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .musica-item .botao-upload {
+    width: 80px;
+    height: 80px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    flex-grow: 0;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  
+  .icone-play {
+    font-size: 2rem;
+    color: #fff;
+  }
+  
+  .main-container section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  .upload-buttons p,
+  .upload-final-video p {
+    font-size: 0.9rem;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+  
+  .secao-inicial {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .informacoes-iniciais {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-titulo-projeto {
+    height: 50px;
+  }
+  
+  .textarea-conteudo-projeto {
+    height: 200px;
+    resize: vertical;
+  }
+  
+  .upload-final-video {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  /* Cards */
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.content-card {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 300px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.close-card {
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-card:hover {
+    color: #ff0000;
+    transform: scale(1.1);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.restore-button {
+    display: none;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.restore-button:hover {
+    background-color: #27ae60;
+}
+
+.card-minimized {
+    width: 180px;
+    height: auto;
+    overflow: hidden;
+    padding: 0.5rem;
+    background-color: #f5f5f5;
+    border: 1px dashed #ccc;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.card-minimized:hover {
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.card-minimized .card-header {
+    justify-content: center;
+    border-bottom: none;
+    margin-bottom: 0.2rem;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.card-minimized .card-header h3 {
+    font-size: 1rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-minimized .close-card {
+    display: none;
+}
+
+.card-minimized .card-content {
+    display: none;
+}
+
+.restore-button {
+    display: none;
+    margin: 0.3rem auto 0;
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background-color 0.2s;
+}
+
+.card-minimized .restore-button {
+    display: inline-block;
+}
+
+.restore-button:hover {
+    background-color: #d5d5d5;
+}
+
+  
+  @media (max-width: 480px) {
+    .botao-login-container {
+      position: static;
+      margin-top: 10px;
+      justify-content: center;
+    }
+  }
+  
+  @media (min-width: 481px) and (max-width: 768px) {
+    .botao-login-container {
+      position: static;
+      margin-top: 10px;
+      justify-content: center;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .botao-login-container {
+      position: absolute;
+      right: 20px;
+    }
+  }

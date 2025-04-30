@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinelentes</title>
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="../style/criar-projeto.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/card-handler.js"></script>
     <script src="../js/main.js"></script>
 </head>
 <body class="body-pagina-inicial">
@@ -47,49 +50,46 @@
         </div>
     </section>
 
-    <section class="secao-curta">
-        <div class="titulo-secao">
-            <h2>Curta-metragem</h2>
-            <div class="linha-preta"></div>
+    <section class="secao-conteudo">
+    <div class="titulo-secao">
+        <h2>Adicionar Conteúdo</h2>
+        <div class="linha-preta"></div>
+    </div>
+    <div class="cards-container">
+        <div class="content-card" id="fotos-card">
+            <div class="card-header">
+                <h3>Fotos</h3>
+                <span class="close-card" onclick="minimizeCard('fotos-card')">×</span>
+            </div>
+            <div class="card-content">
+                <p>Faça o upload das fotos</p>
+                <button class="botao-upload">Upload de Fotos</button>
+            </div>
         </div>
-        <div class="upload-buttons">
-            <div>
+        <div class="content-card" id="videos-card">
+            <div class="card-header">
+                <h3>Vídeos</h3>
+                <span class="close-card" onclick="minimizeCard('videos-card')">×</span>
+            </div>
+            <div class="card-content">
+                <p>Faça o upload de vídeo</p>
+                <button class="botao-upload">Upload de Vídeo</button>
+                <button class="botao-upload">Upload por Link</button>
+            </div>
+        </div>
+        <div class="content-card" id="curta-card">
+            <div class="card-header">
+                <h3>Curta-metragem</h3>
+                <span class="close-card" onclick="minimizeCard('curta-card')">×</span>
+            </div>
+            <div class="card-content">
                 <p>Faça o upload do curta-metragem</p>
                 <button class="botao-upload">Upload de Vídeo</button>
                 <button class="botao-upload">Upload por Link</button>
             </div>
         </div>
-    </section>
-    <section class="secao-fotos">
-        <div class="titulo-secao">
-            <h2>Fotos</h2>
-            <div class="linha-preta"></div>
-        </div>
-        <div class="upload-buttons">
-            <div>
-                <p>Faça o upload das fotos</p>
-                <button class="botao-upload">Upload de Fotos</button>
-            </div>
-        </div>
-    </section>
-    <section class="secao-videos">
-        <div class="titulo-secao">
-            <h2>Vídeos</h2>
-            <div class="linha-preta"></div>
-        </div>
-        <div class="upload-buttons">
-            <div>
-                <p>Faça o upload de vídeo</p>
-                <button class="botao-upload">Upload de Vídeo</button>
-                <button class="botao-upload">Upload por Link</button>
-            </div>
-            <div>
-                <p>Faça o upload de vídeo</p>
-                <button class="botao-upload">Upload de Vídeo</button>
-                <button class="botao-upload">Upload por Link</button>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
     <section class="secao-musicas">
         <div class="titulo-secao">
