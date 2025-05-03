@@ -1,0 +1,148 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #fefefe;
+  /* fundo claro */
+  color: #1a1a1a;
+  /* texto escuro */
+}
+
+#grid-introducao,
+#grid-destaques {
+  display: grid;
+  width: 100%;
+}
+
+#titulo,
+#titulo-destaque,
+#titulo-agenda {
+  display: flex;
+  align-items: center;
+  margin-top: 70px;
+  margin-left: 90px;
+  width: 390px;
+}
+
+.titulo-pagina-inicial {
+  font-weight: 900;
+  font-size: 32px;
+}
+
+.introducao-texto {
+  margin-left: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.conteudo-introducao {
+  width: 400px;
+  font-size: 20px;
+  text-align: justify;
+}
+
+#img-idealizadores {
+  width: 650px;
+  height: 420px;
+  border-radius: 20px;
+}
+
+.imagem {
+  margin-right: 130px;
+  margin-top: -30px;
+}
+
+.carousel-section {
+  display: flex;
+  justify-content: center;
+  /* Centraliza horizontalmente */
+  align-items: center;
+  /* Centraliza verticalmente */
+  margin-top: 50px;
+  min-height: 500px;
+  width: 100%;
+  flex-direction: column;
+  /* Organiza título e carrossel em coluna */
+}
+
+.carousel-container {
+  width: 100%;
+  /* Largura desejada para o carrossel */
+  height: 100%;
+  max-width: 1000px;
+  /* Largura máxima opcional */
+  margin-left: 660px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  /* faz com que cada slide ocupe 100% da largura do container */
+  height: 500px;
+  /* mesma altura do container */
+  position: relative;
+}
+
+
+.carousel-slide img {
+  width: 100%;
+  height: 500px;
+  /* igual à altura do container */
+  object-fit: cover;
+  /* cobre todo o espaço sem distorcer */
+  display: block;
+}
+
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  /* ou top: 0, left: 0 para cobrir tudo */
+  background: rgba(0, 0, 0, 0.5);
+  /* fundo escuro semi-transparente */
+  color: white;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.carousel-controls {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.carousel-controls button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#titulo-agenda {
+  display: flex;
+  flex-direction: column;
+  /* empilha os filhos (h1 e p) verticalmente */
+  align-items: flex-start;
+  /* opcional: alinha à esquerda */
+  margin-bottom: 300px;
+}
+
+.agenda-texto {
+  margin-top: 40px;
+  margin-left: 25px;
+}

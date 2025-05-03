@@ -5,33 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinelentes</title>
     <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/edicoes.css"> 
     <script src="../js/main.js"></script>
 </head>
 <body class="body-pagina-inicial">
     
-<header class="header-container">
-        <nav class="parte-cima-header-container">
-            <img id="logo-sesi-senai" src="../img/logo-sesi-senai.png" alt="SESI - SENAI">
-            <img id="logo-cinelentes" src="../img/logo-cinelentes.png" alt="CineLentes">
-        </nav>
-        <div class="linha-branca"></div>
-        <div class="navbar-menu-container">
-            <ul class="navbar-menu">
-                <li><a class="informacoes-navbar-menu" href="../index.php">INÍCIO</a></li>
-                <div class="dropdown">
-                    <a onclick="myFunction()" class="dropbtn">EDIÇÕES</a>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="edicao2023.php">EDIÇÃO 2023</a>
-                        <a href="#">EDIÇÃO 2024</a>
-                        <a href="edicao2025.php">EDIÇÃO 2025</a>
-                    </div>
-                </div>
-                <li><a class="informacoes-navbar-menu" href="quem-somos.php">QUEM SOMOS</a></li>
-                <li><a class="informacoes-navbar-menu" href="../index.php#grid-agenda">AGENDA</a></li>
-            </ul>     
+<header class="header-geral">
+    <h1 class="sesi-senai">SESI | SENAI</h1>
+    <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
+    <nav>
+      <a href="../index.php" class="link-animado">INÍCIO</a>
+      <div class="dropdown">
+        <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
+          <a href="edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
+          <a href="edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
-    </header>
-
+      </div>
+      <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
+      <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
+    </nav>
+  </header>
     <main class="main-acervos">
     <section class="acervo">
       <div class="titulo-acervo">

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cinelentes - SESI SENAI</title>
-  <link rel="stylesheet" href="./style/index-home.css">
+  <title>Cinelentes</title>
+  <link rel="stylesheet" href="./style/pagina-inicial.css">
+  <link rel="stylesheet" href="./style/style.css">
   <script src="./js/main.js"></script>
 </head>
 <body>
@@ -12,11 +13,17 @@
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <img id="logo-header" src="./img/logo-cinelentes-novo.png" alt="">
     <nav>
-      <a href="#">INÍCIO</a>
-      <a href="#">EDIÇÕES</a>
-      <a href="#">QUEM SOMOS</a>
-      <a href="#">AGENDA</a>
-     
+      <a href="#" class="link-animado">INÍCIO</a>
+      <div class="dropdown">
+        <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="./php/edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
+          <a href="./php/edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
+          <a href="./php/edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
+        </div>
+      </div>
+      <a href="./php/quem-somos.php" class="link-animado">QUEM SOMOS</a>
+      <a href="#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
   </header>
   <main>
