@@ -1,10 +1,6 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #fefefe;
-  /* fundo claro */
-  color: #1a1a1a;
-  /* texto escuro */
 }
 
 #grid-introducao,
@@ -30,9 +26,9 @@ body {
 
 .introducao-texto {
   margin-left: 100px;
+  margin-top: 7px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-
 }
 
 .conteudo-introducao {
@@ -48,33 +44,33 @@ body {
 }
 
 .imagem {
-  margin-right: 130px;
+  margin-right: 110px;
   margin-top: -30px;
+}
+
+.imagem figure {
+  text-align: center;
+}
+
+.imagem figcaption {
+  font-size: 16px;
+  color: #000;
+  margin-top: 5px;
 }
 
 .carousel-section {
   display: flex;
   justify-content: center;
-  /* Centraliza horizontalmente */
   align-items: center;
-  /* Centraliza verticalmente */
   margin-top: 50px;
-  min-height: 500px;
   width: 100%;
-  flex-direction: column;
-  /* Organiza título e carrossel em coluna */
 }
 
 .carousel-container {
-  width: 100%;
-  /* Largura desejada para o carrossel */
-  height: 100%;
   max-width: 1000px;
-  /* Largura máxima opcional */
-  margin-left: 660px;
   overflow: hidden;
   position: relative;
-  border-radius: 10px;
+  border-radius: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -91,7 +87,6 @@ body {
   position: relative;
 }
 
-
 .carousel-slide img {
   width: 100%;
   height: 500px;
@@ -101,19 +96,31 @@ body {
   display: block;
 }
 
-
 .overlay {
   position: absolute;
   bottom: 0;
-  /* ou top: 0, left: 0 para cobrir tudo */
+  top: 0;
+  left: 0;
   background: rgba(0, 0, 0, 0.5);
-  /* fundo escuro semi-transparente */
   color: white;
   width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
+  height: 100vh;
 }
 
+.overlay p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.overlay h2 {
+  display: flex;
+  justify-content: center;
+  font-size: 32px;
+  margin-top: 400px;
+}
 
 .carousel-controls {
   position: absolute;
@@ -142,7 +149,53 @@ body {
   margin-bottom: 300px;
 }
 
-.agenda-texto {
-  margin-top: 40px;
-  margin-left: 25px;
+.agenda-eventos {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: 90px;
+  margin-top: 20px;
+}
+
+.agenda-card {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.data-agenda {
+  background-color: #fcebd5;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.data-agenda .dia {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.data-agenda .mes {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  margin-top: 4px;
+}
+
+.descricao-agenda {
+  padding: 0 20px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }

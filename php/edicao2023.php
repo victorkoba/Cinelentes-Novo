@@ -31,7 +31,6 @@
     <section class="acervo">
       <div class="titulo-acervo">
         <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2023</h1>
-        <div class="linha-preta-acervo-titulo"></div>
       </div>
 
 

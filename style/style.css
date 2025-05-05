@@ -152,7 +152,8 @@ footer {
 }
 
 .botao-login:hover {
-  background-color: #ddd0b4;
+  transition: 0.7s;
+  background-color: rgba(245, 233, 212, 0.5)
 }
 
 .linha-branca-footer {

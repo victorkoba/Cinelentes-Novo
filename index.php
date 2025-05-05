@@ -44,19 +44,21 @@
                 </p>
                 </div>
                 <div class="imagem">
-                <img id="img-idealizadores" src="./img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores"/>
+                    <figure>
+                        <img id="img-idealizadores" src="./img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores"/>
+                        <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
+                    </figure>
                 </div>
-            </div>
-        </div>
 
-        
+            </div>
+        </div>    
         <div id="grid-destaques">
             <div id="titulo">
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
             </div>
 
             
-            <section class="carousel-section">
+            <div class="carousel-section">
                 <div class="carousel-container">
                     <div class="carousel-wrapper" id="carouselWrapper">
                     <div class="carousel-slide">
@@ -93,20 +95,31 @@
                         <button onclick="nextSlide()">&#10095;</button>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
-
-        <!-- Agenda -->
         <div id="grid-agenda">
             <div id="titulo-agenda">
                 <h1 class="titulo-pagina-inicial">Agenda</h1>
-                <p class="agenda-texto">Nenhum evento programado...</p>
-            </div>
-            <div class="linha-agenda"></div>
+                <div class="agenda-eventos">
+        <div class="agenda-card">
+          <div class="data-agenda">
+            <span class="dia">28</span>
+            <span class="mes">FEV</span>
+          </div>
+          <div class="descricao-agenda">Mês das Mulheres</div>
+        </div>
+
+        <div class="agenda-card">
+          <div class="data-agenda">
+            <span class="dia">30</span>
+            <span class="mes">MAR</span>
+          </div>
+          <div class="descricao-agenda">Mês dos Bonitos</div>
+        </div>
+      </div>
+
         </div>
     </main>
-  
-
   <footer class="footer-container">
     <div class="footer-topo">
       <div class="div-vazia"></div>
