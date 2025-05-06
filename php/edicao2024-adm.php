@@ -13,17 +13,17 @@
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
     <nav>
-      <a href="../index.php" class="link-animado">INÍCIO</a>
+    <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
-          <a href="edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
-          <a href="edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
-          <a href="edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
+          <a href="edicao2023-adm.php" class="link-animado">EDIÇÃO 2023</a>
+          <a href="edicao2024-adm.php" class="link-animado">EDIÇÃO 2024</a>
+          <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
-      <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
+      <a href="quem-somos-adm.php" class="link-animado">QUEM SOMOS</a>
+      <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
   </header>
 

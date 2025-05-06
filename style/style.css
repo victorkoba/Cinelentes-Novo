@@ -159,14 +159,14 @@ footer {
 .linha-branca-footer {
   height: 2px;
   background-color: #f5e9d4;
-  margin: 0 2rem;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .linha-preta-footer {
   background-color: #000;
   text-align: center;
   padding: 1rem 2rem;
-  border-top: 2px solid #333;
 }
 
 .footer-direitos {
