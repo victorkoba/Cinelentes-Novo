@@ -38,33 +38,23 @@
 
       <div class="cards">
         <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-mulher.jpg" alt="Festival Mês da Mulher">
-          <div class="card-text">1° Festival Cinelentes<br>Mês da Mulher</div>
+          <img src="../img/img-mes-mulher-2024.jpg" alt="Festival Mês da Mulher">
+          <div class="card-text">7° Festival Cinelentes<br>Mês da Mulher</div>
         </a>
 
         <a href="mes-mulher.php" class="card">
-          <img src="../img/img-lgbt.jpg" alt="Festival LGBTQIAPN+">
-          <div class="card-text">4° Festival Cinelentes<br>LGBTQIAPN+</div>
+          <img src="../img/img-mes-povos-originarios-2024.jpg" alt="Festival Povos Originários">
+          <div class="card-text">8° Festival Cinelentes<br>Povos Originários</div>
         </a>
 
         <a href="mes-mulher.php" class="card">
-          <img src="../img/img-povos-originarios.jpg" alt="Festival Povos Originários">
-          <div class="card-text">2° Festival Cinelentes<br>Povos Originários</div>
+          <img src="../img/img-mes-cultura-coreana.jpg" alt="Festival Cultura Coreana">
+          <div class="card-text">9° Festival Cinelentes<br>Cultura Coreana</div>
         </a>
 
         <a href="mes-mulher.php" class="card">
-          <img src="../img/img-inclusao.jpg" alt="Festival Inclusão">
-          <div class="card-text">5° Festival Cinelentes<br>Inclusão</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-trabalho.jpg" alt="Festival Mês do Trabalho">
-          <div class="card-text">3° Festival Cinelentes<br>Mês do Trabalho</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-consciencia-negra.jpg" alt="Festival Consciência Negra">
-          <div class="card-text">6° Festival Cinelentes<br>Consciência Negra</div>
+          <img src="../img/img-mes-comunicacao-nao-violenta-2024.jpg" alt="Festival Comunicação não Violenta">
+          <div class="card-text">10° Festival Cinelentes<br>Comunicação não Violenta</div>
         </a>
       </div>
     </section>
