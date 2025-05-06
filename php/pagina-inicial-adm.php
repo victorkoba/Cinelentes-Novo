@@ -100,7 +100,7 @@
         <div class="footer-topo">
             <div class="div-vazia"></div>
             <div class="footer-logo-container">
-                <img id="logo-cinelentes-footer" src="../img/logo-cinelentes.png" alt="Cinelentes">
+                <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
             </div>
             <div class="botao-login-container">
                 <a href="../index.php" class="botao-login">Logout</a>

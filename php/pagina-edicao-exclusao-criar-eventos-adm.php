@@ -270,7 +270,7 @@
     <div class="footer-topo">
         <div class="div-vazia"></div>
         <div class="footer-logo-container">
-            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes.png" alt="CineLentes">
+            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
         </div>
 
         <div class="botao-login-container">
