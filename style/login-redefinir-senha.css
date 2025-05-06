@@ -40,6 +40,7 @@
 }
 
 .lado-direito {
+  position: relative;
   width: 50%;
   display: flex;
   justify-content: center;
@@ -83,15 +84,23 @@
 .botao-enviar {
   display: flex;
   justify-content: center;
-  width: 100%;
+  margin: auto;
+  width: 200px;
   padding: 12px;
-  background-color: #d82323;
-  color: #fff;
-  font-weight: 700;
+  background-color: rgba(248, 223, 179, 1);
+  color: #000;
+  text-decoration: none;
   border: none;
-  border-radius: 20px;
+  font-weight: 800;
+  border-radius: 15px;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+.botao-entrar:hover,
+.botao-enviar:hover {
+  transition: 0.7s;
+  background-color: rgba(248, 223, 179, 0.65)
 }
 
 .bot-esqueceu-senha {
@@ -105,4 +114,28 @@
 .img-icon {
   width: 6%;
   margin-right: 4px;
+}
+
+.voltar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.voltar a {
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.voltar:hover {
+  background-color: #f0f0f0;
 }

@@ -71,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cinelentes</title>
   <link rel="stylesheet" href="../style/style.css"/>
-  <link rel="stylesheet" href="../style/login-redefinir-senha.css"> 
+  <link rel="stylesheet" href="../style/login-redefinir-senha.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
 </head>
 <body class="body-login">
     
@@ -79,10 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container-login">
       <div class="lado-esquerdo">
         <div class="logo">
-          <img id="imagem-logo" src="../img/logo-cinelentes.png" alt="logo-cinelentes" />
+          <img id="imagem-logo" src="../img/logo-cinelentes-novo.png" alt="logo-cinelentes" />
         </div>
       </div>
       <div class="lado-direito">
+        <div class="voltar">
+          <a href="../index.php">
+            <i class="fas fa-arrow-left"></i> Voltar para página inicial
+          </a>
+        </div>
         <form action="" method="POST" class="login-form">
           <h2 class="texto-login">LOGIN</h2>
 
