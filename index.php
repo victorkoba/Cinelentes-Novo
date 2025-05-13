@@ -56,31 +56,19 @@
             <div id="titulo">
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
             </div>
+            <div class="galeria">
+              <div class="galeria-container">
+                <img class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="">
+                <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
+                <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="">
+                <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
+                <img class="galeria-itens galeria-item-5" src="./img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
+              </div>
+              <div class="galeria-bot">
 
-            <div class="carousel-section">
-  <div class="carousel-3d-wrapper">
-    <button class="nav prev" onclick="prevCard()">‹</button>
-    <div class="carousel-3d" id="carousel3d">
-      <div class="card3d">
-        <img src="./img/img-mes-mulher.jpg" alt="Mês da Mulher" />
-        <h2>Mês da Mulher</h2>
-        <p>Homenagem especial às mulheres que fazem a diferença.</p>
-      </div>
-      <div class="card3d">
-        <img src="./img/img-mes-trabalho.jpg" alt="Mês do Trabalho" />
-        <h2>Mês do Trabalho</h2>
-        <p>Homenagem aos trabalhadores brasileiros.</p>
-      </div>
-      <div class="card3d">
-        <img src="./img/img-inclusao.jpg" alt="Inclusão" />
-        <h2>Inclusão</h2>
-        <p>Celebrando a diversidade e a acessibilidade.</p>
-      </div>
-    </div>
-    <button class="nav next" onclick="nextCard()">›</button>
-  </div>
-</div>
-
+              </div>
+            </div>
+ 
             
         <div id="grid-agenda">
             <div id="titulo-agenda">
