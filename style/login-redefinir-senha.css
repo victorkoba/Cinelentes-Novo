@@ -8,6 +8,7 @@
 
 .card-login,
 .card-redefinir-senha {
+  position: relative;
   width: 800px;
   height: 600px;
   background-color: #fff;
@@ -116,26 +117,25 @@
   margin-right: 4px;
 }
 
-.voltar {
+.btn-voltar-card {
   position: absolute;
   top: 20px;
-  right: 30px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: transparent;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.voltar a {
-  color: #000;
+  right: 20px;
   text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: #f5f5f5;
+  padding: 6px 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  z-index: 5;
 }
 
-.voltar:hover {
-  background-color: #f0f0f0;
+.btn-voltar-card:hover {
+  background-color: #e0e0e0;
 }

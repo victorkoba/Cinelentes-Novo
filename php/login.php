@@ -14,8 +14,8 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
 </head>
 <body class="body-login">
-
   <div class="card-login">
+    
     <div class="container-login">
       <div class="lado-esquerdo">
         <div class="logo">
@@ -24,7 +24,6 @@ session_start();
       </div>
       <div class="lado-direito">
 
-        <!-- Formulário de login -->
         <form action="login.php" method="POST" class="login-form">
 
        
@@ -43,7 +42,7 @@ session_start();
           </div>
 
           <button type="submit" class="botao-entrar">ENTRAR</button>
-          <a href="cadastro.php" class="bot-esqueceu-senha">Não tem conta?</a>
+          <a href="redefinir-senha.php" class="bot-esqueceu-senha">Esqueceu a senha?</a>
         </form>
       </div>
     </div>
@@ -115,4 +114,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $conexao->close();
 }
-?>
+?>  
