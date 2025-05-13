@@ -48,8 +48,9 @@ main {
     width: 100%;
     max-width: 600px;
     height: 300px;
-    background-color: #ccc;
     margin: 20px auto;
+    background-color: transparent;
+    border: none;
 }
 
 .small-video-frame video {
@@ -101,20 +102,80 @@ main {
 }
 
 .music-item {
-    background-color: black;
+    background-color: #222;
     color: white;
     padding: 10px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    gap: 10px;
+    justify-content: space-between; /* Distribui os itens entre a esquerda e a direita */
+    border-radius: 10px;
+    gap: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.music-item:hover {
+    background-color: #333;
 }
 
 .music-item img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.music-item .music-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    flex-grow: 1;
+}
+
+.music-item .music-artist {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Ajuste para os mixers (controles) ficarem à direita */
+.music-item .music-controls {
+    display: flex;
+    justify-content: flex-end; /* Coloca os controles à direita */
+    gap: 10px; /* Espaçamento entre os controles */
+    align-items: center; /* Centraliza os controles verticalmente */
+}
+
+.music-item .music-controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.music-item .music-controls button:hover {
+    color: #007BFF; /* Cor de destaque quando passar o mouse */
+}
+
+.music-playlist {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.music-playlist .playlist-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .feedback-section a {
@@ -125,35 +186,29 @@ main {
     margin-top: 10px;
 }
 
-.skills-section, .feedback-section {
-    background-color: #f8f8f8;
+.skills-section,
+.feedback-section {
+    background-color: transparent;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: none;
+    border-radius: 0;
 }
 
+/* Lista de habilidades sem os "✔" */
 .skills-section ul {
-    list-style-type: none;
-    padding-left: 0; /* Remove a indentação da lista */
+    list-style-type: disc;
+    padding-left: 20px;
     margin: 0;
+    text-align: left;
 }
 
 .skills-section li {
     font-size: 16px;
     margin-bottom: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.skills-section li:before {
-    content: "✔";
-    margin-right: 10px;
-    color: #007BFF;
 }
 
 .feedback-section {
@@ -190,6 +245,27 @@ main {
     max-width: 600px;
 }
 
+.videos-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.small-video-frame {
+    flex: 1;
+    max-width: 48%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.small-video-frame video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 @media (max-width: 768px) {
     .title-video-wrapper {
         flex-direction: column;
@@ -197,6 +273,15 @@ main {
     }
 
     .title-side, .video-side {
+        max-width: 100%;
+    }
+
+    .videos-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .small-video-frame {
         max-width: 100%;
     }
 }
