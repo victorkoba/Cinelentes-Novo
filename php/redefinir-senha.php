@@ -9,8 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body class="body-redefinir-senha">
-    
   <div class="card-redefinir-senha">
+    <a href="login.php" class="btn-voltar-card">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </a>
     <div class="container-redefinir-senha">
       <div class="lado-esquerdo">
         <div class="logo">
@@ -20,9 +22,6 @@
 
       <div class="lado-direito">
       <div class="voltar">
-        <a href="login.php">
-          <i class="fas fa-arrow-left"></i> Voltar para o login
-        </a>
       </div>
         <form class="redefinir-senha-form">
           <h2 class="texto-redefinir-senha">REDEFINIR SENHA</h2>

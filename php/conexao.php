@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";  // Ou o endereço do seu servidor de banco de dados
-$username = "root";         // Seu usuário de banco de dados
-$password = "";             // Sua senha de banco de dados
-$dbname = "cinelentes";  // Nome do seu banco de dados
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "cinelentes";
 
 // Criação da conexão
 $conexao = new mysqli($servername, $username, $password, $dbname);
