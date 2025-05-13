@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  
 }
 
 .galeria{
@@ -67,11 +66,99 @@ body {
   transform: translateX(-50%);
 }
 
-.galeria-bot{
+.galeria-controls{
   display: flex;
   justify-content: center;
+  margin: 25px 0;
+  height: 100px;
 }
 
+.galeria-controls button{
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 30px;
+  margin: 0 50px;
+  padding: 0 12px;
+  text-transform: capitalize;
+}
+
+.galeria-controls-button:focus{
+  outline: none;
+}
+
+.galeria-controls-previous{
+  position: relative;
+}
+
+.galeria-controls-previous {
+  position: relative;
+}
+
+.galeria-controls-previous::before {
+  border: solid #000;
+  border-width: 0 5px 5px 0;
+  content: '';
+  display: inline-block;
+  height: 5px;
+  left: -30px;
+  padding: 10px;
+  position: absolute;
+  top: 25%;
+  transform: rotate(135deg) translateY(-50%);
+  transition: left 0.15s ease-in-out;
+  width: 5px;
+}
+
+.galeria-controls-previous:hover::before {
+  left: -40px;
+}
+
+.galeria-controls-next {
+  position: relative;
+}
+
+.galeria-controls-next::before {
+  border: solid #000;
+  border-width: 0 5px 5px 0;
+  content: '';
+  display: inline-block;
+  height: 5px;
+  padding: 10px;
+  right: -30px;
+  top: 25%;
+  position: absolute;
+  transform: rotate(-45deg) translateY(-50%);
+  transition: right 0.15s ease-in-out;
+  width: 5px;
+}
+
+.galeria-controls-next:hover::before {
+  right: -40px;
+}
+
+
+.galeria-nav{
+  bottom: -15px;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.galeria-nav li{
+  background: #fcebd5;
+  border-radius: 50%;
+  height: 10px;
+  margin: 0 16px;
+  width: 10px;
+}
+
+.galeria-nav li.galeria-item-selected{
+  background: #555;
+}
 
 #grid-introducao,
 #grid-destaques {

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./style/pagina-inicial.css">
   <link rel="stylesheet" href="./style/style.css">
   <script src="./js/carrosel.js"></script>
+  <script src="./js/main.js"></script>
 </head>
 <body>
   <header class="header-geral">
@@ -64,8 +65,8 @@
                 <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
                 <img class="galeria-itens galeria-item-5" src="./img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
               </div>
-              <div class="galeria-bot">
-
+              <div class="galeria-controls">
+                
               </div>
             </div>
  
