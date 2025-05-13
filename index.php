@@ -6,7 +6,7 @@
   <title>Cinelentes</title>
   <link rel="stylesheet" href="./style/pagina-inicial.css">
   <link rel="stylesheet" href="./style/style.css">
-  <script src="./js/main.js"></script>
+  <script src="./js/carrosel.js"></script>
 </head>
 <body>
   <header class="header-geral">
@@ -57,46 +57,31 @@
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
             </div>
 
-            
             <div class="carousel-section">
-                <div class="carousel-container">
-                    <div class="carousel-wrapper" id="carouselWrapper">
-                    <div class="carousel-slide">
-                        <a href="./php/mes-mulher.php">
-                            <img src="./img/img-mes-mulher.jpg" alt="Slide 1">
-                            <div class="overlay">
-                                <h2>Mês da Mulher</h2>
-                                <p>Homenagem especial às mulheres que fazem a diferença.</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="carousel-slide">
-                        <a href="./php/mes-mulher.php">
-                            <img src="./img/img-mes-trabalho.jpg" alt="Slide 1">
-                            <div class="overlay">
-                            <h2>Mês do Trabalho</h2>
-                            <p>Homenagem especial aos trabalhadores brasileiros.</p>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="carousel-slide">
-                    <a href="./php/mes-mulher.php">
-                        <img src="./img/img-inclusao.jpg" alt="Slide 1">
-                        <div class="overlay">
-                            <h2>Homenagem à Inclusão</h2>
-                            <p>Homenagem especial às crianças e pessoas com deficiência.</p>
-                        </div>
-                    </div>
-                    </a>
-                    </div>
+  <div class="carousel-3d-wrapper">
+    <button class="nav prev" onclick="prevCard()">‹</button>
+    <div class="carousel-3d" id="carousel3d">
+      <div class="card3d">
+        <img src="./img/img-mes-mulher.jpg" alt="Mês da Mulher" />
+        <h2>Mês da Mulher</h2>
+        <p>Homenagem especial às mulheres que fazem a diferença.</p>
+      </div>
+      <div class="card3d">
+        <img src="./img/img-mes-trabalho.jpg" alt="Mês do Trabalho" />
+        <h2>Mês do Trabalho</h2>
+        <p>Homenagem aos trabalhadores brasileiros.</p>
+      </div>
+      <div class="card3d">
+        <img src="./img/img-inclusao.jpg" alt="Inclusão" />
+        <h2>Inclusão</h2>
+        <p>Celebrando a diversidade e a acessibilidade.</p>
+      </div>
+    </div>
+    <button class="nav next" onclick="nextCard()">›</button>
+  </div>
+</div>
 
-                    <div class="carousel-controls">
-                        <button onclick="prevSlide()">&#10094;</button>
-                        <button onclick="nextSlide()">&#10095;</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            
         <div id="grid-agenda">
             <div id="titulo-agenda">
                 <h1 class="titulo-pagina-inicial">Agenda</h1>

@@ -1,5 +1,5 @@
 <?php
-// Inicia a sessão, se ainda não foi iniciado
+
 session_start();
 ?>
 
@@ -10,7 +10,8 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login Administrador</title>
   <link rel="stylesheet" href="../style/style.css"/>
-  <link rel="stylesheet" href="../style/login-redefinir-senha.css"> 
+  <link rel="stylesheet" href="../style/login-redefinir-senha.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
 </head>
 <body class="body-login">
 
@@ -18,12 +19,17 @@ session_start();
     <div class="container-login">
       <div class="lado-esquerdo">
         <div class="logo">
-          <img id="imagem-logo" src="../img/logo-cinelentes.png" alt="logo-cinelentes" />
+          <img id="imagem-logo" src="../img/logo-cinelentes-novo.png" alt="logo-cinelentes" />
         </div>
       </div>
       <div class="lado-direito">
+
         <!-- Formulário de login -->
         <form action="login.php" method="POST" class="login-form">
+
+       
+        <form action="" method="POST" class="login-form">
+
           <h2 class="texto-login">LOGIN</h2>
 
           <div class="input-inform">

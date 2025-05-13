@@ -5,80 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinelentes</title>
     <link rel="stylesheet" href="../style/style.css">
-    <link rel="stylesheet" href="../style/edicoes.css"> 
+    <link rel="stylesheet" href="../style/edicoes.css">
     <script src="../js/main.js"></script>
+    <style>
+        .titulo-e-botao {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .titulo-acervo-h1 {
+            font-size: 26px;
+            margin: 0;
+        }
+
+        .botao-criar-projeto {
+            background-color: #028A0F;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .botao-criar-projeto:hover {
+            background-color: #026c0c;
+        }
+    </style>
 </head>
 <body class="body-pagina-inicial">
+
 <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
     <nav>
-      <a href="../index.php" class="link-animado">INÍCIO</a>
-      <div class="dropdown">
-        <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
-        <div id="myDropdown" class="dropdown-content">
-          <a href="edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
-          <a href="edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
-          <a href="edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
+        <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
+        <div class="dropdown">
+            <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="edicao2023-adm.php" class="link-animado">EDIÇÃO 2023</a>
+                <a href="edicao2024-adm.php" class="link-animado">EDIÇÃO 2024</a>
+                <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
+            </div>
         </div>
-      </div>
-      <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
-      <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
+        <a href="quem-somos-adm.php" class="link-animado">QUEM SOMOS</a>
+        <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
-  </header>
+</header>
 
-    <main class="main-acervos">
+<main class="main-acervos">
     <section class="acervo">
-      <div class="titulo-acervo">
-        <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2024</h1>
-        <div class="linha-preta-acervo-titulo"></div>
+        <div class="titulo-acervo">
+            <div class="titulo-e-botao">
+                <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2024</h1>
+                <a href="criar-projeto-adm.php" class="botao-criar-projeto">+ Criar Projeto</a>
+            </div>
+            <div class="linha-preta-acervo-titulo"></div>
+        </div>
 
-      </div>
-      
+        <div class="cards">
+            <!-- CARD 1 -->
+            <div class="card">
+                <img id="img-card" src="../img/img-mes-mulher.jpg" alt="1° Festival 2023">
+                <div class="card-text">
+                    1° Festival Cinelentes<br>Mês da Mulher
+                </div>
+                <div class="card-buttons">
+                    <button class="botao-editar">EDITAR</button>
+                    <button class="botao-excluir">EXCLUIR</button>
+                </div>
+            </div>
 
-      <div class="cards">
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-mulher.jpg" alt="Festival Mês da Mulher">
-          <div class="card-text">1° Festival Cinelentes<br>Mês da Mulher</div>
-        </a>
+            <!-- CARD 2 -->
+            <div class="card">
+                <img id="img-card" src="../img/img-lgbt.jpg" alt="4° Festival 2023">
+                <div class="card-text">
+                    4° Festival Cinelentes<br>LGBTQIA+
+                </div>
+                <div class="card-buttons">
+                    <button class="botao-editar">EDITAR</button>
+                    <button class="botao-excluir">EXCLUIR</button>
+                </div>
+            </div>
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-lgbt.jpg" alt="Festival LGBTQIAPN+">
-          <div class="card-text">4° Festival Cinelentes<br>LGBTQIAPN+</div>
-        </a>
+            <!-- CARD 3 -->
+            <div class="card">
+                <img id="img-card" src="../img/img-povos-originarios.jpg" alt="2° Festival 2023">
+                <div class="card-text">
+                    2° Festival Cinelentes<br>Povos Originários
+                </div>
+                <div class="card-buttons">
+                    <button class="botao-editar">EDITAR</button>
+                    <button class="botao-excluir">EXCLUIR</button>
+                </div>
+            </div>
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-povos-originarios.jpg" alt="Festival Povos Originários">
-          <div class="card-text">2° Festival Cinelentes<br>Povos Originários</div>
-        </a>
+            <!-- CARD 4 -->
+            <div class="card">
+                <img id="img-card" src="../img/img-inclusao.jpg" alt="5° Festival 2023">
+                <div class="card-text">
+                    5° Festival Cinelentes<br>Inclusão
+                </div>
+                <div class="card-buttons">
+                    <button class="botao-editar">EDITAR</button>
+                    <button class="botao-excluir">EXCLUIR</button>
+                </div>
+            </div>
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-inclusao.jpg" alt="Festival Inclusão">
-          <div class="card-text">5° Festival Cinelentes<br>Inclusão</div>
-        </a>
+            <!-- CARD 5 -->
+            <div class="card">
+                <img id="img-card" src="../img/img-mes-trabalho.jpg" alt="3° Festival 2023">
+                <div class="card-text">
+                    3° Festival Cinelentes<br>Mês do Trabalho
+                </div>
+                <div class="card-buttons">
+                    <button class="botao-editar">EDITAR</button>
+                    <button class="botao-excluir">EXCLUIR</button>
+                </div>
+            </div>
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-trabalho.jpg" alt="Festival Mês do Trabalho">
-          <div class="card-text">3° Festival Cinelentes<br>Mês do Trabalho</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-consciencia-negra.jpg" alt="Festival Consciência Negra">
-          <div class="card-text">6° Festival Cinelentes<br>Consciência Negra</div>
-        </a>
-      </div>
+            <!-- CARD 6 -->
+            <div class="card">
+                <img id="img-card" src="../img/img-consciencia-negra.jpg" alt="6° Festival 2023">
+                <div class="card-text">
+                    6° Festival Cinelentes<br>Povos Conhecimento Negro
+                </div>
+                <div class="card-buttons">
+                    <button class="botao-editar">EDITAR</button>
+                    <button class="botao-excluir">EXCLUIR</button>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
+</main>
 
-  <footer class="footer-container">
+<footer class="footer-container">
     <div class="footer-topo">
         <div class="div-vazia"></div>
         <div class="footer-logo-container">
-            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes.png" alt="CineLentes">
+            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
         </div>
-
         <div class="botao-login-container">
-          <a href="../index.php" class="botao-login">Logout</a>
+            <a href="../index.php" class="botao-login">Logout</a>
         </div>
     </div>
 

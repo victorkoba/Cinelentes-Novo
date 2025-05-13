@@ -3,12 +3,6 @@
   padding: 40px 20px;
 }
 
-.acervo-h1 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 45px;
-}
-
 .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -46,28 +40,6 @@
   padding: 10px;
   font-size: 18px;
   font-weight: bold;
-}
-
-.botao-login-acervo {
-  background-color: #c0392b;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.botao-login-acervo:hover {
-  background-color: #e74c3c;
-}
-
-.botao-login-container-acervo {
-  position: absolute;
-  right: 32px;
-  display: flex;
-  align-items: center;
 }
 
 /* EDIÇÕES ADMINISTRADORES */
@@ -182,18 +154,13 @@
   transform: scale(1.05);
 }
 
-.titulo-acervo {
-  width: 100%;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
 .titulo-acervo-h1 {
   display: flex;
   justify-content: center;
   font-weight: 900;
   font-size: 32px;
-  margin-top: 70px;
+  margin-top: 20px;
+  margin-bottom: 70px;
 }
 
 .topo-acervo {
