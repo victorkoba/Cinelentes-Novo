@@ -1,3 +1,36 @@
+<?php
+include './php/conexao.php';
+
+$meses_abreviados = [
+  '01' => 'JAN',
+  '02' => 'FEV',
+  '03' => 'MAR',
+  '04' => 'ABR',
+  '05' => 'MAI',
+  '06' => 'JUN',
+  '07' => 'JUL',
+  '08' => 'AGO',
+  '09' => 'SET',
+  '10' => 'OUT',
+  '11' => 'NOV',
+  '12' => 'DEZ'
+];
+
+$eventos = [];
+
+$stmt = $conexao->prepare("SELECT id_data, titulo_data, dia, descricao_data FROM data ORDER BY dia ASC");
+
+if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $eventos[] = $row;
+    }
+}
+
+$stmt->close();
+$conexao->close();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -72,26 +105,26 @@
  
             
         <div id="grid-agenda">
-            <div id="titulo-agenda">
-                <h1 class="titulo-pagina-inicial">Agenda</h1>
-                <div class="agenda-eventos">
-        <div class="agenda-card">
-          <div class="data-agenda">
-            <span class="dia">28</span>
-            <span class="mes">FEV</span>
-          </div>
-          <div class="descricao-agenda">Mês das Mulheres</div>
-        </div>
-
-        <div class="agenda-card">
-          <div class="data-agenda">
-            <span class="dia">30</span>
-            <span class="mes">MAR</span>
-          </div>
-          <div class="descricao-agenda">Mês dos Bonitos</div>
-        </div>
-      </div>
-
+          <div id="titulo-agenda">
+            <h1 class="titulo-pagina-inicial">Agenda</h1>
+            <div class="agenda-eventos">
+              <?php foreach ($eventos as $evento): 
+                $dataObj = new DateTime($evento['dia']);
+                $dia = $dataObj->format('d');
+                $numero_mes = $dataObj->format('m');
+                $mes = $meses_abreviados[$numero_mes];
+              ?>
+              <div class="agenda-card" onclick="toggleDescricao(this)">
+                <div class="data-agenda">
+                  <span class="dia"><?= htmlspecialchars($dia) ?></span>
+                  <span class="mes"><?= htmlspecialchars($mes) ?></span>
+                </div>
+                <div class="conteudo-agenda">
+                  <div class="titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
+                  <div class="descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
+                </div>
+              </div>
+            <?php endforeach; ?>
         </div>
     </main>
   <footer class="footer-container">
@@ -109,5 +142,16 @@
       <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
   </footer>
+  <script>
+    function toggleDescricao(cardClicado) {
+      const todosCards = document.querySelectorAll('.agenda-card');
+      todosCards.forEach(card => {
+        if (card !== cardClicado) {
+          card.classList.remove('open');
+        }
+      });
+    cardClicado.classList.toggle('open');
+    }
+  </script>
 </body>
 </html>

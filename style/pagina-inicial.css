@@ -137,7 +137,6 @@ body {
   right: -40px;
 }
 
-
 .galeria-nav{
   bottom: -15px;
   display: flex;
@@ -222,22 +221,22 @@ body {
   margin-bottom: 300px;
 }
 
-.agenda-eventos {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-left: 90px;
-  margin-top: 20px;
-}
-
 .agenda-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   background-color: #000;
-  border-radius: 12px;
+  border-radius: 16px;
   color: white;
-  font-weight: 600;
   overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  max-width: 600px;
+}
+
+.agenda-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
 }
 
 .data-agenda {
@@ -247,29 +246,44 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  padding: 14px 20px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .data-agenda .dia {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 1;
 }
 
 .data-agenda .mes {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  line-height: 1;
   margin-top: 4px;
 }
 
-.descricao-agenda {
-  padding: 0 20px;
-  font-size: 16px;
+.conteudo-agenda {
   display: flex;
-  align-items: center;
-  height: 100%;
+  flex-direction: column;
+  padding: 16px 20px;
 }
 
+.titulo-agenda {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.descricao-agenda {
+  font-size: 15px;
+  margin-top: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  color: #ccc;
+}
+
+.agenda-card.open .descricao-agenda {
+  max-height: 500px; /* aumenta se descrição for grande */
+  opacity: 1;
+}
