@@ -42,6 +42,19 @@ $conexao->close();
   <script src="./js/carrosel.js"></script>
   <script src="./js/main.js"></script>
 </head>
+<div id="modal-agenda" class="modal-agenda">
+  <div class="modal-conteudo">
+    <span class="fechar-modal" onclick="fecharModal()">&times;</span>
+    <div class="modal-header">
+      <div class="data-modal">
+        <span class="dia" id="modal-dia"></span>
+        <span class="mes" id="modal-mes"></span>
+      </div>
+      <h2 id="modal-titulo"></h2>
+    </div>
+    <p id="modal-descricao"></p>
+  </div>
+</div>
 <body>
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
@@ -114,14 +127,20 @@ $conexao->close();
                 $numero_mes = $dataObj->format('m');
                 $mes = $meses_abreviados[$numero_mes];
               ?>
-              <div class="agenda-card" onclick="toggleDescricao(this)">
+              <div class="agenda-card" onclick="abrirModal(
+                '<?= htmlspecialchars($evento['titulo_data']) ?>',
+                '<?= htmlspecialchars($evento['descricao_data']) ?>',
+                '<?= htmlspecialchars($dia) ?>',
+                '<?= htmlspecialchars($mes) ?>'
+              )">
+
                 <div class="data-agenda">
                   <span class="dia"><?= htmlspecialchars($dia) ?></span>
                   <span class="mes"><?= htmlspecialchars($mes) ?></span>
                 </div>
                 <div class="conteudo-agenda">
-                  <div class="titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
-                  <div class="descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
+                  <div class="overflow" class="titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
+                  <div class="overflow" class="descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
                 </div>
               </div>
             <?php endforeach; ?>
