@@ -108,8 +108,8 @@ $conexao->close();
                 <img class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="">
                 <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
                 <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="">
-                <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
-                <img class="galeria-itens galeria-item-5" src="./img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
+                <img class="galeria-itens galeria-item-4" src="./img/img-mes-trabalho.jpg"  data-index="4" alt="">
+                <img class="galeria-itens galeria-item-5" src="./img/img-mes-mulher-foto3.jpg"  data-index="5" alt="">
               </div>
               <div class="galeria-controls">
                 
@@ -120,29 +120,29 @@ $conexao->close();
         <div id="grid-agenda">
           <div id="titulo-agenda">
             <h1 class="titulo-pagina-inicial">Agenda</h1>
-            <div class="agenda-eventos">
-              <?php foreach ($eventos as $evento): 
-                $dataObj = new DateTime($evento['dia']);
-                $dia = $dataObj->format('d');
-                $numero_mes = $dataObj->format('m');
-                $mes = $meses_abreviados[$numero_mes];
-              ?>
-              <div class="agenda-card" onclick="abrirModal(
-                '<?= htmlspecialchars($evento['titulo_data']) ?>',
-                '<?= htmlspecialchars($evento['descricao_data']) ?>',
-                '<?= htmlspecialchars($dia) ?>',
-                '<?= htmlspecialchars($mes) ?>'
-              )">
+              <div class="agenda-eventos">
+                <?php foreach ($eventos as $evento): 
+                  $dataObj = new DateTime($evento['dia']);
+                  $dia = $dataObj->format('d');
+                  $numero_mes = $dataObj->format('m');
+                  $mes = $meses_abreviados[$numero_mes];
+                ?>
+                <div class="agenda-card" onclick="abrirModal(
+                  '<?= htmlspecialchars($evento['titulo_data']) ?>',
+                  '<?= htmlspecialchars($evento['descricao_data']) ?>',
+                  '<?= htmlspecialchars($dia) ?>',
+                  '<?= htmlspecialchars($mes) ?>'
+                )">
 
-                <div class="data-agenda">
-                  <span class="dia"><?= htmlspecialchars($dia) ?></span>
-                  <span class="mes"><?= htmlspecialchars($mes) ?></span>
+                  <div class="data-agenda">
+                    <span class="dia"><?= htmlspecialchars($dia) ?></span>
+                    <span class="mes"><?= htmlspecialchars($mes) ?></span>
+                  </div>
+                  <div class="conteudo-agenda">
+                    <div class="overflow titulo-agenda" ><?= htmlspecialchars($evento['titulo_data']) ?></div>
+                    <div class="overflow descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
+                  </div>
                 </div>
-                <div class="conteudo-agenda">
-                  <div class="overflow" class="titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
-                  <div class="overflow" class="descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
-                </div>
-              </div>
             <?php endforeach; ?>
         </div>
     </main>
@@ -161,15 +161,18 @@ $conexao->close();
       <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
   </footer>
-  <script>
-    function toggleDescricao(cardClicado) {
-      const todosCards = document.querySelectorAll('.agenda-card');
-      todosCards.forEach(card => {
-        if (card !== cardClicado) {
-          card.classList.remove('open');
-        }
-      });
-    cardClicado.classList.toggle('open');
+   <script>
+    function abrirModal(titulo, descricao, dia, mes) {
+      document.getElementById('modal-titulo').innerText = titulo;
+      document.getElementById('modal-descricao').innerText = descricao;
+      document.getElementById('modal-dia').innerText = dia;
+      document.getElementById('modal-mes').innerText = mes;
+      document.getElementById('modal-agenda').style.display = 'block';
+    }
+
+    function fecharModal() {
+      document.getElementById('modal-agenda').style.display = 'none';
+      document.body.style.overflow = 'auto';
     }
   </script>
 </body>
