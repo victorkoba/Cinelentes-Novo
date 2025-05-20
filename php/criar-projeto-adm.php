@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="../style/criar-projeto.css">
     <link rel="stylesheet" href="../style/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/card-handler.js"></script>
     <script src="../js/main.js"></script>
 </head>
 <body class="body-pagina-inicial">
 
-<header class="header-geral">
+  <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
     <nav>
-      <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
+      <a href="#" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
@@ -26,8 +28,27 @@
           <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="quem-somos-adm.php" class="link-animado">QUEM SOMOS</a>
       <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
+        <a id="botao-logout" class="button-logout">Logout</a>
+        <script>
+          document.getElementById("botao-logout").addEventListener("click", function (e) {
+              e.preventDefault();
+
+              Swal.fire({
+                  title: "Deseja sair da conta?",
+                  text: "Você precisará fazer login novamente para continuar.",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Sim, sair"
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      window.location.href = "logout.php";
+                  }
+              });
+          });
+        </script>
     </nav>
   </header>
 
@@ -37,7 +58,7 @@
         <div class="informacoes-iniciais">
             <input type="text" placeholder="Digite o título do projeto" class="input-titulo-projeto">
             <div class="linha-preta"></div>
-            <textarea placeholder="Digite aqui o conteúdo de apresentação do projeto. (Sobre e a data de realização do projeto)" class="textarea-conteudo-projeto"></textarea>
+            <textarea style="resize: vertical" placeholder="Digite aqui o conteúdo de apresentação do projeto. (Sobre e a data de realização do projeto)" class="textarea-conteudo-projeto"></textarea>
         </div>
         <div class="upload-final-video">
             <p>Faça o upload do vídeo final do projeto</p>
@@ -112,42 +133,36 @@
             <h2>Habilidades desenvolvidas</h2>
             <div class="linha-preta"></div>
         </div>
-        <textarea placeholder="Digite aqui as expectativas trabalhadas e as hashtags (se tiver)." class="textarea-habilidades"></textarea>
+        <textarea style="resize: vertical" placeholder="Digite aqui as expectativas trabalhadas e as hashtags (se tiver)." class="textarea-habilidades"></textarea>
     </section>
     <section class="secao-feedback">
         <div class="titulo-secao">
             <h2>Deixe seu Feedback</h2>
             <div class="linha-preta"></div>
         </div>
-        <textarea placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)." class="textarea-feedback"></textarea>
+        <textarea style="resize: vertical" placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)." class="textarea-feedback"></textarea>
     </section>
     <section class="secao-feedback">
         <div class="titulo-secao">
             <h2>Agenda</h2>
             <div class="linha-preta"></div>
         </div>
-        <textarea placeholder="Digite a data de algum projeto que irá acontecer..." class="textarea-feedback"></textarea>
+        <textarea style="resize: vertical" placeholder="Digite a data de algum projeto que irá acontecer..." class="textarea-feedback"></textarea>
         <button class="botao-confirmar">Confirmar</button>
     </section>
 </main>
 
-<footer class="footer-container">
+  <footer class="footer-container">
     <div class="footer-topo">
-        <div class="div-vazia"></div>
-        <div class="footer-logo-container">
-            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
-        </div>
-        <div class="botao-login-container">
-            <a href="../index.php" class="botao-login">Logout</a>
-        </div>
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
+      </div>
     </div>
-
     <div class="linha-branca-footer"></div>
-
     <div class="linha-preta-footer">
-        <p class="footer-direitos">Todos os direitos reservados.</p>
+      <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
-</footer>
+  </footer>
 
 </body>
 </html>

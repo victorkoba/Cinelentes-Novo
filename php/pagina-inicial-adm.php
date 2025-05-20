@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <script>
     document.getElementById("form-evento").addEventListener("submit", function(event) {
-        event.preventDefault(); // Evita o envio imediato
+        event.preventDefault();
 
         Swal.fire({
             title: "Deseja salvar este evento?",
@@ -145,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.submit();
+                window.location.href = 'pagina-inicial-adm.php';            
             }
         });
     });

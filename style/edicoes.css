@@ -182,3 +182,18 @@
 .botao-criar-projeto:hover {
   background-color: #026c0c;
 }
+
+.button-logout {
+  background-color: #f5e9d4;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-logout:hover {
+  transition: 0.7s;
+  background-color: rgba(245, 233, 212, 0.5);
+}
