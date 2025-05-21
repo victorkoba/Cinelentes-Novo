@@ -1,4 +1,6 @@
 <?php
+require '../includes/auth.php';
+require '../includes/csrf.php';
 
 session_start();
 ?>

@@ -1,3 +1,9 @@
+<?php
+require_once '../includes/auth.php';
+require_once '../includes/csrf.php';
+requireLogin();
+?>
+
 <!DOCTYPE html> 
 <html lang="pt">
 <head>
@@ -19,7 +25,7 @@
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
     <nav>
-      <a href="#" class="link-animado">INÍCIO</a>
+      <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">

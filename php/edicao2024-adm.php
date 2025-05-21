@@ -1,3 +1,9 @@
+<?php
+require_once '../includes/auth.php';
+require_once '../includes/csrf.php';
+requireLogin();
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -9,36 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/main.js"></script>
-    <style>
-        .titulo-e-botao {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .titulo-acervo-h1 {
-            font-size: 26px;
-            margin: 0;
-        }
-
-        .botao-criar-projeto {
-            background-color: #028A0F;
-            color: white;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .botao-criar-projeto:hover {
-            background-color: #026c0c;
-        }
-    </style>
 </head>
 <body class="body-pagina-inicial">
 
@@ -46,7 +22,7 @@
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
     <nav>
-      <a href="#" class="link-animado">INÍCIO</a>
+      <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
