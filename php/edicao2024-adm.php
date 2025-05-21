@@ -1,9 +1,3 @@
-<?php
-require_once '../includes/auth.php';
-require_once '../includes/csrf.php';
-requireLogin();
-?>
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>

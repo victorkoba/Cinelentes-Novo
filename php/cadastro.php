@@ -1,8 +1,3 @@
-<?php
-require '../includes/auth.php';
-require '../includes/csrf.php';
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
