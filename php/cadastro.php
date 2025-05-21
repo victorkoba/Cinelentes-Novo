@@ -9,18 +9,20 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="body-login">
-    
   <div class="card-login">
+    <a href="pagina-inicial-adm.php" class="btn-voltar-card">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </a>    
     <div class="container-login">
       <div class="lado-esquerdo">
         <div class="logo">
-          <img id="imagem-logo" src="../img/logo-cinelentes.png" alt="logo-cinelentes" />
+          <img id="imagem-logo" src="../img/logo-cinelentes-novo.png" alt="logo-cinelentes" />
         </div>
       </div>
 
       <div class="lado-direito">
         <form action="" method="POST" class="login-form">
-          <h2 class="texto-login">Cadastro de Administrador</h2>
+          <h2 class="texto-login">CADASTRO DE ADMINISTRADOR</h2>
 
           <div class="input-inform">
             <input class="input-email-senha" type="email" name="email" placeholder="Email" required />
@@ -31,7 +33,6 @@
           </div>
 
           <button type="submit" class="botao-entrar">Cadastrar</button>
-          <a href="login.php" class="bot-esqueceu-senha">Voltar ao login</a>
         </form>
       </div>
     </div>

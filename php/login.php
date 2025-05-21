@@ -14,6 +14,9 @@ session_start();
 </head>
 <body class="body-login">
   <div class="card-login">
+    <a href="../index.php" class="btn-voltar-card">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </a>
     
     <div class="container-login">
       <div class="lado-esquerdo">

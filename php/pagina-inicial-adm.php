@@ -26,7 +26,8 @@
         </div>
       </div>
       <a href="#grid-agenda" class="link-animado">AGENDA</a>
-        <a id="botao-logout" class="button-logout">Logout</a>
+      <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
+      <a id="botao-logout" class="button-logout">Logout</a>
         <script>
           document.getElementById("botao-logout").addEventListener("click", function (e) {
               e.preventDefault();
