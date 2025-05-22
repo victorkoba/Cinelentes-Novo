@@ -139,7 +139,6 @@ $conexao->close();
                     <div class="overflow titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
                     <div class="overflow descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
                   
-
                 </div>
             <?php endforeach; ?>
         </div>

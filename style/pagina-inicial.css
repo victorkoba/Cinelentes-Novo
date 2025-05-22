@@ -177,8 +177,13 @@ body {
 
 .agenda-eventos{
   margin-top: 90px;
+  margin-bottom: -300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  margin-left: 100px;
+  gap: 50px;
+  
 }
-
 
 .agenda-card {
   margin-bottom: 35px;
