@@ -125,21 +125,21 @@ $conexao->close();
                   $numero_mes = $dataObj->format('m');
                   $mes = $meses_abreviados[$numero_mes];
                 ?>
-                <div class="agenda-card" onclick="abrirModal(
-                  '<?= htmlspecialchars($evento['titulo_data']) ?>',
-                  '<?= htmlspecialchars($evento['descricao_data']) ?>',
-                  '<?= htmlspecialchars($dia) ?>',
-                  '<?= htmlspecialchars($mes) ?>'
-                )">
-
-                  <div class="data-agenda">
-                    <span class="dia"><?= htmlspecialchars($dia) ?></span>
-                    <span class="mes"><?= htmlspecialchars($mes) ?></span>
-                  </div>
-                  
-                    <div class="overflow titulo-agenda" ><?= htmlspecialchars($evento['titulo_data']) ?></div>
+                <div class="agenda-card"
+                      data-titulo="<?= htmlspecialchars($evento['titulo_data'], ENT_QUOTES, 'UTF-8') ?>"
+                      data-descricao="<?= htmlspecialchars($evento['descricao_data'], ENT_QUOTES, 'UTF-8') ?>"
+                      data-dia="<?= htmlspecialchars($dia) ?>"
+                      data-mes="<?= htmlspecialchars($mes) ?>">
+                    
+                    <div class="data-agenda">
+                      <span class="dia"><?= htmlspecialchars($dia) ?></span>
+                      <span class="mes"><?= htmlspecialchars($mes) ?></span>
+                    </div>
+                    
+                    <div class="overflow titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
                     <div class="overflow descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
                   
+
                 </div>
             <?php endforeach; ?>
         </div>
@@ -160,18 +160,29 @@ $conexao->close();
     </div>
   </footer>
    <script>
-    function abrirModal(titulo, descricao, dia, mes) {
-      document.getElementById('modal-titulo').innerText = titulo;
-      document.getElementById('modal-descricao').innerText = descricao;
-      document.getElementById('modal-dia').innerText = dia;
-      document.getElementById('modal-mes').innerText = mes;
-      document.getElementById('modal-agenda').style.display = 'block';
-    }
+  document.querySelectorAll('.agenda-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      const titulo = this.dataset.titulo;
+      const descricao = this.dataset.descricao;
+      const dia = this.dataset.dia;
+      const mes = this.dataset.mes;
+      abrirModal(titulo, descricao, dia, mes);
+    });
+  });
 
-    function fecharModal() {
-      document.getElementById('modal-agenda').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-  </script>
+  function abrirModal(titulo, descricao, dia, mes) {
+    document.getElementById('modal-titulo').innerText = titulo;
+    document.getElementById('modal-descricao').innerText = descricao;
+    document.getElementById('modal-dia').innerText = dia;
+    document.getElementById('modal-mes').innerText = mes;
+    document.getElementById('modal-agenda').style.display = 'block';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal-agenda').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+</script>
+
 </body>
 </html>
