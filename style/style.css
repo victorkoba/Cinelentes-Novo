@@ -188,45 +188,6 @@ footer {
   color: #f5e9d4;
 }
 
-/* AGENDA */
-#modal-agenda {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 30%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 1);
-}
-#modal-descricao {
-  white-space: normal; 
-  word-wrap: break-word; 
-  overflow-wrap: break-word; 
-  max-width: 100%; 
-  word-break: break-word; 
-}
-.agenda-eventos{
-  margin-top: 90px;
-
-}
-.agenda-card {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  margin-bottom: 35px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.agenda-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.data-agenda{
-  border-radius: 10px;
-  width: 50px;
-}
-
 .button-logout {
   background-color: #f5e9d4;
   color: #000;
@@ -240,4 +201,7 @@ footer {
 .button-logout:hover {
   transition: 0.7s;
   background-color: rgba(245, 233, 212, 0.5);
+}
+.titulo-agenda{
+  display: flex;
 }

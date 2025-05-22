@@ -70,6 +70,10 @@ body {
 .galeria-controls {
   display: flex;
   justify-content: center;
+  position: relative;
+  margin-left: 215px;
+  z-index: 2;
+  gap: 340px;
 }
 
 .galeria-controls button {
@@ -81,13 +85,15 @@ body {
   height: 50px;
 }
 
-.galeria-controls-button:focus {
-  outline: none;
+.galeria-controls-previous,
+.galeria-controls-next {
+    background-color: #3498db; /* Azul */
+    color: #fff; /* Branco */
+    transition: background-color 0.3s ease;
 }
 
-.galeria-controls button:hover {
-  transition: 0.7s;
-  font-size: 40px;
+.galeria-controls-button:focus {
+  outline: none;
 }
 
 .galeria-nav {
@@ -174,9 +180,15 @@ body {
   margin-bottom: 300px;
 }
 
+.agenda-eventos{
+  margin-top: 90px;
+}
+
 .agenda-card {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 35px;
+  width: 450px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   background-color: #000;
   border-radius: 16px;
   color: white;
@@ -202,6 +214,8 @@ body {
   padding: 14px 20px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+  border-radius: 10px;
+  width: 50px;
 }
 
 .data-agenda .dia {
@@ -255,6 +269,15 @@ body {
   z-index: 9999;
   overflow-y: auto;
 }
+#modal-agenda {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 1);
+}
 
 .modal-agenda.ativo {
   right: 0;
@@ -304,6 +327,11 @@ body {
   margin-top: 20px;
   font-size: 16px;
   color: #ccc;
+   white-space: normal; 
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  max-width: 100%; 
+  word-break: break-word; 
 }
 
 .container-form {

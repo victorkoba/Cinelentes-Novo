@@ -105,14 +105,12 @@ $conexao->close();
             </div>
             <div class="galeria">
               <div class="galeria-container">
-                <img class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="">
+                <img  class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="" >
                 <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
                 <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="">
                 <img class="galeria-itens galeria-item-4" src="./img/img-mes-trabalho.jpg"  data-index="4" alt="">
                 <img class="galeria-itens galeria-item-5" src="./img/img-mes-mulher-foto3.jpg"  data-index="5" alt="">
-              </div>
-              <div class="galeria-controls">
-                
+                <div class="galeria-controls"></div>
               </div>
             </div>
  
