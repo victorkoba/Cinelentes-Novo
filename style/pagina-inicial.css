@@ -71,26 +71,26 @@ body {
   display: flex;
   justify-content: center;
   position: relative;
-  margin-left: 215px;
+  margin-left: 255px;
   z-index: 2;
-  gap: 340px;
+  gap: 437px;
 }
 
 .galeria-controls button {
   background-color: transparent;
   border: 0;
   cursor: pointer;
-  font-size: 30px;
-  margin: 0 50px;
-  height: 50px;
+  font-size: 50px;
+  
 }
 
 .galeria-controls-previous,
 .galeria-controls-next {
-    background-color: #3498db; /* Azul */
-    color: #fff; /* Branco */
+    color: #fff; 
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 
 .galeria-controls-button:focus {
   outline: none;
