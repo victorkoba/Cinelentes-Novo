@@ -136,10 +136,10 @@ $conexao->close();
                     <span class="dia"><?= htmlspecialchars($dia) ?></span>
                     <span class="mes"><?= htmlspecialchars($mes) ?></span>
                   </div>
-                  <div class="conteudo-agenda">
+                  
                     <div class="overflow titulo-agenda" ><?= htmlspecialchars($evento['titulo_data']) ?></div>
                     <div class="overflow descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
-                  </div>
+                  
                 </div>
             <?php endforeach; ?>
         </div>
