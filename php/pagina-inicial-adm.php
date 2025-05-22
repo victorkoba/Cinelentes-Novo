@@ -1,3 +1,20 @@
+<?php
+include 'conexao.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $dia = $_POST['data'];
+    $titulo = $_POST['titulo'];
+    $descricao = $_POST['descricao'];
+
+    $sql = "INSERT INTO data (dia, titulo_data, descricao_data) VALUES (?, ?, ?)";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("sss", $dia, $titulo, $descricao);
+    $stmt->execute();
+
+    header("Location: " . $_SERVER['PHP_SELF'] . "?sucesso=1");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,9 +25,47 @@
   <link rel="stylesheet" href="../style/style.css">
   <script src="../js/carrosel.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../js/main.js"></script>
 </head>
+
+<?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == 1): ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Evento salvo!",
+      text: "Seu evento foi adicionado com sucesso.",
+      icon: "success",
+      confirmButtonText: "OK"
+    });
+  });
+</script>
+<?php endif; ?>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById("form-evento");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      Swal.fire({
+        title: "Deseja salvar este evento?",
+        text: "Você pode editar depois, mas isso vai salvá-lo no banco de dados.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, salvar!",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.submit(); // envia o formulário para o PHP
+        }
+      });
+    });
+  });
+</script>
+
 <body>
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
@@ -49,110 +104,75 @@
         </script>
     </nav>
   </header>
+
   <main>
-        <!-- Introdução -->
-        <div id="grid-introducao">
-            <div id="titulo">
-                <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
-            </div>
-            <div class="introducao-texto">
-                <div class="texto">
-                <p class="conteudo-introducao">
-                    O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
-                    democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
-                    Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
-                    e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
-                    novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
-                    a datas comemorativas relevantes daquele mês.
-                </p>
-                </div>
-                <div class="imagem">
-                    <figure>
-                        <img id="img-idealizadores" src="../img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores"/>
-                        <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
-                    </figure>
-                </div>
-
-            </div>
-        </div>    
-       <div id="grid-destaques">
-            <div id="titulo">
-                <h1 class="titulo-pagina-inicial">Destaques</h1>
-            </div>
-            <div class="galeria">
-              <div class="galeria-container">
-                <img class="galeria-itens galeria-item-1" src="../img/img-mes-mulher-foto1.jpg"  data-index="1" alt="">
-                <img class="galeria-itens galeria-item-2" src="../img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
-                <img class="galeria-itens galeria-item-3" src="../img/img-inclusao.jpg"  data-index="3" alt="">
-                <img class="galeria-itens galeria-item-4" src="../img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
-                <img class="galeria-itens galeria-item-5" src="../img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
-              </div>
-              <div class="galeria-bot">
-
-              </div>
-            </div>
-<?php
-include 'conexao.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $dia = $_POST['data']; // Corrigido: nome do campo no formulário
-    $titulo = $_POST['titulo'];
-    $descricao = $_POST['descricao'];
-
-    $sql = "INSERT INTO data (dia, titulo_data, descricao_data) VALUES (?, ?, ?)";
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("sss", $dia, $titulo, $descricao);
-    $stmt->execute();
-
-    exit();
-}
-?>
-    <div id="grid-agenda">
-    <div id="titulo">
-      <h1 class="titulo-pagina-inicial">Agenda</h1>
-    </div>
-    <div class="container-form">
-    <h1 class="titulo-form">Inserir uma nova data de evento</h1>
-    <p class="p-agenda">Aqui você pode adicionar uma data que irá aparecer lá na página do usuário!</p>
-
-    <form method="POST" class="form-tarefa" id="form-evento">
-        <label class="label-form" for="data">Dia do evento:</label>
-        <input class="input-form" placeholder="Insira o dia do evento" type="date" name="data" required>
-
-        <label class="label-form" for="titulo">Título do evento:</label>
-        <input class="input-form" placeholder="Insira o título do evento" type="text" name="titulo" required>
-
-        <label class="label-form" for="descricao">Descrição do evento:</label>
-        <textarea style="resize: vertical" class="input-form" name="descricao" type="text" placeholder="Insira a descrição do evento" required></textarea>
-
-        <div class="alinhamento-button">
-            <button class="button-entrar" type="submit">Inserir data de evento</button>
+    <!-- Introdução -->
+    <div id="grid-introducao">
+      <div id="titulo">
+        <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
+      </div>
+      <div class="introducao-texto">
+        <div class="texto">
+          <p class="conteudo-introducao">
+            O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
+            democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
+            Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
+            e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
+            novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
+            a datas comemorativas relevantes daquele mês.
+          </p>
         </div>
-    </form>
-</div>
+        <div class="imagem">
+          <figure>
+            <img id="img-idealizadores" src="../img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores"/>
+            <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>    
 
-  <script>
-    document.getElementById("form-evento").addEventListener("submit", function(event) {
-        event.preventDefault();
+    <div id="grid-destaques">
+      <div id="titulo">
+        <h1 class="titulo-pagina-inicial">Destaques</h1>
+      </div>
+      <div class="galeria">
+        <div class="galeria-container">
+          <img class="galeria-itens galeria-item-1" src="../img/img-mes-mulher-foto1.jpg" data-index="1" alt="">
+          <img class="galeria-itens galeria-item-2" src="../img/img-mes-cultura-coreana.jpg" data-index="2" alt="">
+          <img class="galeria-itens galeria-item-3" src="../img/img-inclusao.jpg" data-index="3" alt="">
+          <img class="galeria-itens galeria-item-4" src="../img/img-mes-mulher-foto1.jpg" data-index="4" alt="">
+          <img class="galeria-itens galeria-item-5" src="../img/img-mes-cultura-coreana.jpg" data-index="5" alt="">
+        </div>
+      </div>
+    </div>
 
-        Swal.fire({
-            title: "Deseja salvar este evento?",
-            text: "Você pode editar depois, mas isso vai salvá-lo no banco de dados.",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, salvar!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.submit();
-                window.location.href = 'pagina-inicial-adm.php';            
-            }
-        });
-    });
-  </script>
+    <!-- Formulário de agenda -->
+    <div id="grid-agenda">
+      <div id="titulo">
+        <h1 class="titulo-pagina-inicial">Agenda</h1>
+      </div>
+      <div class="container-form">
+        <h1 class="titulo-form">Inserir uma nova data de evento</h1>
+        <p class="p-agenda">Aqui você pode adicionar uma data que irá aparecer lá na página do usuário!</p>
 
-    </main>
+        <form method="POST" id="form-evento">
+          <label class="label-form" for="data">Dia do evento:</label>
+          <input class="input-form" placeholder="Insira o dia do evento" type="date" name="data" required>
+
+          <label class="label-form" for="titulo">Título do evento:</label>
+          <input class="input-form" placeholder="Insira o título do evento" type="text" name="titulo" required>
+
+          <label class="label-form" for="descricao">Descrição do evento:</label>
+          <textarea style="resize: vertical" class="input-form" name="descricao" placeholder="Insira a descrição do evento" required></textarea>
+
+          <div class="alinhamento-button">
+            <button class="button-entrar" type="submit">Inserir data de evento</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
   <footer class="footer-container">
     <div class="footer-topo">
       <div class="footer-logo-container">
