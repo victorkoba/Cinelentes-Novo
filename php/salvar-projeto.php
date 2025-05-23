@@ -1,13 +1,6 @@
 <?php
-// conexão
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "cinelentes";
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Erro conexão: " . $conn->connect_error);
-}
+include 'conexao.php'
+include 'verificar-login.php';
 
 $titulo = $_POST['titulo'];
 $descricao = $_POST['conteudo'];

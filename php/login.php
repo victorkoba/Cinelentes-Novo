@@ -1,5 +1,44 @@
 <?php
 session_start();
+
+// Processamento do formulário de login
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include 'conexao.php';
+
+    $email = $_POST['email'];
+    $password = $_POST['senha'];
+
+    $sql = "SELECT * FROM administradores WHERE email_adm = ?";
+    $stmt = $conexao->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $adm = $result->fetch_assoc();
+
+            if (password_verify($password, $adm['senha_adm'])) {
+                $_SESSION['administrador'] = $adm['email_adm'];
+                $_SESSION['id_usuario'] = $adm['id_adm'];
+                header('Location: pagina-inicial-adm.php');
+                exit;
+            } else {
+                // Senha incorreta
+                header('Location: login.php?erro=1');
+                exit;
+            }
+        } else {
+            // Email não encontrado
+            header('Location: login.php?erro=1');
+            exit;
+        }
+        $stmt->close();
+    }
+
+    $conexao->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,21 +64,16 @@ session_start();
         </div>
       </div>
       <div class="lado-direito">
-
-        <form action="login.php" method="POST" class="login-form">
-
-       
-        <form action="" method="POST" class="login-form">
-
+        <form method="POST" class="login-form">
           <h2 class="texto-login">LOGIN</h2>
 
           <div class="input-inform">
-            <img class="img-icon" src="../img/img-email.png" alt="">
+            <img class="img-icon" src="../img/img-email.png" alt="ícone email">
             <input class="input-email-senha" type="email" name="email" placeholder="Email" required />
           </div>
 
           <div class="input-inform">
-            <img class="img-icon" src="../img/img-icon-senha.png" alt="">
+            <img class="img-icon" src="../img/img-icon-senha.png" alt="ícone senha">
             <input class="input-email-senha" name="senha" type="password" placeholder="Senha" required />
           </div>
 
@@ -50,70 +84,20 @@ session_start();
     </div>
   </div>
 
+<?php if (isset($_GET['erro']) && $_GET['erro'] == 1): ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Swal.fire({
+        title: 'Email ou senha incorretos!',
+        icon: 'error',
+        confirmButtonText: 'Tentar novamente'
+      }).then(() => {
+        // Remove o parâmetro da URL sem recarregar
+        window.history.replaceState(null, null, 'login.php');
+      });
+    });
+  </script>
+<?php endif; ?>
 </body>
 </html>
-
-<?php
-// Processamento do formulário de login
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include 'conexao.php'; // Inclua a conexão com o banco de dados
-
-    $email = $_POST['email'];
-    $password = $_POST['senha'];
-
-    // Verifica no banco de dados
-    $sql = "SELECT * FROM administradores WHERE email_adm = ?";
-    $stmt = $conexao->prepare($sql);
-
-    if ($stmt) {
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        // Se encontrar o email no banco de dados
-        if ($result && $result->num_rows > 0) {
-            $adm = $result->fetch_assoc();
-
-            // Verifica a senha criptografada
-            if (password_verify($password, $adm['senha_adm'])) {
-                $_SESSION['administrador'] = $adm['email_adm'];
-                $_SESSION['id_usuario'] = $adm['id_adm'];
-
-                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-                echo "<script>
-                        document.addEventListener('DOMContentLoaded', function(){
-                            Swal.fire({
-                                title: 'Login realizado com sucesso!',
-                                icon: 'success',
-                                confirmButtonText: 'Continuar'
-                            }).then(function() {
-                                window.location.href = 'pagina-inicial-adm.php'; // Redireciona para a página principal do admin
-                            });
-                        });
-                      </script>";
-                exit;
-            }
-        }
-
-        // Se a senha ou email estiverem incorretos
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function(){
-                    Swal.fire({
-                        title: 'Email ou senha incorretos!',
-                        icon: 'error',
-                        confirmButtonText: 'Tentar novamente'
-                    }).then(function() {
-                        window.location.href = 'login.php'; // Redireciona para o login novamente
-                    });
-                });
-              </script>";
-
-        $stmt->close();
-    } else {
-        echo "Erro ao preparar a consulta.";
-    }
-
-    $conexao->close();
-}
-?>  

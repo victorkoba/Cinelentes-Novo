@@ -1,5 +1,6 @@
 <?php
 include 'conexao.php';
+include 'verificar-login.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dia = $_POST['data'];
@@ -142,6 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <img class="galeria-itens galeria-item-3" src="../img/img-inclusao.jpg" data-index="3" alt="">
           <img class="galeria-itens galeria-item-4" src="../img/img-mes-mulher-foto1.jpg" data-index="4" alt="">
           <img class="galeria-itens galeria-item-5" src="../img/img-mes-cultura-coreana.jpg" data-index="5" alt="">
+          <div class="galeria-controls"></div>
         </div>
       </div>
     </div>
