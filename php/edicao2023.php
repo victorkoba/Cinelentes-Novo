@@ -32,39 +32,33 @@
       <div class="titulo-acervo">
         <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2023</h1>
       </div>
+<div class="cards">
+  <?php
+  include 'conexao.php';
 
+  $sql = "SELECT * FROM acervos ORDER BY id_acervo DESC";
+  $result = $conexao->query($sql);
 
-      <div class="cards">
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-mulher.jpg" alt="Festival Mês da Mulher">
-          <div class="card-text">1° Festival Cinelentes<br>Mês da Mulher</div>
-        </a>
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $titulo = $row['titulo'];
+      $foto = $row['fotos'];
+      $descricao = $row['descricao'];
+      $id = $row['id_acervo']; // Supondo que exista uma coluna ID
+      echo '
+      <a href="ver-projeto.php?id=' . $id . '" class="card">
+        <img src="' . $foto . '" alt="' . htmlspecialchars($titulo) . '">
+        <div class="card-text">' . htmlspecialchars($titulo) . '</div>
+      </a>
+      ';
+    }
+  } else {
+    echo "<p>Sem projetos cadastrados ainda.</p>";
+  }
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-lgbt.jpg" alt="Festival LGBTQIAPN+">
-          <div class="card-text">4° Festival Cinelentes<br>LGBTQIAPN+</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-povos-originarios.jpg" alt="Festival Povos Originários">
-          <div class="card-text">2° Festival Cinelentes<br>Povos Originários</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-inclusao.jpg" alt="Festival Inclusão">
-          <div class="card-text">5° Festival Cinelentes<br>Inclusão</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-trabalho.jpg" alt="Festival Mês do Trabalho">
-          <div class="card-text">3° Festival Cinelentes<br>Mês do Trabalho</div>
-        </a>
-
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-consciencia-negra.jpg" alt="Festival Consciência Negra">
-          <div class="card-text">6° Festival Cinelentes<br>Consciência Negra</div>
-        </a>
-      </div>
+  $conexao->close();
+  ?>
+</div>
 
     </section>
   </main>
