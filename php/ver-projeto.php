@@ -30,6 +30,7 @@ $projeto = $result->fetch_assoc();
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/ver-projeto.css">
   <script src="../js/main.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
 </head>
 <body class="body-pagina-inicial">
 
@@ -84,7 +85,9 @@ $projeto = $result->fetch_assoc();
   <p><strong>Habilidades:</strong><br><?php echo htmlspecialchars($projeto['habilidades']); ?></p>
   <p><strong>Feedback:</strong><br><?php echo htmlspecialchars($projeto['feedback']); ?></p>
 
-  <a href="pagina-inicial-adm.php">← Voltar para a página inicial</a>
+    <a href="../index.php" class="btn-voltar-card">
+      <i class="fas fa-arrow-left"></i> Voltar para página inicial
+    </a>
 </main>
   <footer class="footer-container">
     <div class="footer-topo">
