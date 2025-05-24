@@ -355,3 +355,9 @@ a {
   transition: 0.7s;
   background-color: rgba(245, 233, 212, 0.5);
 }
+.card-minimized .card-content {
+  display: none;
+}
+.card-minimized .restore-button {
+  display: inline-block;
+}
