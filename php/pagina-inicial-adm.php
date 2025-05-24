@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <a href="#grid-agenda" class="link-animado">AGENDA</a>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
-      <a id="botao-logout" class="button-logout">Logout</a>
+      <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
         <script>
           document.getElementById("botao-logout").addEventListener("click", function (e) {
               e.preventDefault();

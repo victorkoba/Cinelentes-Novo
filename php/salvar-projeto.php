@@ -63,6 +63,4 @@ if ($stmt->execute()) {
 } else {
     echo "Erro: " . $stmt->error;
 }
-
-$conn->close();
 ?>

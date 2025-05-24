@@ -1,4 +1,7 @@
-<?php include 'verificar-login.php'; ?>
+<?php
+include 'verificar-login.php';
+include 'conexao.php';
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -9,8 +12,8 @@
   <link rel="stylesheet" href="../style/criar-projeto.css" />
   <link rel="stylesheet" href="../style/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/criar-projeto.js"></script>
   <style>
-    /* Estilo básico para mostrar o nome do arquivo */
     .file-name {
       margin-top: 5px;
       font-style: italic;
@@ -36,14 +39,13 @@
     </div>
     <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
     <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
-    <a id="botao-logout" href="#" class="button-logout">Logout</a>
+    <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
   </nav>
 </header>
 
 <main class="main-container">
-  <h1 class="titulo-pagina">CRIAR PROJETO</h1>
+  <h1 class="titulo-pagina">Criar Projeto</h1>
 
-  <!-- Formulário começa aqui -->
   <form method="POST" action="salvar-projeto.php" enctype="multipart/form-data">
     <section class="secao-inicial">
       <div class="informacoes-iniciais">
@@ -186,173 +188,21 @@
         placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)."
         class="textarea-feedback"
       ></textarea>
-    </section>
-
-    <section class="secao-feedback">
-      <div class="titulo-secao">
-        <h2>Agenda</h2>
-        <div class="linha-preta"></div>
-      </div>
-      <textarea
-        name="agenda"
-        style="resize: vertical"
-        placeholder="Digite a data de algum projeto que irá acontecer..."
-        class="textarea-feedback"
-      ></textarea>
       <button type="submit" class="botao-confirmar">Confirmar</button>
     </section>
   </form>
-  <!-- Fim do formulário -->
-
 </main>
 
 <footer class="footer-container">
   <div class="footer-topo">
     <div class="footer-logo-container">
-      <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes" />
+      <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
     </div>
   </div>
   <div class="linha-branca-footer"></div>
-  <div class="footer-links-container">
-    <div class="footer-links-box">
-      <h3>Site</h3>
-      <a href="#">Página Inicial</a>
-      <a href="#">Agenda</a>
-      <a href="#">Edições</a>
-    </div>
-    <div class="footer-links-box">
-      <h3>Redes Sociais</h3>
-      <a href="#">Instagram</a>
-      <a href="#">YouTube</a>
-      <a href="#">Facebook</a>
-    </div>
-    <div class="footer-links-box">
-      <h3>Contato</h3>
-      <a href="#">E-mail</a>
-      <a href="#">Telefone</a>
-      <a href="#">Endereço</a>
-    </div>
-  </div>
-  <div class="footer-baixo">
-    <p>© 2025 Cinelentes. Todos os direitos reservados.</p>
+  <div class="linha-preta-footer">
+    <p class="footer-direitos">Todos os direitos reservados.</p>
   </div>
 </footer>
-
-<script>
-  // Função para abrir e fechar dropdown
-  function myFunction() {
-    const dropdown = document.getElementById("myDropdown");
-    dropdown.classList.toggle("show");
-  }
-
-  window.onclick = function (event) {
-    if (!event.target.matches('.dropbtn')) {
-      const dropdowns = document.getElementsByClassName("dropdown-content");
-      for (const dropdown of dropdowns) {
-        if (dropdown.classList.contains('show')) {
-          dropdown.classList.remove('show');
-        }
-      }
-    }
-  };
-
-  // Minimizar cards
-  function minimizeCard(id) {
-    const card = document.getElementById(id);
-    if (!card) return;
-    const content = card.querySelector(".card-content");
-    if (content.style.display === "none") {
-      content.style.display = "block";
-    } else {
-      content.style.display = "none";
-    }
-  }
-
-  // Botões de upload que disparam o input escondido
-  document.querySelectorAll('button.botao-upload[data-type]').forEach(button => {
-    button.addEventListener('click', () => {
-      const targetId = button.getAttribute('data-target');
-      const inputFile = document.getElementById(targetId);
-      if (inputFile) {
-        inputFile.click();
-      }
-    });
-  });
-
-  // Mostrar nome dos arquivos selecionados
-  function updateFileName(input, displayId) {
-    const display = document.getElementById(displayId);
-    if (!display) return;
-    if (!input.files || input.files.length === 0) {
-      display.textContent = '';
-      return;
-    }
-    if (input.files.length === 1) {
-      display.textContent = input.files[0].name;
-    } else {
-      display.textContent = `${input.files.length} arquivos selecionados`;
-    }
-  }
-
-  // Atualiza nomes para todos inputs file
-  document.querySelectorAll('input[type=file]').forEach(input => {
-    input.addEventListener('change', () => {
-      updateFileName(input, input.id + '-name');
-    });
-  });
-
-  // Upload por link (prompt modal com SweetAlert)
-  document.querySelectorAll('button.botao-upload[data-action="link"]').forEach(button => {
-    button.addEventListener('click', async () => {
-      const linkType = button.getAttribute('data-link-type') || 'vídeo';
-      const containerId = button.getAttribute('data-container-id');
-      if (!containerId) return;
-
-      const { value: url } = await Swal.fire({
-        title: `Coloque o link do ${linkType}`,
-        input: 'url',
-        inputLabel: `Link do ${linkType}:`,
-        inputPlaceholder: `Digite ou cole o link do ${linkType}`,
-        showCancelButton: true,
-        inputValidator: (value) => {
-          if (!value) {
-            return 'Você precisa colocar um link!';
-          }
-          try {
-            new URL(value);
-          } catch {
-            return 'Por favor, coloque uma URL válida!';
-          }
-        }
-      });
-
-      if (url) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        // Limpa preview anterior
-        container.innerHTML = '';
-
-        // Detecta tipo de mídia: vídeo ou música (áudio)
-        if (linkType.toLowerCase().includes('música') || linkType.toLowerCase().includes('musica')) {
-          // áudio
-          const audio = document.createElement('audio');
-          audio.controls = true;
-          audio.src = url;
-          audio.style.maxWidth = '100%';
-          container.appendChild(audio);
-        } else {
-          // vídeo
-          const video = document.createElement('video');
-          video.controls = true;
-          video.src = url;
-          video.style.maxWidth = '100%';
-          container.appendChild(video);
-        }
-      }
-    });
-  });
-</script>
-
 </body>
 </html>
