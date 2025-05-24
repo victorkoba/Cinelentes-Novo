@@ -56,23 +56,63 @@ $conexao->close();
   </div>
 </div>
 <body>
-  <header class="header-geral">
-    <h1 class="sesi-senai">SESI | SENAI</h1>
-    <img id="logo-header" src="./img/logo-cinelentes-novo.png" alt="">
-    <nav>
-      <a href="#" class="link-animado">INÍCIO</a>
-      <div class="dropdown">
-        <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
-        <div id="myDropdown" class="dropdown-content">
-          <a href="./php/edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
-          <a href="./php/edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
-          <a href="./php/edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
-        </div>
+<header class="header-geral">
+  <h1 class="sesi-senai">SESI | SENAI</h1>
+  <img id="logo-header" src="./img/logo-cinelentes-novo.png" alt="">
+
+  <!-- Botão hamburguer para mobile -->
+  <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav id="nav-menu">
+    <a href="#" class="link-animado">INÍCIO</a>
+    <div class="dropdown">
+      <a href="#" class="dropbtn link-animado">EDIÇÕES</a>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="./php/edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
+        <a href="./php/edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
+        <a href="./php/edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
       </div>
-      <a href="./php/quem-somos.php" class="link-animado">QUEM SOMOS</a>
-      <a href="#grid-agenda" class="link-animado">AGENDA</a>
-    </nav>
-  </header>
+    </div>
+    <a href="./php/quem-somos.php" class="link-animado">QUEM SOMOS</a>
+    <a href="#grid-agenda" class="link-animado">AGENDA</a>
+  </nav>
+</header>
+<script>
+  const hamburguer = document.getElementById('hamburguer');
+const navMenu = document.getElementById('nav-menu');
+const dropdownBtn = document.querySelector('.dropbtn');
+const dropdownContent = document.getElementById('myDropdown');
+
+hamburguer.addEventListener('click', () => {
+  const isOpen = navMenu.classList.toggle('show');
+  hamburguer.setAttribute('aria-expanded', isOpen);
+  
+  // Alterna classe 'open' para animação do botão
+  hamburguer.classList.toggle('open');
+
+  // Fecha dropdown quando abrir/fechar menu
+  dropdownContent.classList.remove('show');
+});
+
+// Dropdown toggle mobile
+dropdownBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  dropdownContent.classList.toggle('show');
+});
+
+// Fecha dropdown se clicar fora
+window.addEventListener('click', function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    dropdownContent.classList.remove('show');
+  }
+});
+
+</script>
+
   <main>
         <!-- Introdução -->
         <div id="grid-introducao">
@@ -108,7 +148,7 @@ $conexao->close();
                 <img  class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="" >
                 <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
                 <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="">
-                <img class="galeria-itens galeria-item-4" src="./img/img-mes-trabalho.jpg"  data-index="4" alt="">
+                <img class="galeria-itens galeria-item-4" src="./img/img-povos-originarios.jpg"  data-index="4" alt="">
                 <img class="galeria-itens galeria-item-5" src="./img/img-mes-mulher-foto3.jpg"  data-index="5" alt="">
                 <div class="galeria-controls"></div>
               </div>
@@ -145,6 +185,7 @@ $conexao->close();
     </main>
   <footer class="footer-container">
     <div class="footer-topo">
+      
       <div class="div-vazia"></div>
       <div class="footer-logo-container">
         <img id="logo-cinelentes-footer" src="./img/logo-cinelentes-novo.png" alt="Cinelentes">

@@ -205,3 +205,205 @@ footer {
 .titulo-agenda{
   display: flex;
 }
+
+
+#hamburguer {
+  display: none; 
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 20;
+}
+
+#hamburguer:focus {
+  outline: none;
+}
+
+#hamburguer .bar {
+  width: 100%;
+  height: 3px;
+  background-color: #f5e9d4;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+nav#nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Mobile */
+@media (max-width: 818px) {
+  #hamburguer {
+    display: flex;
+  }
+
+  nav#nav-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #000;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4rem 1rem 1rem;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 15;
+    display: flex;
+  }
+
+  nav#nav-menu.show {
+    transform: translateX(0);
+  }
+
+  nav#nav-menu a,
+  nav#nav-menu .dropbtn {
+    font-size: 1.2rem;
+    width: 100%;
+    color: #f5e9d4; 
+    text-decoration: none;
+  }
+
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+    background-color: transparent;
+    margin-top: 0;
+    display: none; 
+    padding-left: 15px;
+  }
+
+  .dropdown-content.show {
+    display: block;
+  }
+}
+
+@media (max-width: 857px) {
+  .header-geral {
+    flex-direction: column;      
+    align-items: center;         
+    gap: 1rem;                   
+    padding: 1rem;               
+  }
+
+  .sesi-senai {
+    text-align: center;
+    margin-bottom: 0.5rem; 
+  }
+
+  #logo-header {
+    width: 120px; 
+    margin-bottom: 0.5rem;
+  }
+
+  nav#nav-menu {
+    width: 60%; 
+    padding-left: 5;
+  }
+
+  #hamburguer {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 25; 
+  }
+  
+}
+
+#hamburguer.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+#hamburguer.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburguer.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 768px) {
+  /* Ajusta header geral para coluna */
+  .header-geral {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  /* Logo menor e centralizado */
+  #logo-header {
+    width: 120px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Título SESI SENAI centralizado */
+  .sesi-senai {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  
+
+  /* Links maiores para toque */
+  nav#nav-menu a,
+  nav#nav-menu .dropbtn {
+    font-size: 1.2rem;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  /* Dropdown fica dentro do menu */
+  .dropdown-content {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    padding-left: 15px;
+  }
+
+  /* Footer responsivo */
+  .footer-topo {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .footer-logo-container img {
+    width: 120px; /* Ajusta tamanho do logo */
+  }
+
+  .botao-login {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .div-vazia {
+    display: none; 
+  }
+
+  footer hr {
+    width: 80%;
+    margin: 1rem auto;
+  }
+
+  .footer-direitos {
+    text-align: center;
+    font-size: 0.9rem;
+    padding-bottom: 1rem;
+  }
+}
