@@ -7,43 +7,72 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   die("Acesso inválido.");
 }
 
-// Sanitize
+// Função utilitária para salvar arquivos
+function saveUploadFile($inputName, $destFolder, $multiple = true) {
+  if (!isset($_FILES[$inputName])) return [];
+
+  $files = $_FILES[$inputName];
+  $savedPaths = [];
+
+  // Garante que a pasta exista
+  if (!is_dir($destFolder)) {
+    mkdir($destFolder, 0775, true);
+  }
+
+  // Se múltiplos arquivos
+  if ($multiple && is_array($files['tmp_name'])) {
+    foreach ($files['tmp_name'] as $index => $tmpName) {
+      if ($files['error'][$index] === UPLOAD_ERR_OK) {
+        $originalName = basename($files['name'][$index]);
+        $safeName = uniqid() . '-' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $originalName);
+        $targetPath = "$destFolder/$safeName";
+        if (move_uploaded_file($tmpName, $targetPath)) {
+          $savedPaths[] = $targetPath;
+        }
+      }
+    }
+  } else {
+    // Arquivo único
+    if ($files['error'] === UPLOAD_ERR_OK) {
+      $originalName = basename($files['name']);
+      $safeName = uniqid() . '-' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $originalName);
+      $targetPath = "$destFolder/$safeName";
+      if (move_uploaded_file($files['tmp_name'], $targetPath)) {
+        $savedPaths[] = $targetPath;
+      }
+    }
+  }
+
+  return $savedPaths;
+}
+
+// Sanitização dos dados do formulário
 $titulo = $_POST['titulo'] ?? '';
 $descricao = $_POST['conteudo'] ?? '';
 $habilidades = $_POST['habilidades'] ?? '';
 $feedback = $_POST['feedback'] ?? '';
-$edicao = 2023; // default
+$edicao = isset($_POST['edicao']) ? (int)$_POST['edicao'] : 2023;
 
-// Captura links de músicas
 $musicas = json_encode([
   $_POST['musica1'] ?? '',
   $_POST['musica2'] ?? '',
   $_POST['musica3'] ?? ''
 ]);
 
-// Helper: retorna conteúdo de arquivo ou null
-function getFileData($inputName) {
-  if (!isset($_FILES[$inputName]) || $_FILES[$inputName]['error'] !== UPLOAD_ERR_OK) return null;
-  return file_get_contents($_FILES[$inputName]['tmp_name']);
-}
+// Processamento dos uploads
+$fotos = saveUploadFile('fotos', '../uploads/fotos'); // múltiplos
+$videos = saveUploadFile('videos', '../uploads/videos'); // múltiplos
+$curta = saveUploadFile('curta', '../uploads/curtas', false); // único
+$video_final = saveUploadFile('final_video', '../uploads/curtas', false); // único
 
-// Fotos (múltiplas) - apenas primeira junta
-$fotos = '';
-if (!empty($_FILES['fotos']['tmp_name'][0])) {
-  $fotos = file_get_contents($_FILES['fotos']['tmp_name'][0]); // Apenas 1 por agora
-}
-
-// Vídeos (múltiplos)
-$videos = '';
-if (!empty($_FILES['videos']['tmp_name'][0])) {
-  $videos = file_get_contents($_FILES['videos']['tmp_name'][0]);
-}
-
-$video_final = getFileData('final_video');
-$curta = getFileData('curta');
+// Codificação para salvar no banco
+$fotosJson = json_encode($fotos);
+$videosJson = json_encode($videos);
+$curtaPath = $curta[0] ?? null;
+$videoFinalPath = $video_final[0] ?? null;
 
 try {
-  $stmt = $conn->prepare("INSERT INTO acervos 
+  $stmt = $conexao->prepare("INSERT INTO acervos 
     (titulo, descricao, video_final, fotos, videos, curtas, musicas, habilidades, feedback, edicao)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -51,10 +80,10 @@ try {
     'sssssssssi',
     $titulo,
     $descricao,
-    $video_final,
-    $fotos,
-    $videos,
-    $curta,
+    $videoFinalPath,
+    $fotosJson,
+    $videosJson,
+    $curtaPath,
     $musicas,
     $habilidades,
     $feedback,
