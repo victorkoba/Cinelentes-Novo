@@ -36,7 +36,7 @@ $projeto = $result->fetch_assoc();
 
 <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-    <img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="">
+  <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
     <nav>
       <a href="../index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">

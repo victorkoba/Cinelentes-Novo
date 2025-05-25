@@ -26,11 +26,12 @@
 }
 
 .botao-criar-projeto {
-  background-color: #028A0F;
-  color: #fff;
+  background-color: #f5e9d4;
+  color: #000;
   border: none;
   padding: 10px 20px;
   border-radius: 30px;
+  font-weight: 600;
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s;
@@ -38,8 +39,8 @@
 }
 
 .botao-criar-projeto:hover {
-  background-color: #026c0c;
-  transform: scale(1.05);
+  background-color: #ffdea4;
+  transition: 0.7s;
 }
 
 /* ============================== */
