@@ -2,8 +2,8 @@
 include 'conexao.php';
 
 if (!isset($_GET['id'])) {
-    echo "Projeto não encontrado.";
-    exit;
+  echo "Projeto não encontrado.";
+  exit;
 }
 
 $id = intval($_GET['id']);
@@ -14,8 +14,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
-    echo "Projeto não encontrado.";
-    exit;
+  echo "Projeto não encontrado.";
+  exit;
 }
 
 $projeto = $result->fetch_assoc();
@@ -23,6 +23,7 @@ $projeto = $result->fetch_assoc();
 
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,13 +31,14 @@ $projeto = $result->fetch_assoc();
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/ver-projeto.css">
   <script src="../js/main.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body class="body-pagina-inicial">
 
-<header class="header-geral">
+  <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-  <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
+    <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
     <nav>
       <a href="../index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
@@ -52,26 +54,46 @@ $projeto = $result->fetch_assoc();
     </nav>
   </header>
 
-<main class="main-projeto">
-  <h1><?php echo htmlspecialchars($projeto['titulo']); ?></h1>
-  <p><strong>Descrição:</strong><br><?php echo nl2br(htmlspecialchars($projeto['descricao'])); ?></p>
+  <main class="main-projeto">
+    <h1><?php echo htmlspecialchars($projeto['titulo']); ?></h1>
+    <p><strong>Descrição:</strong><br><?php echo nl2br(htmlspecialchars($projeto['descricao'])); ?></p>
 
-  <?php if ($projeto['fotos'] !== 'Sem foto'): ?>
-    <p><strong>Foto:</strong><br><img src="<?php echo $projeto['fotos']; ?>" alt="Foto"></p>
-  <?php endif; ?>
+    <?php
+    // Decodificando JSON das fotos e exibindo cada imagem
+    $fotosArray = json_decode($projeto['fotos'], true);
+    if ($fotosArray && is_array($fotosArray)) {
+      echo "<p><strong>Fotos:</strong><br>";
+      foreach ($fotosArray as $foto) {
+        echo '<img src="' . htmlspecialchars($foto) . '" alt="Foto" style="max-width:300px; margin: 10px;">';
+      }
+      echo "</p>";
+    }
+    ?>
 
-  <?php if ($projeto['videos'] !== 'Sem vídeo'): ?>
-    <p><strong>Vídeo:</strong><br><a href="<?php echo $projeto['videos']; ?>" target="_blank"><?php echo $projeto['videos']; ?></a></p>
-  <?php endif; ?>
+    <?php
+    // Decodificando JSON dos vídeos e exibindo os links
+    $videosArray = json_decode($projeto['videos'], true);
+    if ($videosArray && is_array($videosArray)) {
+      echo "<p><strong>Vídeos:</strong><br>";
+      foreach ($videosArray as $video) {
+        echo '<video controls width="400" style="margin: 10px;">
+            <source src="' . htmlspecialchars($video) . '" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+          </video><br>';
+      }
+      echo "</p>";
+    }
+    ?>
 
-  <?php if ($projeto['curtas'] !== 'Sem curta'): ?>
-    <p><strong>Curta:</strong><br><video controls width="400">
-        <source src="<?php echo $projeto['curtas']; ?>" type="video/mp4">
-        Seu navegador não suporta o elemento de vídeo.
-    </video></p>
-  <?php endif; ?>
 
-  <p><strong>Músicas:</strong><br>
+    <?php if ($projeto['curtas'] !== 'Sem curta'): ?>
+      <p><strong>Curta:</strong><br><video controls width="400">
+          <source src="<?php echo $projeto['curtas']; ?>" type="video/mp4">
+          Seu navegador não suporta o elemento de vídeo.
+        </video></p>
+    <?php endif; ?>
+
+    <p><strong>Músicas:</strong><br>
     <ul>
       <?php
       $musicas = json_decode($projeto['musicas']);
@@ -80,31 +102,32 @@ $projeto = $result->fetch_assoc();
       }
       ?>
     </ul>
-  </p>
+    </p>
 
-  <p><strong>Habilidades:</strong><br><?php echo htmlspecialchars($projeto['habilidades']); ?></p>
-  <p><strong>Feedback:</strong><br><?php echo htmlspecialchars($projeto['feedback']); ?></p>
+    <p><strong>Habilidades:</strong><br><?php echo htmlspecialchars($projeto['habilidades']); ?></p>
+    <p><strong>Feedback:</strong><br><?php echo htmlspecialchars($projeto['feedback']); ?></p>
 
     <a href="../index.php" class="btn-voltar-card">
       <i class="fas fa-arrow-left"></i> Voltar para página inicial
     </a>
-</main>
+  </main>
   <footer class="footer-container">
     <div class="footer-topo">
-        <div class="div-vazia"></div>
-        <div class="footer-logo-container">
-            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
-        </div>
-        <div class="botao-login-container">
-            <a href="login.php" class="botao-login">Login Administrador</a>
-        </div>
+      <div class="div-vazia"></div>
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
+      </div>
+      <div class="botao-login-container">
+        <a href="login.php" class="botao-login">Login Administrador</a>
+      </div>
     </div>
 
     <div class="linha-branca-footer"></div>
 
     <div class="linha-preta-footer">
-        <p class="footer-direitos">Todos os direitos reservados.</p>
+      <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
-</footer>
+  </footer>
 </body>
+
 </html>

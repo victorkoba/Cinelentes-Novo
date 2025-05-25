@@ -42,7 +42,9 @@
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
       $titulo = $row['titulo'];
-      $foto = $row['fotos'];
+      $fotosJson = $row['fotos'];
+      $fotosArray = json_decode($fotosJson, true);
+      $foto = isset($fotosArray[0]) ? $fotosArray[0] : '../img/img-icon-avatar.png'; 
       $descricao = $row['descricao'];
       $id = $row['id_acervo']; // Supondo que exista uma coluna ID
       echo '
