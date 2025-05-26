@@ -61,44 +61,70 @@ if ($result->num_rows === 0) {
 }
 $projeto = $result->fetch_assoc();
 
-$fotosNovas = saveUploadFile('fotos', '../uploads/fotos');
-$videosNovos = saveUploadFile('videos', '../uploads/videos');
-$curtaNovo = saveUploadFile('curta', '../uploads/curtas', false);
+// Após recuperar os dados antigos do projeto:
+$excluirFotos = $_POST['excluir_fotos'] ?? [];
+$excluirVideos = $_POST['excluir_videos'] ?? [];
+$excluirCurta = isset($_POST['excluir_curta']);
 
-// Concatena mídias antigas com novas
-$fotosFinais = array_merge(json_decode($projeto['fotos'], true) ?: [], $fotosNovas);
-$videosFinais = array_merge(json_decode($projeto['videos'], true) ?: [], $videosNovos);
-$curtaFinal = !empty($curtaNovo) ? $curtaNovo[0] : $projeto['curtas'];
+$fotosAtuais = json_decode($projeto['fotos'], true) ?: [];
+$videosAtuais = json_decode($projeto['videos'], true) ?: [];
+$curtaAtual = $projeto['curtas'] ?? null;
 
-// Atualiza no banco
-try {
-  $stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, video_final=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+// Remove as fotos marcadas
+$fotosFiltradas = array_filter($fotosAtuais, function($f) use ($excluirFotos) {
+  return !in_array($f, $excluirFotos);
+});
 
-  $fotosJson = json_encode($fotosFinais);
-  $videosJson = json_encode($videosFinais);
+// Remove os vídeos marcados
+$videosFiltradas = array_filter($videosAtuais, function($v) use ($excluirVideos) {
+  return !in_array($v, $excluirVideos);
+});
 
-  $stmt->bind_param(
-    'ssssssssii',
-    $titulo,
-    $descricao,
-    $curtaFinal,
-    $fotosJson,
-    $videosJson,
-    $curtaFinal,
-    $habilidades,
-    $feedback,
-    $edicao,
-    $id
-  );
+// Remove o curta, se solicitado
+$curtaFinal = $excluirCurta ? null : $curtaAtual;
 
-  $stmt->execute();
-
-  echo "<script>
-    alert('Projeto atualizado com sucesso!');
-    window.location.href = 'ver-projeto.php?id=$id';
-  </script>";
-
-} catch (Exception $e) {
-  echo "Erro ao atualizar: " . $e->getMessage();
+// ⚠️ (opcional) Deleta os arquivos físicos
+foreach ($excluirFotos as $f) {
+  if (file_exists($f)) unlink($f);
 }
-?>
+foreach ($excluirVideos as $v) {
+  if (file_exists($v)) unlink($v);
+}
+if ($excluirCurta && file_exists($curtaAtual)) {
+  unlink($curtaAtual);
+}
+
+// Uploads novos
+$fotosNovas = saveUploadFile('fotos', '../uploads/fotos');
+$videosNovas = saveUploadFile('videos', '../uploads/videos');
+$curtaNova = saveUploadFile('curta', '../uploads/curtas', false);
+
+$fotosFinais = array_merge($fotosFiltradas, $fotosNovas);
+$videosFinais = array_merge($videosFiltradas, $videosNovas);
+if (!empty($curtaNova)) $curtaFinal = $curtaNova[0];
+
+$fotosJson = json_encode($fotosFinais);
+$videosJson = json_encode($videosFinais);
+
+// Atualização final
+$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, video_final=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+$stmt->bind_param(
+  'ssssssssii',
+  $titulo,
+  $descricao,
+  $curtaFinal,
+  $fotosJson,
+  $videosJson,
+  $curtaFinal,
+  $habilidades,
+  $feedback,
+  $edicao,
+  $id
+);
+
+$stmt->execute();
+
+echo "<script>
+  alert('Projeto atualizado com sucesso!');
+  window.location.href = 'ver-projeto.php?id=$id';
+</script>";

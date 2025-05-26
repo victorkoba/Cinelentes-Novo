@@ -23,6 +23,7 @@ $videos = json_decode($projeto['videos'], true);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,10 +33,11 @@ $videos = json_decode($projeto['videos'], true);
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body class="body-pagina-inicial">
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-  <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
+    <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
     <nav>
       <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
@@ -48,134 +50,156 @@ $videos = json_decode($projeto['videos'], true);
       </div>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
       <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
-        <script>
-          document.getElementById("botao-logout").addEventListener("click", function (e) {
-              e.preventDefault();
+      <script>
+        document.getElementById("botao-logout").addEventListener("click", function(e) {
+          e.preventDefault();
 
-              Swal.fire({
-                  title: "Deseja sair da conta?",
-                  text: "Você precisará fazer login novamente para continuar.",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Sim, sair"
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      window.location.href = "logout.php";
-                  }
-              });
+          Swal.fire({
+            title: "Deseja sair da conta?",
+            text: "Você precisará fazer login novamente para continuar.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, sair"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "logout.php";
+            }
           });
-        </script>
+        });
+      </script>
     </nav>
   </header>
 
-<main class="main-container">
-  <h1 class="titulo-pagina">Editar Projeto</h1>
+  <main class="main-container">
+    <h1 class="titulo-pagina">Editar Projeto</h1>
 
-  <form method="POST" action="atualizar-projeto.php" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?php echo $projeto['id_acervo']; ?>" />
+    <form method="POST" action="atualizar-projeto.php" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<?php echo $projeto['id_acervo']; ?>" />
 
-    <!-- Título e descrição -->
-    <div class="informacoes-iniciais">
-      <input type="text" name="titulo" value="<?php echo htmlspecialchars($projeto['titulo']); ?>" class="input-titulo-projeto" required />
-      <div class="linha-preta"></div>
-      <textarea name="conteudo" class="textarea-conteudo-projeto" required><?php echo htmlspecialchars($projeto['descricao']); ?></textarea>
-    </div>
-
-    <!-- Seleção de edição -->
-    <div class="select-edicao-container">
-      <label for="edicao">Edição:</label>
-      <select name="edicao" id="edicao" required>
-        <option value="2023" <?php if ($projeto['edicao'] == 2023) echo 'selected'; ?>>2023</option>
-        <option value="2024" <?php if ($projeto['edicao'] == 2024) echo 'selected'; ?>>2024</option>
-        <option value="2025" <?php if ($projeto['edicao'] == 2025) echo 'selected'; ?>>2025</option>
-      </select>
-    </div>
-
-    <!-- Habilidades e feedback -->
-    <section class="secao-habilidades">
-      <div class="titulo-secao">
-        <h2>Habilidades desenvolvidas</h2>
+      <!-- Título e descrição -->
+      <div class="informacoes-iniciais">
+        <input type="text" name="titulo" value="<?php echo htmlspecialchars($projeto['titulo']); ?>" class="input-titulo-projeto" required />
         <div class="linha-preta"></div>
+        <textarea name="conteudo" class="textarea-conteudo-projeto" required><?php echo htmlspecialchars($projeto['descricao']); ?></textarea>
       </div>
-      <textarea name="habilidades" class="textarea-habilidades"><?php echo htmlspecialchars($projeto['habilidades']); ?></textarea>
-    </section>
 
-    <section class="secao-feedback">
-      <div class="titulo-secao">
-        <h2>Feedback</h2>
-        <div class="linha-preta"></div>
+      <!-- Seleção de edição -->
+      <div class="select-edicao-container">
+        <label for="edicao">Edição:</label>
+        <select name="edicao" id="edicao" required>
+          <option value="2023" <?php if ($projeto['edicao'] == 2023) echo 'selected'; ?>>2023</option>
+          <option value="2024" <?php if ($projeto['edicao'] == 2024) echo 'selected'; ?>>2024</option>
+          <option value="2025" <?php if ($projeto['edicao'] == 2025) echo 'selected'; ?>>2025</option>
+        </select>
       </div>
-      <textarea name="feedback" class="textarea-feedback"><?php echo htmlspecialchars($projeto['feedback']); ?></textarea>
-    </section>
 
-    <!-- Mostrar preview das mídias -->
-    <section class="secao-conteudo">
-  <div class="titulo-secao">
-    <h2>Atualizar Conteúdo</h2>
-    <div class="linha-preta"></div>
-  </div>
+      <!-- Habilidades e feedback -->
+      <section class="secao-habilidades">
+        <div class="titulo-secao">
+          <h2>Habilidades desenvolvidas</h2>
+          <div class="linha-preta"></div>
+        </div>
+        <textarea name="habilidades" class="textarea-habilidades"><?php echo htmlspecialchars($projeto['habilidades']); ?></textarea>
+      </section>
 
-  <!-- Upload de novas fotos -->
-  <div class="upload-buttons">
-    <p><strong>Nova(s) Foto(s):</strong></p>
-    <input type="file" name="fotos[]" multiple accept="image/*" />
-  </div>
+      <section class="secao-feedback">
+        <div class="titulo-secao">
+          <h2>Feedback</h2>
+          <div class="linha-preta"></div>
+        </div>
+        <textarea name="feedback" class="textarea-feedback"><?php echo htmlspecialchars($projeto['feedback']); ?></textarea>
+      </section>
 
-  <!-- Upload de novos vídeos -->
-  <div class="upload-buttons">
-    <p><strong>Nova(s) Vídeo(s):</strong></p>
-    <input type="file" name="videos[]" multiple accept="video/*" />
-  </div>
+      <!-- Mostrar preview das mídias -->
+      <section class="secao-conteudo">
+        <div class="titulo-secao">
+          <h2>Atualizar Conteúdo</h2>
+          <div class="linha-preta"></div>
+        </div>
 
-  <!-- Upload de novo curta -->
-  <div class="upload-buttons">
-    <p><strong>Novo Curta:</strong></p>
-    <input type="file" name="curta" accept="video/*" />
-  </div>
+        <!-- Upload de novas fotos -->
+        <div class="upload-buttons">
+          <p><strong>Nova(s) Foto(s):</strong></p>
+          <input type="file" name="fotos[]" multiple accept="image/*" />
+        </div>
 
-  <!-- Exibição das mídias existentes -->
-  <div style="margin-top: 2rem;">
-    <p><strong>Fotos Atuais:</strong></p>
-    <?php if (!empty($fotos)): foreach ($fotos as $foto): ?>
-      <img src="<?php echo htmlspecialchars($foto); ?>" style="max-width:150px; margin:5px;">
-    <?php endforeach; endif; ?>
+        <!-- Upload de novos vídeos -->
+        <div class="upload-buttons">
+          <p><strong>Nova(s) Vídeo(s):</strong></p>
+          <input type="file" name="videos[]" multiple accept="video/*" />
+        </div>
 
-    <p><strong>Vídeos Atuais:</strong></p>
-    <?php if (!empty($videos)): foreach ($videos as $video): ?>
-      <video controls width="400" style="margin:10px;">
-        <source src="<?php echo htmlspecialchars($video); ?>" type="video/mp4">
-        Seu navegador não suporta o vídeo.
-      </video>
-    <?php endforeach; endif; ?>
+        <!-- Upload de novo curta -->
+        <div class="upload-buttons">
+          <p><strong>Novo Curta:</strong></p>
+          <input type="file" name="curta" accept="video/*" />
+        </div>
 
-    <p><strong>Curta Atual:</strong></p>
-    <?php if (!empty($projeto['curtas'])): ?>
-      <video controls width="400">
-        <source src="<?php echo htmlspecialchars($projeto['curtas']); ?>" type="video/mp4">
-        Seu navegador não suporta o vídeo.
-      </video>
-    <?php endif; ?>
-  </div>
-</section>
+        <!-- Exibição das mídias existentes -->
+        <!-- DENTRO DO FORM: substitua a seção de exibição de mídias por isto -->
+
+        <div style="margin-top: 2rem;">
+          <p><strong>Fotos Atuais:</strong></p>
+          <?php if (!empty($fotos)): foreach ($fotos as $index => $foto): ?>
+              <div style="display:inline-block; margin:5px; text-align:center;">
+                <img src="<?php echo htmlspecialchars($foto); ?>" style="max-width:150px;"><br>
+                <label>
+                  <input type="checkbox" name="excluir_fotos[]" value="<?php echo htmlspecialchars($foto); ?>">
+                  Remover
+                </label>
+              </div>
+          <?php endforeach;
+          endif; ?>
+
+          <p><strong>Vídeos Atuais:</strong></p>
+          <?php if (!empty($videos)): foreach ($videos as $index => $video): ?>
+              <div style="margin-bottom: 1rem;">
+                <video controls width="300">
+                  <source src="<?php echo htmlspecialchars($video); ?>" type="video/mp4">
+                </video><br>
+                <label>
+                  <input type="checkbox" name="excluir_videos[]" value="<?php echo htmlspecialchars($video); ?>">
+                  Remover
+                </label>
+              </div>
+          <?php endforeach;
+          endif; ?>
+
+          <p><strong>Curta Atual:</strong></p>
+          <?php if (!empty($projeto['curtas'])): ?>
+            <div style="margin-bottom:1rem;">
+              <video controls width="300">
+                <source src="<?php echo htmlspecialchars($projeto['curtas']); ?>" type="video/mp4">
+              </video><br>
+              <label>
+                <input type="checkbox" name="excluir_curta" value="1">
+                Remover curta
+              </label>
+            </div>
+          <?php endif; ?>
+        </div>
+
+      </section>
 
 
-    <button type="submit" class="botao-confirmar">Salvar Alterações</button>
-  </form>
-</main>
+      <button type="submit" class="botao-confirmar">Salvar Alterações</button>
+    </form>
+  </main>
 
-<footer class="footer-container">
-  <div class="footer-topo">
-    <div class="footer-logo-container">
-      <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
+  <footer class="footer-container">
+    <div class="footer-topo">
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
+      </div>
     </div>
-  </div>
-  <div class="linha-branca-footer"></div>
-  <div class="linha-preta-footer">
-    <p class="footer-direitos">Todos os direitos reservados.</p>
-  </div>
-</footer>
+    <div class="linha-branca-footer"></div>
+    <div class="linha-preta-footer">
+      <p class="footer-direitos">Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
 </body>
+
 </html>
