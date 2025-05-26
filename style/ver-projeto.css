@@ -128,47 +128,4 @@
     font-size: 22px;
   }
 }
-.carousel-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto 30px;
-  overflow: hidden;
-  border-radius: 12px;
-}
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-
-.carousel-image {
-  min-width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
-
-.carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: none;
-  padding: 12px;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-}
-
-.carousel-button.prev {
-  left: 10px;
-}
-
-.carousel-button.next {
-  right: 10px;
-}
-
-.carousel-button:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}

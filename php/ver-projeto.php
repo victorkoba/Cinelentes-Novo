@@ -87,20 +87,13 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 
     <!-- FOTOS -->
     <?php if (!empty($fotosArray)): ?>
-  <section>
-    <h2>Fotos</h2>
-    <div class="carousel-container">
-      <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="carousel-track">
+      <section>
+        <h2>Fotos</h2>
         <?php foreach ($fotosArray as $foto): ?>
-          <img class="carousel-image" src="<?= htmlspecialchars(stripslashes($foto)) ?>" alt="Foto do projeto">
+          <img src="<?php echo htmlspecialchars(stripslashes($foto)); ?>" alt="Foto do projeto" style="max-width: 300px; margin: 10px;">
         <?php endforeach; ?>
-      </div>
-      <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
-    </div>
-  </section>
-<?php endif; ?>
-
+      </section>
+    <?php endif; ?>
 
     <!-- VÍDEOS -->
     <?php if (!empty($videosArray)): ?>
@@ -153,6 +146,5 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
       <a class="btn-voltar-card" href="../index.php">Voltar</a>
     </div>
   </main>
-  
 </body>
 </html>
