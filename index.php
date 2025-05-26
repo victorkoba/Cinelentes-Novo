@@ -56,11 +56,10 @@ $conexao->close();
   </div>
 </div>
 <body>
-<header class="header-geral">
-  <h1 class="sesi-senai">SESI | SENAI</h1>
-  <img id="logo-header" src="./img/logo-cinelentes-novo.png" alt="">
-
-  <!-- Botão hamburguer para mobile -->
+  <header class="header-geral">
+    <h1 class="sesi-senai">SESI | SENAI</h1>
+    <img id="logo-header" src="./img/logo-cinelentes-novo.png" alt="">
+    <!-- Botão hamburguer para mobile -->
   <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
     <span class="bar"></span>
     <span class="bar"></span>
@@ -112,7 +111,7 @@ window.addEventListener('click', function(event) {
 });
 
 </script>
-
+  </header>
   <main>
         <!-- Introdução -->
         <div id="grid-introducao">
@@ -148,7 +147,7 @@ window.addEventListener('click', function(event) {
                 <img  class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="" >
                 <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
                 <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="">
-                <img class="galeria-itens galeria-item-4" src="./img/img-povos-originarios.jpg"  data-index="4" alt="">
+                <img class="galeria-itens galeria-item-4" src="./img/img-mes-trabalho.jpg"  data-index="4" alt="">
                 <img class="galeria-itens galeria-item-5" src="./img/img-mes-mulher-foto3.jpg"  data-index="5" alt="">
                 <div class="galeria-controls"></div>
               </div>
@@ -185,7 +184,6 @@ window.addEventListener('click', function(event) {
     </main>
   <footer class="footer-container">
     <div class="footer-topo">
-      
       <div class="div-vazia"></div>
       <div class="footer-logo-container">
         <img id="logo-cinelentes-footer" src="./img/logo-cinelentes-novo.png" alt="Cinelentes">
