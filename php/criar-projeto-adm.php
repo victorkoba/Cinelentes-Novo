@@ -37,7 +37,6 @@ include 'conexao.php';
         <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
       </div>
     </div>
-    <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
     <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
     <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
   </nav>
@@ -48,8 +47,8 @@ include 'conexao.php';
 
   <form method="POST" action="salvar-projeto.php" enctype="multipart/form-data">
     <div class="select-edicao-container">
-      <label for="edicao">Selecione a Edição:</label>
-      <select name="edicao" id="edicao" required>
+      <select class="select-edicao" name="edicao" id="edicao" required>
+        <option class="option-edicao" value="" disabled selected>Selecionar ano de edição</option>
         <option value="2023">Edição 2023</option>
         <option value="2024">Edição 2024</option>
         <option value="2025">Edição 2025</option>

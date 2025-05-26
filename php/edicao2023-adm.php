@@ -28,7 +28,6 @@
                     <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
                 </div>
             </div>
-            <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
             <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
             <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
             <script>
@@ -58,7 +57,6 @@
             <div class="titulo-acervo">
                 <div class="titulo-e-botao">
                     <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2023</h1>
-                    <a href="criar-projeto-adm.php" class="botao-criar-projeto">+ Criar Projeto</a>
                 </div>
                 <div class="linha-preta-acervo-titulo"></div>
             </div>

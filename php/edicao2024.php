@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinelentes</title>
-    <link rel="stylesheet" href="../style/style.css">
-    <link rel="stylesheet" href="../style/edicoes.css"> 
-    <script src="../js/main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinelentes</title>
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/edicoes.css">
+  <script src="../js/main.js"></script>
 </head>
+
 <body class="body-pagina-inicial">
-    
-<header class="header-geral">
+
+  <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-  <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
+    <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
     <nav>
       <a href="../index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
@@ -27,55 +29,62 @@
       <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
   </header>
-    <main class="main-acervos">
+  <main class="main-acervos">
     <section class="acervo">
       <div class="titulo-acervo">
         <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2024</h1>
-        <div class="linha-preta-acervo-titulo"></div>
       </div>
-
       <div class="cards">
-      <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-mulher-2024.jpg" alt="Festival Mês da Mulher">
-          <div class="card-text">7° Festival Cinelentes<br>Mês da Mulher</div>
-        </a>
+        <?php
+        include 'conexao.php';
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-povos-originarios-2024.jpg" alt="Festival Povos Originários">
-          <div class="card-text">8° Festival Cinelentes<br>Povos Originários</div>
-        </a>
+        $sql = "SELECT * FROM acervos WHERE edicao = 2024 ORDER BY id_acervo DESC";
+        $result = $conexao->query($sql);
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-cultura-coreana.jpg" alt="Festival Cultura Coreana">
-          <div class="card-text">9° Festival Cinelentes<br>Cultura Coreana</div>
-        </a>
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            $titulo = $row['titulo'];
+            $fotosJson = $row['fotos'];
+            $fotosArray = json_decode($fotosJson, true);
+            $foto = isset($fotosArray[0]) ? $fotosArray[0] : '../img/img-icon-avatar.png';
+            $descricao = $row['descricao'];
+            $id = $row['id_acervo']; // Supondo que exista uma coluna ID
+            echo '
+      <a href="ver-projeto.php?id=' . $id . '" class="card">
+        <img src="' . $foto . '" alt="' . htmlspecialchars($titulo) . '">
+        <div class="card-text">' . htmlspecialchars($titulo) . '</div>
+      </a>
+      ';
+          }
+        } else {
+          echo "<p>Sem projetos cadastrados ainda.</p>";
+        }
 
-        <a href="mes-mulher.php" class="card">
-          <img src="../img/img-mes-comunicacao-nao-violenta-2024.jpg" alt="Festival Comunicação não Violenta">
-          <div class="card-text">10° Festival Cinelentes<br>Comunicação não Violenta</div>
-        </a>
+        $conexao->close();
+        ?>
       </div>
+
     </section>
   </main>
 
   <footer class="footer-container">
     <div class="footer-topo">
-        <div class="div-vazia"></div>
-        <div class="footer-logo-container">
-            <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
-        </div>
-
-        <div class="botao-login-container">
-            <a href="login.php" class="botao-login">Login Administrador</a>
-        </div>
+      <div class="div-vazia"></div>
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
+      </div>
+      <div class="botao-login-container">
+        <a href="login.php" class="botao-login">Login Administrador</a>
+      </div>
     </div>
 
     <div class="linha-branca-footer"></div>
 
     <div class="linha-preta-footer">
-        <p class="footer-direitos">Todos os direitos reservados.</p>
+      <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
-</footer>
+  </footer>
 
 </body>
+
 </html>

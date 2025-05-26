@@ -38,7 +38,7 @@
         <?php
         include 'conexao.php';
 
-        $sql = "SELECT * FROM acervos ORDER BY id_acervo DESC";
+        $sql = "SELECT * FROM acervos WHERE edicao = 2023 ORDER BY id_acervo DESC";
         $result = $conexao->query($sql);
 
         if ($result->num_rows > 0) {

@@ -106,9 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </header>
 
   <main>
+    <div class="container-botao-criar">
+      <a href="criar-projeto-adm.php" class="botao-criar-projeto">+ Criar Projeto</a>
+    </div>
     <div id="grid-agenda">
-      <div id="titulo">
-        <h1 class="titulo-pagina-inicial">Criar Agenda</h1>
+      <div id="titulo-adm">
+        <h1 class="titulo-pagina-inicial-adm">Criar Agenda</h1>
       </div>
       <div class="container-form">
         <h1 class="titulo-form">Inserir uma nova data de evento</h1>

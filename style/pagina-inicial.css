@@ -134,6 +134,15 @@ body {
   font-size: 32px;
 }
 
+.titulo-pagina-inicial-adm{
+  display: flex;
+  justify-content: center;
+}
+
+#titulo-adm{
+    margin-top: 50px;
+}
+
 .introducao-texto {
   margin-left: 100px;
   margin-top: 7px;
@@ -395,5 +404,31 @@ body {
 }
 
 .button-entrar:hover {
-  background-color: rgba(245, 233, 212, 0.5);
+  transition: 0.7s;
+  background-color: #ffdea4;
+}
+
+.container-botao-criar{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.botao-criar-projeto {
+  background-color: #f5e9d4;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s;
+  text-decoration: none;
+}
+
+.botao-criar-projeto:hover {
+  background-color: #ffdea4;
+  transition: 0.7s;
 }

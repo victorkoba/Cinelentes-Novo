@@ -39,20 +39,19 @@ $feedbacksArray = explode('||', $projeto['feedback']);
 <body>
     <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-  <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
+  <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
     <nav>
-      <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
+      <a href="../index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
-          <a href="edicao2023-adm.php" class="link-animado">EDIÇÃO 2023</a>
-          <a href="edicao2024-adm.php" class="link-animado">EDIÇÃO 2024</a>
-          <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
+          <a href="edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
+          <a href="edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
+          <a href="edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="#grid-agenda" class="link-animado">AGENDA</a>
-      <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
-      <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+      <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
+      <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
         <script>
           document.getElementById("botao-logout").addEventListener("click", function (e) {
               e.preventDefault();
@@ -81,7 +80,6 @@ $feedbacksArray = explode('||', $projeto['feedback']);
         <h1><?php echo htmlspecialchars($projeto['titulo']); ?></h1>
         <p><?php echo nl2br(htmlspecialchars($projeto['descricao'])); ?></p>
         <p><strong>Data de Realização:</strong> <?php echo date("d/m/Y", strtotime($projeto['data_criacao'])); ?></p>
-        <p><a href="#">Clique aqui para poder se inscrever no nosso projeto.</a></p>
       </div>
 
       <div class="projeto-video">
