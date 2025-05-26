@@ -18,12 +18,11 @@ if (!$projeto) {
   echo "Projeto não encontrado.";
   exit;
 }
-// Divide os dados em arrays
-$fotosArray = explode(',', $projeto['fotos']);
-$videosArray = explode(',', $projeto['videos']);
-$musicasArray = explode(',', $projeto['musicas']);
-$habilidadesArray = explode(',', $projeto['habilidades']);
-$feedbacksArray = explode('||', $projeto['feedback']);
+
+$fotosArray = json_decode($projeto['fotos'], true) ?: [];
+$videosArray = json_decode($projeto['videos'], true) ?: [];
+$habilidadesArray = explode(',', $projeto['habilidades'] ?? '');
+$feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 ?>
 
 <!DOCTYPE html>
@@ -33,13 +32,12 @@ $feedbacksArray = explode('||', $projeto['feedback']);
   <title><?php echo htmlspecialchars($projeto['titulo']); ?> - Projeto</title>
   <link rel="stylesheet" href="../style/ver-projeto.css">
   <link rel="stylesheet" href="../style/style.css">
-  <script src="../js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <header class="header-geral">
+  <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-  <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
+    <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
     <nav>
       <a href="../index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
@@ -52,27 +50,9 @@ $feedbacksArray = explode('||', $projeto['feedback']);
       </div>
       <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
       <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
-        <script>
-          document.getElementById("botao-logout").addEventListener("click", function (e) {
-              e.preventDefault();
-
-              Swal.fire({
-                  title: "Deseja sair da conta?",
-                  text: "Você precisará fazer login novamente para continuar.",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Sim, sair"
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      window.location.href = "logout.php";
-                  }
-              });
-          });
-        </script>
     </nav>
   </header>
+
   <main class="main-projeto">
 
     <div class="projeto-topo">
@@ -87,60 +67,58 @@ $feedbacksArray = explode('||', $projeto['feedback']);
         if (!empty($projeto['curtas']) && $projeto['curtas'] !== 'Sem curta') {
           echo '<video controls>
                   <source src="' . htmlspecialchars($projeto['curtas']) . '" type="video/mp4">
-                  Seu navegador não suporta o elemento de vídeo.
                 </video>';
         } elseif (!empty($fotosArray[0])) {
-          echo '<img src="' . htmlspecialchars($fotosArray[0]) . '" alt="Imagem do projeto">';
+          echo '<img src="' . htmlspecialchars(stripslashes($fotosArray[0])) . '" alt="Imagem do projeto">';
         }
         ?>
       </div>
     </div>
 
-    <!-- CURTA-METRAGEM -->
+    <!-- CURTA -->
     <?php if (!empty($projeto['curtas']) && $projeto['curtas'] !== 'Sem curta'): ?>
       <section>
         <h2>Curta-metragem</h2>
-        <video controls>
+        <video controls width="600">
           <source src="<?php echo htmlspecialchars($projeto['curtas']); ?>" type="video/mp4">
         </video>
       </section>
     <?php endif; ?>
 
     <!-- FOTOS -->
-    <?php if (!empty($fotosArray[0])): ?>
+    <?php if (!empty($fotosArray)): ?>
       <section>
         <h2>Fotos</h2>
         <?php foreach ($fotosArray as $foto): ?>
-          <img src="<?php echo htmlspecialchars($foto); ?>" alt="Foto do projeto">
+          <img src="<?php echo htmlspecialchars(stripslashes($foto)); ?>" alt="Foto do projeto" style="max-width: 300px; margin: 10px;">
         <?php endforeach; ?>
       </section>
     <?php endif; ?>
 
     <!-- VÍDEOS -->
-    <?php if (!empty($videosArray[0])): ?>
+    <?php if (!empty($videosArray)): ?>
       <section>
         <h2>Vídeos</h2>
-        <?php foreach ($videosArray as $video): ?>
-          <video controls>
-            <source src="<?php echo htmlspecialchars($video); ?>" type="video/mp4">
-          </video>
-        <?php endforeach; ?>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+          <?php foreach ($videosArray as $video): ?>
+            <?php
+            $video = stripslashes($video);
+            if (preg_match('/youtube\.com|youtu\.be/', $video)) {
+              if (preg_match('/(?:v=|\/)([a-zA-Z0-9_-]{11})/', $video, $yt)) {
+                echo '<iframe width="400" height="225" src="https://www.youtube.com/embed/' . $yt[1] . '" frameborder="0" allowfullscreen></iframe>';
+              }
+            } elseif (preg_match('/\.(mp4|webm|ogg)$/i', $video)) {
+              echo '<video controls width="400" style="margin:10px;"><source src="' . htmlspecialchars($video) . '" type="video/mp4"></video>';
+            } else {
+              echo '<a href="' . htmlspecialchars($video) . '" target="_blank">' . htmlspecialchars($video) . '</a>';
+            }
+            ?>
+          <?php endforeach; ?>
+        </div>
       </section>
     <?php endif; ?>
 
-    <!-- MÚSICAS -->
-    <?php if (!empty($musicasArray[0])): ?>
-      <section>
-        <h2>Músicas</h2>
-        <?php foreach ($musicasArray as $musica): ?>
-          <audio controls>
-            <source src="<?php echo htmlspecialchars($musica); ?>" type="audio/mpeg">
-          </audio>
-        <?php endforeach; ?>
-      </section>
-    <?php endif; ?>
-
-    <!-- HABILIDADES DESENVOLVIDAS -->
+    <!-- HABILIDADES -->
     <?php if (!empty($habilidadesArray[0])): ?>
       <section>
         <h2>Habilidades Desenvolvidas</h2>
@@ -164,8 +142,7 @@ $feedbacksArray = explode('||', $projeto['feedback']);
       </section>
     <?php endif; ?>
 
-    <!-- BOTÃO VOLTAR -->
-    <div style="text-align: center;">
+    <div style="text-align: center; margin-top: 2rem;">
       <a class="btn-voltar-card" href="index.php">Voltar</a>
     </div>
   </main>
