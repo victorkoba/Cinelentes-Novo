@@ -81,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="#grid-agenda" class="link-animado">AGENDA</a>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
       <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
         <script>
@@ -107,51 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </header>
 
   <main>
-    <!-- Introdução -->
-    <div id="grid-introducao">
-      <div id="titulo">
-        <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
-      </div>
-      <div class="introducao-texto">
-        <div class="texto">
-          <p class="conteudo-introducao">
-            O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
-            democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
-            Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
-            e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
-            novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
-            a datas comemorativas relevantes daquele mês.
-          </p>
-        </div>
-        <div class="imagem">
-          <figure>
-            <img id="img-idealizadores" src="../img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores"/>
-            <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>    
-
-    <div id="grid-destaques">
-      <div id="titulo">
-        <h1 class="titulo-pagina-inicial">Destaques</h1>
-      </div>
-      <div class="galeria">
-        <div class="galeria-container">
-          <img class="galeria-itens galeria-item-1" src="../img/img-mes-mulher-foto1.jpg" data-index="1" alt="">
-          <img class="galeria-itens galeria-item-2" src="../img/img-mes-cultura-coreana.jpg" data-index="2" alt="">
-          <img class="galeria-itens galeria-item-3" src="../img/img-inclusao.jpg" data-index="3" alt="">
-          <img class="galeria-itens galeria-item-4" src="../img/img-mes-mulher-foto1.jpg" data-index="4" alt="">
-          <img class="galeria-itens galeria-item-5" src="../img/img-mes-cultura-coreana.jpg" data-index="5" alt="">
-          <div class="galeria-controls"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Formulário de agenda -->
     <div id="grid-agenda">
       <div id="titulo">
-        <h1 class="titulo-pagina-inicial">Agenda</h1>
+        <h1 class="titulo-pagina-inicial">Criar Agenda</h1>
       </div>
       <div class="container-form">
         <h1 class="titulo-form">Inserir uma nova data de evento</h1>

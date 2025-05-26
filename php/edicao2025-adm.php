@@ -26,7 +26,6 @@
           <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="pagina-inicial-adm.php#grid-agenda" class="link-animado">AGENDA</a>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
       <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
         <script>
