@@ -47,6 +47,15 @@ include 'conexao.php';
   <h1 class="titulo-pagina">Criar Projeto</h1>
 
   <form method="POST" action="salvar-projeto.php" enctype="multipart/form-data">
+    <div class="select-edicao-container">
+      <label for="edicao">Selecione a Edição:</label>
+      <select name="edicao" id="edicao" required>
+        <option value="2023">Edição 2023</option>
+        <option value="2024">Edição 2024</option>
+        <option value="2025">Edição 2025</option>
+      </select>
+    </div>
+
     <section class="secao-inicial">
       <div class="informacoes-iniciais">
         <input
@@ -133,9 +142,9 @@ include 'conexao.php';
         <button type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica1-container">Upload de Link</button>
         <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
         <input
-          type="text"
+          type="url"
           name="musica1"
-          placeholder="Digite o nome da Música"
+          placeholder="Digite a URL da Música"
           class="input-musica"
         />
         <div class="link-preview" id="musica1-container"></div>
@@ -144,9 +153,9 @@ include 'conexao.php';
         <button type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica2-container">Upload de Link</button>
         <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
         <input
-          type="text"
+          type="url"
           name="musica2"
-          placeholder="Digite o nome da Música"
+          placeholder="Digite a URL da Música"
           class="input-musica"
         />
         <div class="link-preview" id="musica2-container"></div>
@@ -155,9 +164,9 @@ include 'conexao.php';
         <button type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica3-container">Upload de Link</button>
         <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
         <input
-          type="text"
+          type="url"
           name="musica3"
-          placeholder="Digite o nome da Música"
+          placeholder="Digite a URL da Música"
           class="input-musica"
         />
         <div class="link-preview" id="musica3-container"></div>
