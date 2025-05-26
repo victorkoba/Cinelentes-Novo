@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST" id="form-evento">
           <label class="label-form" for="data">Dia do evento:</label>
-          <input class="input-form" placeholder="Insira o dia do evento" type="date" name="data" required>
+          <input class="input-form" placeholder="Insira o dia do evento" type="date" name="data" required min="<?= date('Y-m-d') ?>">
 
           <label class="label-form" for="titulo">Título do evento:</label>
           <input class="input-form" placeholder="Insira o título do evento" type="text" name="titulo" required>

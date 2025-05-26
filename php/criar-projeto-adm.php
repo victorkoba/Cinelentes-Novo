@@ -102,7 +102,11 @@ include 'conexao.php';
   </header>
 
 <main class="main-container">
-  <h1 class="titulo-pagina">Criar Projeto</h1>
+  <div class="titulo-secao">
+    <h1 class="titulo-pagina">Criar Projeto</h1>
+    <div class="linha-preta"></div>
+  </div>
+  
 
   <form method="POST" action="salvar-projeto.php" enctype="multipart/form-data">
     <div class="select-edicao-container">
@@ -120,7 +124,7 @@ include 'conexao.php';
           type="text"
           name="titulo"
           placeholder="Digite o título do projeto"
-          class="input-titulo-projeto"
+          class="input-titulo-projeto option-edicao"
           required
         />
         <div class="linha-preta"></div>
@@ -128,64 +132,73 @@ include 'conexao.php';
           name="conteudo"
           style="resize: vertical"
           placeholder="Digite aqui o conteúdo de apresentação do projeto. (Sobre e a data de realização do projeto)"
-          class="textarea-conteudo-projeto"
+          class="textarea-conteudo-projeto option-edicao"
           required
         ></textarea>
       </div>
       <div class="upload-final-video">
-        <p>Faça o upload do vídeo final do projeto</p>
-        <button type="button" class="botao-upload" data-type="video" data-target="final-video">Upload de Vídeo</button>
-        <input type="file" name="final_video" id="final-video" style="display:none" />
+        <p class="option-edicao">Faça o upload de uma imagem que ficará do lado do título e da descrição, além disso essa imagem que ficará na capa do card na página de edições.</p>
+        <button type="button" class="botao-upload" data-type="video" data-target="final-video">Upload do Arquivo</button>
+        <input accept="image/*" type="file" name="final_video" id="final-video" style="display:none" />
         <div id="final-video-name" class="file-name"></div>
       </div>
     </section>
 
     <section class="secao-conteudo">
       <div class="titulo-secao">
-        <h2>Adicionar Conteúdo</h2>
+        <h2>Adicionar Fotos</h2>
         <div class="linha-preta"></div>
       </div>
       <div class="cards-container">
         <div class="content-card" id="fotos-card">
           <div class="card-header">
-            <h3>Fotos</h3>
-            <button type="button" class="close-card" aria-label="Minimizar fotos" onclick="minimizeCard('fotos-card')">×</button>
+            <h3>Upload de fotos para o carrossel</h3>
           </div>
           <div class="card-content">
-            <p>Faça o upload das fotos</p>
-            <button type="button" class="botao-upload" data-type="photo" data-target="upload-fotos">Upload de Fotos</button>
-            <input type="file" name="fotos[]" id="upload-fotos" multiple style="display:none" />
+            <div class="div-p-upload">
+              <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 5)</p>
+            </div>            
+            <button type="button" class="botao-upload" data-type="photo" data-target="upload-fotos">Upload dos Arquivos</button>
+            <input accept="image/*" type="file" name="fotos[]" id="upload-fotos" multiple style="display:none" />
             <div id="upload-fotos-name" class="file-name"></div>
           </div>
         </div>
-        <div class="content-card" id="videos-card">
+      </div>
+      <div class="titulo-secao">
+        <h2>Adicionar Vídeos</h2>
+        <div class="linha-preta"></div>
+      </div>
+      <div class="cards-container">
+      <div class="content-card" id="videos-card">
           <div class="card-header">
             <h3>Vídeos</h3>
-            <button type="button" class="close-card" aria-label="Minimizar vídeos" onclick="minimizeCard('videos-card')">×</button>
           </div>
           <div class="card-content">
-            <p>Faça o upload de vídeo</p>
-            <button type="button" class="botao-upload" data-type="video" data-target="upload-videos">Upload de Vídeo</button>
-            <input type="file" name="videos[]" id="upload-videos" multiple style="display:none" />
+            <div class="div-p-upload">
+              <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 3)</p>
+            </div>            
+            <button type="button" class="botao-upload" data-type="video" data-target="upload-videos">Upload dos Arquivos</button>
+            <input accept="video/*" type="file" name="videos[]" id="upload-videos" multiple style="display:none" />
             <div id="upload-videos-name" class="file-name"></div>
-
-            <button type="button" class="botao-upload" data-action="link" data-link-type="vídeo" data-container-id="videos-card">Upload por Link</button>
-            <div class="link-preview" id="videos-card-preview"></div>
           </div>
         </div>
-        <div class="content-card" id="curta-card">
+      </div>
+      <div class="titulo-secao">
+        <h2>Adicionar Curta-Metragem</h2>
+        <div class="linha-preta"></div>
+      </div>
+      <div class="cards-container">
+      <div class="content-card" id="curta-card">
           <div class="card-header">
             <h3>Curta-metragem</h3>
-            <button type="button" class="close-card" aria-label="Minimizar curta-metragem" onclick="minimizeCard('curta-card')">×</button>
           </div>
           <div class="card-content">
-            <p>Faça o upload do curta-metragem</p>
-            <button type="button" class="botao-upload" data-type="video" data-target="upload-curta">Upload de Vídeo</button>
-            <input type="file" name="curta" id="upload-curta" style="display:none" />
+            <div class="div-p-upload">
+              <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 2)</p>
+            </div>
+            <button type="button" class="botao-upload" data-type="video" data-target="upload-curta">Upload dos Arquivos</button>
+            <input accept="video/*" type="file" name="curta" id="upload-curta" style="display:none" />
             <div id="upload-curta-name" class="file-name"></div>
-
-            <button type="button" class="botao-upload" data-action="link" data-link-type="curta" data-container-id="curta-card">Upload por Link</button>
-            <div class="link-preview" id="curta-card-preview"></div>
           </div>
         </div>
       </div>
@@ -197,35 +210,29 @@ include 'conexao.php';
         <div class="linha-preta"></div>
       </div>
       <div class="musica-item">
-        <button type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica1-container">Upload de Link</button>
-        <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
+        <button name="musica1" type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica1-container">Upload de Link</button>
         <input
           type="url"
-          name="musica1"
-          placeholder="Digite a URL da Música"
-          class="input-musica"
+          placeholder="Digite o nome da música"
+          class="input-musica option-edicao"
         />
         <div class="link-preview" id="musica1-container"></div>
       </div>
       <div class="musica-item">
-        <button type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica2-container">Upload de Link</button>
-        <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
+        <button name="musica2" type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica2-container">Upload de Link</button>
         <input
           type="url"
-          name="musica2"
-          placeholder="Digite a URL da Música"
-          class="input-musica"
+          placeholder="Digite o nome da música"
+          class="input-musica option-edicao"
         />
         <div class="link-preview" id="musica2-container"></div>
       </div>
       <div class="musica-item">
-        <button type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica3-container">Upload de Link</button>
-        <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
+        <button name="musica3" type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica3-container">Upload de Link</button>
         <input
           type="url"
-          name="musica3"
-          placeholder="Digite a URL da Música"
-          class="input-musica"
+          placeholder="Digite o nome da música"
+          class="input-musica option-edicao"
         />
         <div class="link-preview" id="musica3-container"></div>
       </div>
@@ -240,7 +247,7 @@ include 'conexao.php';
         name="habilidades"
         style="resize: vertical"
         placeholder="Digite aqui as expectativas trabalhadas e as hashtags (se tiver)."
-        class="textarea-habilidades"
+        class="textarea-habilidades option-edicao"
       ></textarea>
     </section>
 
@@ -253,7 +260,7 @@ include 'conexao.php';
         name="feedback"
         style="resize: vertical"
         placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)."
-        class="textarea-feedback"
+        class="textarea-feedback option-edicao"
       ></textarea>
       <button type="submit" class="botao-confirmar">Confirmar</button>
     </section>

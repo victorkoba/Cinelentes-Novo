@@ -400,7 +400,8 @@ body {
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.7s;
+  font-weight: 600;
 }
 
 .button-entrar:hover {
