@@ -143,7 +143,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     <?php endif; ?>
 
     <div style="text-align: center; margin-top: 2rem;">
-      <a class="btn-voltar-card" href="index.php">Voltar</a>
+      <a class="btn-voltar-card" href="../index.php">Voltar</a>
     </div>
   </main>
 </body>

@@ -136,10 +136,6 @@ $videos = json_decode($projeto['videos'], true);
           <p><strong>Novo Curta:</strong></p>
           <input type="file" name="curta" accept="video/*" />
         </div>
-
-        <!-- Exibição das mídias existentes -->
-        <!-- DENTRO DO FORM: substitua a seção de exibição de mídias por isto -->
-
         <div style="margin-top: 2rem;">
           <p><strong>Fotos Atuais:</strong></p>
           <?php if (!empty($fotos)): foreach ($fotos as $index => $foto): ?>
