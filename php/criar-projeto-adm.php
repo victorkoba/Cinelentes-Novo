@@ -95,7 +95,7 @@ include 'conexao.php';
           <div class="card-content">
             <p>Faça o upload das fotos</p>
             <button type="button" class="botao-upload" data-type="photo" data-target="upload-fotos">Upload de Fotos</button>
-            <input type="file" name="fotos" id="upload-fotos" multiple style="display:none" />
+            <input type="file" name="fotos[]" id="upload-fotos" multiple style="display:none" />
             <div id="upload-fotos-name" class="file-name"></div>
           </div>
         </div>
@@ -107,7 +107,7 @@ include 'conexao.php';
           <div class="card-content">
             <p>Faça o upload de vídeo</p>
             <button type="button" class="botao-upload" data-type="video" data-target="upload-videos">Upload de Vídeo</button>
-            <input type="file" name="videos" id="upload-videos" multiple style="display:none" />
+            <input type="file" name="videos[]" id="upload-videos" multiple style="display:none" />
             <div id="upload-videos-name" class="file-name"></div>
 
             <button type="button" class="botao-upload" data-action="link" data-link-type="vídeo" data-container-id="videos-card">Upload por Link</button>
