@@ -31,6 +31,24 @@ $stmt->close();
 $conexao->close();
 ?>
 
+<?php
+include './php/conexao.php';
+
+// Buscar os acervos ordenados por data_criacao (ou outro critério), limitando 5
+$stmt = $conexao->prepare("SELECT id_acervo, titulo, fotos, data_criacao FROM acervos ORDER BY data_criacao DESC LIMIT 5");
+$acervos = [];
+
+if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $acervos[] = $row;
+    }
+}
+$stmt->close();
+$conexao->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -143,15 +161,19 @@ window.addEventListener('click', function(event) {
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
             </div>
             <div class="galeria">
-              <div class="galeria-container">
-                <img  class="galeria-itens galeria-item-1" src="./img/img-mes-mulher-foto1.jpg"  data-index="1" alt="" >
-                <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
-                <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="">
-                <img class="galeria-itens galeria-item-4" src="./img/img-mes-trabalho.jpg"  data-index="4" alt="">
-                <img class="galeria-itens galeria-item-5" src="./img/img-mes-mulher-foto3.jpg"  data-index="5" alt="">
-                <div class="galeria-controls"></div>
-              </div>
-            </div>
+            <div class="galeria">
+  <div class="galeria-container">
+    <?php foreach ($acervos as $index => $acervo): 
+        // Decodificar JSON para pegar a primeira imagem do array 'fotos'
+        $fotos = json_decode($acervo['fotos'], true);
+        $fotoPrincipal = $fotos[0] ?? './img/default.jpg'; // fallback
+    ?>
+      <img class="galeria-itens galeria-item-<?= $index + 1 ?>" src="<?= htmlspecialchars($fotoPrincipal) ?>" data-index="<?= $index + 1 ?>" alt="Imagem do acervo <?= htmlspecialchars($acervo['titulo']) ?>">
+    <?php endforeach; ?>
+    <div class="galeria-controls"></div>
+  </div>
+</div>
+              
  
             
         <div id="grid-agenda">

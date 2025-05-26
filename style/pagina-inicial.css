@@ -33,20 +33,20 @@ body {
   transform: translateX(-50%);
 }
 
-.galeria-item-2,
-.galeria-item-4 {
+.galeria-item-,
+.galeria-item- {
   height: 250px;
   opacity: 0.8;
   width: 380px;
   z-index: 1;
 }
 
-.galeria-item-2 {
+.galeria-item- {
   left: 30%;
   transform: translateX(-50%);
 }
 
-.galeria-item-3 {
+.galeria-item- {
   box-shadow: -2px 5px 33px 6px rgba(0, 0, 0, 0.35);
   height: 300px;
   opacity: 1;
@@ -56,12 +56,12 @@ body {
   z-index: 2;
 }
 
-.galeria-item-4 {
+.galeria-item- {
   left: 70%;
   transform: translateX(-50%);
 }
 
-.galeria-item-5 {
+.galeria-item- {
   left: 85%;
   opacity: .4;
   transform: translateX(-50%);
@@ -85,7 +85,7 @@ body {
 }
 .galeria-controls-previous,
 .galeria-controls-next {
-    color: #fff; 
+    color: #000; 
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
