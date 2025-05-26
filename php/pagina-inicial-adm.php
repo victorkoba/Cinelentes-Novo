@@ -70,11 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-  <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt="Logo Cinelentes" /></a>
-    <nav>
+    <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
+    <!-- Botão hamburguer para mobile -->
+    <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <nav id="nav-menu">
       <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
-        <a onclick="myFunction()" class="dropbtn link-animado">EDIÇÕES</a>
+        <a href="#" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
           <a href="edicao2023-adm.php" class="link-animado">EDIÇÃO 2023</a>
           <a href="edicao2024-adm.php" class="link-animado">EDIÇÃO 2024</a>
@@ -83,6 +90,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
       <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+    </nav>
+  </header>
+  <script>
+    const hamburguer = document.getElementById('hamburguer');
+    const navMenu = document.getElementById('nav-menu');
+    const dropdownBtn = document.querySelector('.dropbtn');
+    const dropdownContent = document.getElementById('myDropdown');
+
+    hamburguer.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('show');
+      hamburguer.setAttribute('aria-expanded', isOpen);
+
+      // Alterna classe 'open' para animação do botão
+      hamburguer.classList.toggle('open');
+
+      // Fecha dropdown quando abrir/fechar menu
+      dropdownContent.classList.remove('show');
+    });
+
+    // Dropdown toggle mobile
+    dropdownBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdownContent.classList.toggle('show');
+    });
+
+    // Fecha dropdown se clicar fora
+    window.addEventListener('click', function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        dropdownContent.classList.remove('show');
+      }
+    });
+  </script>
         <script>
           document.getElementById("botao-logout").addEventListener("click", function (e) {
               e.preventDefault();

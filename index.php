@@ -78,7 +78,7 @@ $conexao->close();
 <body>
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-    <img id="logo-header" src="./img/logo-cinelentes-novo.png" alt="">
+    <a href="index.php"><img id="logo-header" src="./img/logo-cinelentes-novo.png" alt=""></a>
     <!-- Botão hamburguer para mobile -->
     <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
       <span class="bar"></span>
@@ -87,7 +87,7 @@ $conexao->close();
     </button>
 
     <nav id="nav-menu">
-      <a href="#" class="link-animado">INÍCIO</a>
+      <a href="index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a href="#" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
