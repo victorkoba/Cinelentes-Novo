@@ -1,124 +1,103 @@
 <?php
-include 'conexao.php';
-session_start();
+include('verificar-login.php');
+include('conexao.php');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  die('Acesso inválido.');
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Validar ID
+$id = intval($_POST['id'] ?? 0);
+if (!$id) die('ID inválido');
+
+// Limpeza de dados
+function limpar($texto) {
+  return trim(htmlspecialchars($texto));
 }
 
-function saveUploadFile($inputName, $destFolder, $multiple = true) {
-  if (!isset($_FILES[$inputName])) return [];
+// Campos de texto
+$titulo = limpar($_POST['titulo']);
+$conteudo = limpar($_POST['conteudo']);
+$habilidades = limpar($_POST['habilidades']);
+$feedback = limpar($_POST['feedback']);
+$edicao = intval($_POST['edicao']);
 
-  $files = $_FILES[$inputName];
-  $savedPaths = [];
-
-  if (!is_dir($destFolder)) {
-    mkdir($destFolder, 0775, true);
-  }
-
-  if ($multiple && is_array($files['tmp_name'])) {
-    foreach ($files['tmp_name'] as $index => $tmpName) {
-      if ($files['error'][$index] === UPLOAD_ERR_OK) {
-        $originalName = basename($files['name'][$index]);
-        $safeName = uniqid() . '-' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $originalName);
-        $targetPath = "$destFolder/$safeName";
-        if (move_uploaded_file($tmpName, $targetPath)) {
-          $savedPaths[] = $targetPath;
-        }
-      }
-    }
-  } else {
-    if ($files['error'] === UPLOAD_ERR_OK) {
-      $originalName = basename($files['name']);
-      $safeName = uniqid() . '-' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $originalName);
-      $targetPath = "$destFolder/$safeName";
-      if (move_uploaded_file($files['tmp_name'], $targetPath)) {
-        $savedPaths[] = $targetPath;
-      }
-    }
-  }
-
-  return $savedPaths;
-}
-
-// Dados do formulário
-$id = intval($_POST['id']);
-$titulo = $_POST['titulo'] ?? '';
-$descricao = $_POST['conteudo'] ?? '';
-$habilidades = $_POST['habilidades'] ?? '';
-$feedback = $_POST['feedback'] ?? '';
-$edicao = isset($_POST['edicao']) ? (int)$_POST['edicao'] : 2023;
-
-// Busca dados antigos
-$stmt = $conexao->prepare("SELECT * FROM acervos WHERE id_acervo = ?");
-$stmt->bind_param("i", $id);
+// Atualizar tabela acervos
+$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+$stmt->bind_param("ssssii", $titulo, $conteudo, $habilidades, $feedback, $edicao, $id);
 $stmt->execute();
-$result = $stmt->get_result();
+$stmt->close();
 
-if ($result->num_rows === 0) {
-  die('Projeto não encontrado.');
+function excluirPorIndice($conexao, $tabela, $acervo_id, $indices) {
+  // Mapear chave primária por tabela
+  $coluna_id = [
+    'fotos_acervo' => 'id_fotos',
+    'videos_acervo' => 'id_videos',
+    'curtas_acervo' => 'id_curtas',
+    'foto_capa_acervo' => 'id' // caso necessário
+  ][$tabela] ?? 'id'; // fallback
+
+  $sql = "SELECT $coluna_id AS id FROM $tabela WHERE acervo_id = ?";
+  $stmt = $conexao->prepare($sql);
+  $stmt->bind_param("i", $acervo_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $todos = $result->fetch_all(MYSQLI_ASSOC);
+  $stmt->close();
+
+  foreach ($indices as $index) {
+    if (isset($todos[$index])) {
+      $idArquivo = $todos[$index]['id'];
+      $stmt = $conexao->prepare("DELETE FROM $tabela WHERE $coluna_id = ?");
+      $stmt->bind_param("i", $idArquivo);
+      $stmt->execute();
+      $stmt->close();
+    }
+  }
 }
 
-$projeto = $result->fetch_assoc();
 
-$excluirFotos = $_POST['excluir_fotos'] ?? [];
-$excluirVideos = $_POST['excluir_videos'] ?? [];
-$excluirCurta = isset($_POST['excluir_curta']);
+// Excluir arquivos marcados
+if (!empty($_POST['excluir_fotos'])) excluirPorIndice($conexao, 'fotos_acervo', $id, $_POST['excluir_fotos']);
+if (!empty($_POST['excluir_videos'])) excluirPorIndice($conexao, 'videos_acervo', $id, $_POST['excluir_videos']);
+if (!empty($_POST['excluir_curta'])) $conexao->query("DELETE FROM curtas_acervo WHERE acervo_id = $id");
 
-$fotosAtuais = json_decode($projeto['fotos'], true) ?: [];
-$videosAtuais = json_decode($projeto['videos'], true) ?: [];
-$curtaAtual = $projeto['curtas'] ?? null;
+// Função de upload múltiplo
+function salvarMultiplosArquivos($conexao, $tabela, $acervo_id, $campo) {
+  if (!isset($_FILES[$campo])) return;
 
-$fotosFiltradas = array_filter($fotosAtuais, fn($f) => !in_array($f, $excluirFotos));
-$videosFiltradas = array_filter($videosAtuais, fn($v) => !in_array($v, $excluirVideos));
-$curtaFinal = $excluirCurta ? null : $curtaAtual;
+  for ($i = 0; $i < count($_FILES[$campo]['name']); $i++) {
+    if ($_FILES[$campo]['error'][$i] === 0) {
+      $nome = $_FILES[$campo]['name'][$i];
+      $tipo = mime_content_type($_FILES[$campo]['tmp_name'][$i]);
+      $dados = file_get_contents($_FILES[$campo]['tmp_name'][$i]);
 
-foreach ($excluirFotos as $f) {
-  if (file_exists($f)) unlink($f);
+      $stmt = $conexao->prepare("INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)");
+      $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null);
+      $stmt->send_long_data(3, $dados);
+      $stmt->execute();
+      $stmt->close();
+    }
+  }
 }
-foreach ($excluirVideos as $v) {
-  if (file_exists($v)) unlink($v);
+
+// Upload de curta (único)
+if (isset($_FILES['curta']) && $_FILES['curta']['error'] === 0) {
+  $nome = $_FILES['curta']['name'];
+  $tipo = mime_content_type($_FILES['curta']['tmp_name']);
+  $dados = file_get_contents($_FILES['curta']['tmp_name']);
+
+  $stmt = $conexao->prepare("INSERT INTO curtas_acervo (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)");
+  $stmt->bind_param("issb", $id, $nome, $tipo, $null);
+  $stmt->send_long_data(3, $dados);
+  $stmt->execute();
+  $stmt->close();
 }
-if ($excluirCurta && file_exists($curtaAtual)) {
-  unlink($curtaAtual);
-}
 
-$fotosNovas = saveUploadFile('fotos', '../uploads/fotos');
-$videosNovas = saveUploadFile('videos', '../uploads/videos');
-$curtaNova = saveUploadFile('curta', '../uploads/curtas', false);
+// Salvar novos arquivos
+salvarMultiplosArquivos($conexao, 'fotos_acervo', $id, 'fotos');
+salvarMultiplosArquivos($conexao, 'videos_acervo', $id, 'videos');
 
-$fotosFinais = array_merge($fotosFiltradas, $fotosNovas);
-$videosFinais = array_merge($videosFiltradas, $videosNovas);
-if (!empty($curtaNova)) $curtaFinal = $curtaNova[0];
-
-$fotosJson = json_encode($fotosFinais);
-$videosJson = json_encode($videosFinais);
-
-$stmt = $conexao->prepare("
-  UPDATE acervos 
-  SET titulo=?, descricao=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=?
-  WHERE id_acervo=?
-");
-
-$stmt->bind_param(
-  'sssssssii',
-  $titulo,
-  $descricao,
-  $fotosJson,
-  $videosJson,
-  $curtaFinal,
-  $habilidades,
-  $feedback,
-  $edicao,
-  $id
-);
-
-if ($stmt->execute()) {
-  echo "<script>
-    alert('Projeto atualizado com sucesso!');
-    window.location.href = 'ver-projeto.php?id=$id';
-  </script>";
-} else {
-  echo "Erro ao atualizar: " . $stmt->error;
-}
+// Redirecionar
+header("Location: pagina-inicial-adm.php");
+exit;
 ?>
