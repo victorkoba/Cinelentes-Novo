@@ -35,7 +35,7 @@ $conexao->close();
 <?php
 include './php/conexao.php';
 
-$stmt = $conexao->prepare("SELECT id_acervo, titulo, fotos, data_criacao FROM acervos ORDER BY data_criacao DESC LIMIT 5");
+$stmt = $conexao->prepare("SELECT id_acervo, titulo, data_criacao FROM acervos ORDER BY data_criacao DESC LIMIT 5");
 $acervos = [];
 
 if ($stmt->execute()) {
