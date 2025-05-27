@@ -91,7 +91,7 @@
         <h2 class="titulo-desenvolvedores">Desenvolvido por</h2>
         <div class="desenvolvedores">
             <div class="desenvolvedor">
-                <img class="imagem-desenvolvedor" src="../img/img-icon-avatar.png" alt="Pedro">
+                <img class="imagem-desenvolvedor" src="../img/zoca.png" alt="Pedro">
                 <p class="nome-desenvolvedor">Pedro Henrique de Petta Zocatelli</p>
             </div>
             <div class="desenvolvedor">
