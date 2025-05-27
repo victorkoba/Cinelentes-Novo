@@ -182,6 +182,5 @@
       <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
   </footer>
-
 </body>
 </html>

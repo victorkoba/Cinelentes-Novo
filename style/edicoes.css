@@ -1,7 +1,12 @@
+html, .body-pagina-inicial {
+  height: 100%;
+  margin: 0;
+}
+
 .main-acervos {
   padding: 40px 20px;
   max-width: 1200px;
-  height: auto;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -39,9 +44,6 @@
   transition: 0.7s;
 }
 
-/* ============================== */
-/*         GRADE DE CARDS        */
-/* ============================== */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -49,9 +51,6 @@
   margin-top: 30px;
 }
 
-/* ============================== */
-/*              CARD             */
-/* ============================== */
 .card {
   position: relative;
   border-radius: 12px;
