@@ -272,8 +272,12 @@ nav#nav-menu {
   nav#nav-menu .dropbtn {
     font-size: 1.2rem;
     width: 100%;
-    color: #f5e9d4; 
+    color: #f5e9d4;
     text-decoration: none;
+  }
+
+  nav#nav-menu .button-logout {
+    color: #000; 
   }
 
   .dropdown-content {
@@ -281,7 +285,7 @@ nav#nav-menu {
     box-shadow: none;
     background-color: transparent;
     margin-top: 0;
-    display: none; 
+    display: none;
     padding-left: 15px;
   }
 
