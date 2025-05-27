@@ -1,4 +1,4 @@
-* {
+ * {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
@@ -240,6 +240,7 @@ nav#nav-menu {
   gap: 20px;
 }
 
+
 /* Mobile */
 @media (max-width: 818px) {
   #hamburguer {
@@ -271,8 +272,12 @@ nav#nav-menu {
   nav#nav-menu .dropbtn {
     font-size: 1.2rem;
     width: 100%;
-    color: #f5e9d4; 
+    color: #f5e9d4;
     text-decoration: none;
+  }
+
+  nav#nav-menu .button-logout {
+    color: #000; 
   }
 
   .dropdown-content {
@@ -280,7 +285,7 @@ nav#nav-menu {
     box-shadow: none;
     background-color: transparent;
     margin-top: 0;
-    display: none; 
+    display: none;
     padding-left: 15px;
   }
 
@@ -289,189 +294,24 @@ nav#nav-menu {
   }
 }
 
-
-@media (max-width: 857px) {
-  .header-geral {
-    flex-direction: column;      
-    align-items: center;         
-    gap: 1rem;                   
-    padding: 1rem;               
-  }
-
-  .sesi-senai {
-    text-align: center;
-    margin-bottom: 0.5rem; 
-  }
-
-  #logo-header {
-    width: 120px; 
-    margin-bottom: 0.5rem;
-  }
-
-  nav#nav-menu {
-    width: 60%; 
-    padding-left: 5;
-  }
-
-  #hamburguer {
-    position: fixed;
-    top: 1rem;
-    right: 1.5rem;
-    z-index: 25; 
-  }
-  
-}
-
-#hamburguer.open .bar:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-#hamburguer.open .bar:nth-child(2) {
-  opacity: 0;
-}
-
-#hamburguer.open .bar:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-@media (max-width: 768px) {
-  /* Ajusta header geral para coluna */
-  .header-geral {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  /* Logo menor e centralizado */
-  #logo-header {
-    width: 120px;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Título SESI SENAI centralizado */
-  .sesi-senai {
-    font-size: 1.2rem;
-    text-align: center;
-    margin-bottom: 0.5rem;
-  }
-
-  
-
-  /* Links maiores para toque */
-  nav#nav-menu a,
-  nav#nav-menu .dropbtn {
-    font-size: 1.2rem;
-    padding: 10px 0;
-    width: 100%;
-  }
-
-  /* Dropdown fica dentro do menu */
-  .dropdown-content {
-    position: static;
-    background-color: transparent;
-    box-shadow: none;
-    padding-left: 15px;
-  }
-
-  /* Footer responsivo */
-  .footer-topo {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .footer-logo-container img {
-    width: 120px; /* Ajusta tamanho do logo */
-  }
-
-  .botao-login {
-    width: 100%;
-    text-align: center;
-    padding: 0.75rem;
-    font-size: 1rem;
-  }
-
-  .div-vazia {
-    display: none; 
-  }
-
-  footer hr {
-    width: 80%;
-    margin: 1rem auto;
-  }
-
-  .footer-direitos {
-    text-align: center;
-    font-size: 0.9rem;
-    padding-bottom: 1rem;
-  }
-}
-@media (max-width: 1024px) {
-  .galeria-itens {
-    width: 140px;
-  }
-
-  .agenda-eventos {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Celulares (até 768px) */
-@media (max-width: 768px) {
-  .galeria-itens {
-    width: 120px;
-  }
-
-  .agenda-eventos {
-    grid-template-columns: 1fr;
-  }
-  
-  .agenda-card {
-    padding: 8px;
-  }
-}
-
-/* Pequenas telas (até 480px) */
-@media (max-width: 480px) {
-  .galeria-itens {
-    width: 100px;
-  }
-
-  .agenda-eventos {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .agenda-card {
-    font-size: 14px;
-    padding: 6px;
-  }
-}
-
-.introducao-texto {
-  display: flex;
-  gap: 20px;
-}
-
-
-.texto {
-  flex: 2;
-}
-
-.imagem {
-  flex: 1;
-}
-
-
 @media (max-width: 768px) {
   .introducao-texto {
+    display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
 
-  .imagem {
-    margin-top: 20px; 
-    width: 50%;
+  .texto {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  #img-idealizadores {
+    width: 76%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin-top: 50px; /* aumente esse valor para descer mais */
+    align-self: flex-start;
   }
 }
