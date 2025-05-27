@@ -73,15 +73,15 @@
         <h2 class="titulo-idealizadores">Idealizadores</h2>
         <div class="idealizadores">
             <div class="idealizador">
-                <img class="imagem-idealizador" src="../img/sa.png" alt="Prof">
+                <img class="imagem-idealizador" src="../img/sabrina.png" alt="Prof">
                 <p class="nome-idealizador">Profª Sabrina Lina Figueiredo Gonçalves</p>
             </div>
             <div class="idealizador">
-                <img class="imagem-idealizador" src="../img/jo.png" alt="Prof">
+                <img class="imagem-idealizador" src="../img/jose.png" alt="Prof">
                 <p class="nome-idealizador">Profº José Roberto de Lima</p>
             </div>
             <div class="idealizador">
-                <img class="imagem-idealizador" src="../img/rogerin.png" alt="Prof">
+                <img class="imagem-idealizador" src="../img/rogerio.png" alt="Prof">
                 <p class="nome-idealizador">Profº Rogério de Souza Junior</p>
             </div>
         </div>
@@ -91,23 +91,23 @@
         <h2 class="titulo-desenvolvedores">Desenvolvido por</h2>
         <div class="desenvolvedores">
             <div class="desenvolvedor">
-                <img class="imagem-desenvolvedor" src="../img/zoca.png" alt="Pedro">
+                <img class="imagem-desenvolvedor" src="../img/pedro.png" alt="Pedro">
                 <p class="nome-desenvolvedor">Pedro Henrique de Petta Zocatelli</p>
             </div>
             <div class="desenvolvedor">
-                <img class="imagem-desenvolvedor" src="../img/kobin.png" alt="Victor">
+                <img class="imagem-desenvolvedor" src="../img/vitor.png" alt="Victor">
                 <p class="nome-desenvolvedor">Victor Luiz Koba Batista</p>
             </div>
             <div class="desenvolvedor">
-                <img class="imagem-desenvolvedor" src="../img/sal.png" alt="Miguel">
+                <img class="imagem-desenvolvedor" src="../img/mi.png" alt="Miguel">
                 <p class="nome-desenvolvedor">Miguel Francisco da Silva Sales</p>
             </div>
             <div class="desenvolvedor">
-                <img class="imagem-desenvolvedor" src="../img/vil.png" alt="Matheus">
+                <img class="imagem-desenvolvedor" src="../img/mat.png" alt="Matheus">
                 <p class="nome-desenvolvedor">Matheus Arantes Villar</p>
             </div>
             <div class="desenvolvedor">
-                <img class="imagem-desenvolvedor" src="../img/bilzin.png" alt="Murilo">
+                <img class="imagem-desenvolvedor" src="../img/mur.png" alt="Murilo">
                 <p class="nome-desenvolvedor">Murilo Ferreira Faria Santana</p>
             </div>
         </div>
