@@ -66,10 +66,13 @@ a {
 }
 
 .titulo-secao .linha-preta {
-  height: 2px;
-  background-color: black;
+  align-self: center; /* força alinhamento vertical */
+  border-bottom: 2px solid #f5e9d4;
   flex-grow: 1;
+  height: 0; /* garante que a linha não tenha altura extra */
+  margin-top: 0.5em; /* ajuste fino se quiser subir ou descer a linha */
 }
+
 
 .botao-confirmar {
   background-color: #f5e9d4;
