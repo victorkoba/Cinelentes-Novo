@@ -107,12 +107,12 @@ $fotosJson = json_encode($fotosFinais);
 $videosJson = json_encode($videosFinais);
 
 // Atualização final
-$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, video_final=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+
 $stmt->bind_param(
-  'ssssssssii',
+  'sssssssii',
   $titulo,
   $descricao,
-  $curtaFinal,
   $fotosJson,
   $videosJson,
   $curtaFinal,
@@ -121,6 +121,7 @@ $stmt->bind_param(
   $edicao,
   $id
 );
+
 
 $stmt->execute();
 
