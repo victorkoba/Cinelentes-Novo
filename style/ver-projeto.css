@@ -1,17 +1,20 @@
 .main-projeto {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 30px;
   font-family: Arial, sans-serif;
   color: #000;
+  line-height: 1.6;
+  text-align: center; /* Centraliza todo o conteúdo */
 }
 
 .projeto-topo {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 40px;
+  justify-content: center; /* Centraliza os itens */
+  gap: 40px;
+  margin-bottom: 50px;
+  align-items: center;
 }
 
 .projeto-texto {
@@ -19,24 +22,25 @@
 }
 
 .projeto-texto h1 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .projeto-texto p {
-  font-size: 16px;
-  margin-bottom: 10px;
-  line-height: 1.6;
+  font-size: 17px;
+  margin-bottom: 12px;
 }
 
 .projeto-texto a {
   color: #0044cc;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .projeto-texto a:hover {
+  color: #002a80;
   text-decoration: underline;
 }
 
@@ -47,69 +51,96 @@
 .projeto-video video,
 .projeto-video img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Seções centrais */
 .main-projeto section {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .main-projeto section h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-/* Itens em blocos (vídeos, músicas etc.) */
+/* Itens em blocos */
 .main-projeto video {
   width: 100%;
   max-width: 500px;
-  margin: 10px auto;
+  margin: 20px auto;
   display: block;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .main-projeto img {
   max-width: 100%;
-  border-radius: 10px;
-  margin: 10px auto;
+  border-radius: 12px;
   display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin: 0 auto; /* Centraliza sem criar volta */
+  background: none; /* Garante sem fundo */
+  padding: 0; /* Garante sem volta branca */
+  border: none; /* Garante sem borda branca */
 }
-
 .main-projeto ul {
-  list-style-type: none;
+  list-style: none;
   padding-left: 0;
 }
 
 .main-projeto li {
-  background-color: #000;
-  color: #fff;
-  padding: 12px;
+  background-color: #f9f9f9; /* Um tom cinza bem claro, evita o branco forte */
+  color: #000;
+  padding: 24px 30px;
   border-radius: 12px;
-  margin-bottom: 10px;
+  margin: 20px auto;
   font-weight: bold;
-  display: inline-block;
+  display: block;
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-projeto li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.main-projeto li a {
+  display: inline-block;
+  margin-top: 12px; /* Espaço entre o texto e o link */
+  color: #0044cc;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.main-projeto li a:hover {
+  color: #002a80;
+  text-decoration: underline;
 }
 
 /* Botão */
 .btn-voltar-card {
   display: inline-block;
-  margin-top: 30px;
-  padding: 10px 18px;
+  margin-top: 35px;
+  padding: 12px 20px;
   background-color: #000;
   color: #fff;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-voltar-card:hover {
   background-color: #333;
+  transform: translateY(-2px);
 }
 
 /* Responsivo */
@@ -117,23 +148,28 @@
   .projeto-topo {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
 
-  .projeto-texto, .projeto-video {
+  .projeto-texto,
+  .projeto-video {
     flex: 1 1 100%;
     text-align: center;
   }
 
   .projeto-texto h1 {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 
+/* Carrossel */
 .carrossel-container {
   position: relative;
   max-width: 600px;
-  margin: auto;
+  margin: 40px auto;
   overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .carrossel-slide {
@@ -145,31 +181,32 @@
   min-width: 100%;
   max-height: 400px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
-.prev, .next {
+.prev,
+.next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 12px;
+  padding: 14px;
   cursor: pointer;
   border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
 .prev {
-  left: 10px;
+  left: 15px;
 }
 
 .next {
-  right: 10px;
+  right: 15px;
 }
 
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-  
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
-

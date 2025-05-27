@@ -154,7 +154,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     }
 
     nextBtn.addEventListener('click', () => {
-      if (counter >= images.length  1) {
+      if (counter >= images.length  +1) {
         counter = 0;
       } else {
         counter++;
