@@ -214,6 +214,7 @@ $videos = json_decode($projeto['videos'], true);
               </label>
             </div>
           <?php endif; ?>
+
         </div>
 
       </section>
