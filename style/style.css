@@ -289,6 +289,7 @@ nav#nav-menu {
   }
 }
 
+
 @media (max-width: 857px) {
   .header-geral {
     flex-direction: column;      
@@ -405,5 +406,72 @@ nav#nav-menu {
     text-align: center;
     font-size: 0.9rem;
     padding-bottom: 1rem;
+  }
+}
+@media (max-width: 1024px) {
+  .galeria-itens {
+    width: 140px;
+  }
+
+  .agenda-eventos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Celulares (até 768px) */
+@media (max-width: 768px) {
+  .galeria-itens {
+    width: 120px;
+  }
+
+  .agenda-eventos {
+    grid-template-columns: 1fr;
+  }
+  
+  .agenda-card {
+    padding: 8px;
+  }
+}
+
+/* Pequenas telas (até 480px) */
+@media (max-width: 480px) {
+  .galeria-itens {
+    width: 100px;
+  }
+
+  .agenda-eventos {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .agenda-card {
+    font-size: 14px;
+    padding: 6px;
+  }
+}
+
+.introducao-texto {
+  display: flex;
+  gap: 20px;
+}
+
+
+.texto {
+  flex: 2;
+}
+
+.imagem {
+  flex: 1;
+}
+
+
+@media (max-width: 768px) {
+  .introducao-texto {
+    flex-direction: column;
+  }
+
+  .imagem {
+    margin-top: 20px; 
+    width: 50%;
   }
 }

@@ -90,7 +90,6 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
   </script>
   </header>
   <main class="main-projeto">
-
     <div class="projeto-topo">
       <div class="projeto-texto">
         <h1><?php echo htmlspecialchars($projeto['titulo']); ?></h1>
@@ -136,7 +135,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     }
 
     nextBtn.addEventListener('click', () => {
-      if (counter >= images.length  +1) {
+      if (counter >= images.length  + 1) {
         counter = 0;
       } else {
         counter++;
