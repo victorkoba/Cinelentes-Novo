@@ -72,20 +72,16 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
       const isOpen = navMenu.classList.toggle('show');
       hamburguer.setAttribute('aria-expanded', isOpen);
 
-      // Alterna classe 'open' para animação do botão
       hamburguer.classList.toggle('open');
 
-      // Fecha dropdown quando abrir/fechar menu
       dropdownContent.classList.remove('show');
     });
 
-    // Dropdown toggle mobile
     dropdownBtn.addEventListener('click', (e) => {
       e.preventDefault();
       dropdownContent.classList.toggle('show');
     });
 
-    // Fecha dropdown se clicar fora
     window.addEventListener('click', function(event) {
       if (!event.target.matches('.dropbtn')) {
         dropdownContent.classList.remove('show');

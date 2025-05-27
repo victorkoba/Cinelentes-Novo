@@ -140,3 +140,110 @@
 .btn-voltar-card:hover {
   background-color: #e0e0e0;
 }
+
+/* Notebooks pequenos e tablets maiores */
+@media (max-width: 1024px) {
+  .logo img {
+    max-width: 170px;
+  }
+
+  .redefinir-senha-form h2 {
+    font-size: 22px;
+  }
+}
+
+/* Tablets médios e menores */
+@media (max-width: 860px) {
+  .container-redefinir-senha {
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+  }
+
+  .lado-esquerdo,
+  .lado-direito {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+
+  .lado-direito {
+    margin-bottom: 0;
+  }
+
+  .logo img {
+    max-width: 140px;
+  }
+
+  .redefinir-senha-form h2 {
+    font-size: 20px;
+  }
+
+  .botao-enviar,
+  .input-email-redefinir-senha {
+    font-size: 15px;
+  }
+}
+
+/* Celulares entre 390px e 455px */
+@media (min-width: 390px) and (max-width: 455px) {
+  .logo img {
+    max-width: 100px;
+  }
+
+  .redefinir-senha-form h2 {
+    font-size: 16px;
+  }
+
+  .input-inform-redefinir-senha {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .img-icon {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 5px;
+  }
+
+  .input-email-redefinir-senha {
+    font-size: 14px;
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .botao-enviar {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-voltar-card {
+    font-size: 13px;
+  }
+}
+
+/* Dispositivos bem pequenos, tipo celulares antigos ou mini smartphones */
+@media (max-width: 389px) {
+  .logo img {
+    max-width: 80px;
+  }
+
+  .redefinir-senha-form h2 {
+    font-size: 14px;
+  }
+
+  .input-email-redefinir-senha {
+    font-size: 13px;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .botao-enviar {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .btn-voltar-card {
+    font-size: 12px;
+  }
+}

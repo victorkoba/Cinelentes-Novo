@@ -2,7 +2,6 @@
 include 'conexao.php';
 session_start();
 
-// Verifica se foi postado
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   die('Acesso inválido.');
 }
@@ -59,9 +58,9 @@ $result = $stmt->get_result();
 if ($result->num_rows === 0) {
   die('Projeto não encontrado.');
 }
+
 $projeto = $result->fetch_assoc();
 
-// Após recuperar os dados antigos do projeto:
 $excluirFotos = $_POST['excluir_fotos'] ?? [];
 $excluirVideos = $_POST['excluir_videos'] ?? [];
 $excluirCurta = isset($_POST['excluir_curta']);
@@ -70,20 +69,10 @@ $fotosAtuais = json_decode($projeto['fotos'], true) ?: [];
 $videosAtuais = json_decode($projeto['videos'], true) ?: [];
 $curtaAtual = $projeto['curtas'] ?? null;
 
-// Remove as fotos marcadas
-$fotosFiltradas = array_filter($fotosAtuais, function($f) use ($excluirFotos) {
-  return !in_array($f, $excluirFotos);
-});
-
-// Remove os vídeos marcados
-$videosFiltradas = array_filter($videosAtuais, function($v) use ($excluirVideos) {
-  return !in_array($v, $excluirVideos);
-});
-
-// Remove o curta, se solicitado
+$fotosFiltradas = array_filter($fotosAtuais, fn($f) => !in_array($f, $excluirFotos));
+$videosFiltradas = array_filter($videosAtuais, fn($v) => !in_array($v, $excluirVideos));
 $curtaFinal = $excluirCurta ? null : $curtaAtual;
 
-// ⚠️ (opcional) Deleta os arquivos físicos
 foreach ($excluirFotos as $f) {
   if (file_exists($f)) unlink($f);
 }
@@ -94,7 +83,6 @@ if ($excluirCurta && file_exists($curtaAtual)) {
   unlink($curtaAtual);
 }
 
-// Uploads novos
 $fotosNovas = saveUploadFile('fotos', '../uploads/fotos');
 $videosNovas = saveUploadFile('videos', '../uploads/videos');
 $curtaNova = saveUploadFile('curta', '../uploads/curtas', false);
@@ -106,8 +94,11 @@ if (!empty($curtaNova)) $curtaFinal = $curtaNova[0];
 $fotosJson = json_encode($fotosFinais);
 $videosJson = json_encode($videosFinais);
 
-// Atualização final
-$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+$stmt = $conexao->prepare("
+  UPDATE acervos 
+  SET titulo=?, descricao=?, fotos=?, videos=?, curtas=?, habilidades=?, feedback=?, edicao=?
+  WHERE id_acervo=?
+");
 
 $stmt->bind_param(
   'sssssssii',
@@ -122,10 +113,12 @@ $stmt->bind_param(
   $id
 );
 
-
-$stmt->execute();
-
-echo "<script>
-  alert('Projeto atualizado com sucesso!');
-  window.location.href = 'ver-projeto.php?id=$id';
-</script>";
+if ($stmt->execute()) {
+  echo "<script>
+    alert('Projeto atualizado com sucesso!');
+    window.location.href = 'ver-projeto.php?id=$id';
+  </script>";
+} else {
+  echo "Erro ao atualizar: " . $stmt->error;
+}
+?>
