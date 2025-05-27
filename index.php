@@ -29,12 +29,12 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conexao->close();
+
 ?>
 
 <?php
 include './php/conexao.php';
 
-// Buscar os acervos ordenados por data_criacao (ou outro critério), limitando 5
 $stmt = $conexao->prepare("SELECT id_acervo, titulo, fotos, data_criacao FROM acervos ORDER BY data_criacao DESC LIMIT 5");
 $acervos = [];
 
@@ -79,7 +79,6 @@ $conexao->close();
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <a href="index.php"><img id="logo-header" src="./img/logo-cinelentes-novo.png" alt=""></a>
-    <!-- Botão hamburguer para mobile -->
     <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -110,20 +109,16 @@ $conexao->close();
       const isOpen = navMenu.classList.toggle('show');
       hamburguer.setAttribute('aria-expanded', isOpen);
 
-      // Alterna classe 'open' para animação do botão
       hamburguer.classList.toggle('open');
 
-      // Fecha dropdown quando abrir/fechar menu
       dropdownContent.classList.remove('show');
     });
 
-    // Dropdown toggle mobile
     dropdownBtn.addEventListener('click', (e) => {
       e.preventDefault();
       dropdownContent.classList.toggle('show');
     });
 
-    // Fecha dropdown se clicar fora
     window.addEventListener('click', function(event) {
       if (!event.target.matches('.dropbtn')) {
         dropdownContent.classList.remove('show');
@@ -161,7 +156,7 @@ $conexao->close();
       <div id="titulo">
         <h1 class="titulo-pagina-inicial">Destaques</h1>
       </div>
-      <div class="galeria">
+      
         <div class="galeria">
           <div class="galeria-container">
             <?php foreach ($acervos as $index => $acervo): ?>
@@ -179,8 +174,6 @@ $conexao->close();
             <div class="galeria-controls"></div>
           </div>
         </div>
-
-
 
         <div id="grid-agenda">
           <div id="titulo-agenda">
