@@ -29,8 +29,7 @@ $videos = json_decode($projeto['videos'], true);
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cinelentes</title>
   <link rel="stylesheet" href="../style/style.css" />
-  <link rel="stylesheet" href="../style/criar-projeto.css" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="../style/editar-projeto.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -38,6 +37,7 @@ $videos = json_decode($projeto['videos'], true);
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
+
     <!-- Botão hamburguer para mobile -->
     <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
       <span class="bar"></span>
@@ -55,10 +55,12 @@ $videos = json_decode($projeto['videos'], true);
           <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
+      <a href="cadastro.php" class="link-animado">CADASTRO ADMINISTRADOR</a>
       <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
     </nav>
   </header>
+
+  <!-- Scripts de navegação -->
   <script>
     const hamburguer = document.getElementById('hamburguer');
     const navMenu = document.getElementById('nav-menu');
@@ -68,69 +70,59 @@ $videos = json_decode($projeto['videos'], true);
     hamburguer.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle('show');
       hamburguer.setAttribute('aria-expanded', isOpen);
-
-      // Alterna classe 'open' para animação do botão
       hamburguer.classList.toggle('open');
-
-      // Fecha dropdown quando abrir/fechar menu
       dropdownContent.classList.remove('show');
     });
 
-    // Dropdown toggle mobile
     dropdownBtn.addEventListener('click', (e) => {
       e.preventDefault();
       dropdownContent.classList.toggle('show');
     });
 
-    // Fecha dropdown se clicar fora
     window.addEventListener('click', function(event) {
       if (!event.target.matches('.dropbtn')) {
         dropdownContent.classList.remove('show');
       }
     });
-  </script>
-        <script>
-          document.getElementById("botao-logout").addEventListener("click", function (e) {
-              e.preventDefault();
 
-              Swal.fire({
-                  title: "Deseja sair da conta?",
-                  text: "Você precisará fazer login novamente para continuar.",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Sim, sair"
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      window.location.href = "logout.php";
-                  }
-              });
-          });
-        </script>
-    </nav>
-  </header>
+    document.getElementById("botao-logout").addEventListener("click", function(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: "Deseja sair da conta?",
+        text: "Você precisará fazer login novamente para continuar.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, sair"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "logout.php";
+        }
+      });
+    });
+  </script>
 
   <main class="main-container">
     <h1 class="titulo-pagina">Editar Projeto</h1>
 
     <form method="POST" action="atualizar-projeto.php" enctype="multipart/form-data">
-      <input type="hidden" name="id" value="<?php echo $projeto['id_acervo']; ?>" />
+      <input type="hidden" name="id" value="<?= htmlspecialchars($projeto['id_acervo']) ?>" />
 
       <!-- Título e descrição -->
       <div class="informacoes-iniciais">
-        <input type="text" name="titulo" value="<?php echo htmlspecialchars($projeto['titulo']); ?>" class="input-titulo-projeto" required />
+        <input type="text" name="titulo" value="<?= htmlspecialchars($projeto['titulo']) ?>" class="input-titulo-projeto" required />
         <div class="linha-preta"></div>
-        <textarea name="conteudo" class="textarea-conteudo-projeto" required><?php echo htmlspecialchars($projeto['descricao']); ?></textarea>
+        <textarea name="conteudo" class="textarea-conteudo-projeto" required><?= htmlspecialchars($projeto['descricao']) ?></textarea>
       </div>
 
-      <!-- Seleção de edição -->
+      <!-- Edição -->
       <div class="select-edicao-container">
         <label for="edicao">Edição:</label>
         <select name="edicao" id="edicao" required>
-          <option value="2023" <?php if ($projeto['edicao'] == 2023) echo 'selected'; ?>>2023</option>
-          <option value="2024" <?php if ($projeto['edicao'] == 2024) echo 'selected'; ?>>2024</option>
-          <option value="2025" <?php if ($projeto['edicao'] == 2025) echo 'selected'; ?>>2025</option>
+          <?php foreach ([2023, 2024, 2025] as $ano): ?>
+            <option value="<?= $ano ?>" <?= $projeto['edicao'] == $ano ? 'selected' : '' ?>><?= $ano ?></option>
+          <?php endforeach; ?>
         </select>
       </div>
 
@@ -140,7 +132,7 @@ $videos = json_decode($projeto['videos'], true);
           <h2>Habilidades desenvolvidas</h2>
           <div class="linha-preta"></div>
         </div>
-        <textarea name="habilidades" class="textarea-habilidades"><?php echo htmlspecialchars($projeto['habilidades']); ?></textarea>
+        <textarea name="habilidades" class="textarea-habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
       </section>
 
       <section class="secao-feedback">
@@ -148,76 +140,79 @@ $videos = json_decode($projeto['videos'], true);
           <h2>Feedback</h2>
           <div class="linha-preta"></div>
         </div>
-        <textarea name="feedback" class="textarea-feedback"><?php echo htmlspecialchars($projeto['feedback']); ?></textarea>
+        <textarea name="feedback" class="textarea-feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
       </section>
 
-      <!-- Mostrar preview das mídias -->
+      <!-- Atualização de conteúdo -->
       <section class="secao-conteudo">
         <div class="titulo-secao">
           <h2>Atualizar Conteúdo</h2>
           <div class="linha-preta"></div>
         </div>
 
-        <!-- Upload de novas fotos -->
         <div class="upload-buttons">
           <p><strong>Nova(s) Foto(s):</strong></p>
           <input type="file" name="fotos[]" multiple accept="image/*" />
         </div>
 
-        <!-- Upload de novos vídeos -->
         <div class="upload-buttons">
           <p><strong>Nova(s) Vídeo(s):</strong></p>
           <input type="file" name="videos[]" multiple accept="video/*" />
         </div>
 
-        <!-- Upload de novo curta -->
         <div class="upload-buttons">
           <p><strong>Novo Curta:</strong></p>
           <input type="file" name="curta" accept="video/*" />
         </div>
-        <div style="margin-top: 2rem;">
+
+        <!-- Fotos atuais -->
+        <?php if (!empty($fotos)): ?>
           <p><strong>Fotos Atuais:</strong></p>
-          <?php if (!empty($fotos)): foreach ($fotos as $index => $foto): ?>
-              <div style="display:inline-block; margin:5px; text-align:center;">
-                <img src="<?php echo htmlspecialchars($foto); ?>" style="max-width:150px;"><br>
+          <div class="galeria-fotos">
+            <?php foreach ($fotos as $foto): ?>
+              <div class="card-midia">
+                <img src="<?= htmlspecialchars($foto) ?>" alt="Foto Atual">
                 <label>
-                  <input type="checkbox" name="excluir_fotos[]" value="<?php echo htmlspecialchars($foto); ?>">
+                  <input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars($foto) ?>">
                   Remover
                 </label>
               </div>
-          <?php endforeach;
-          endif; ?>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
 
+        <!-- Vídeos atuais -->
+        <?php if (!empty($videos)): ?>
           <p><strong>Vídeos Atuais:</strong></p>
-          <?php if (!empty($videos)): foreach ($videos as $index => $video): ?>
-              <div style="margin-bottom: 1rem;">
-                <video controls width="300">
-                  <source src="<?php echo htmlspecialchars($video); ?>" type="video/mp4">
-                </video><br>
+          <div class="galeria-videos">
+            <?php foreach ($videos as $video): ?>
+              <div class="card-midia">
+                <video controls>
+                  <source src="<?= htmlspecialchars($video) ?>" type="video/mp4">
+                </video>
                 <label>
-                  <input type="checkbox" name="excluir_videos[]" value="<?php echo htmlspecialchars($video); ?>">
+                  <input type="checkbox" name="excluir_videos[]" value="<?= htmlspecialchars($video) ?>">
                   Remover
                 </label>
               </div>
-          <?php endforeach;
-          endif; ?>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
 
+        <!-- Curta atual -->
+        <?php if (!empty($projeto['curtas'])): ?>
           <p><strong>Curta Atual:</strong></p>
-          <?php if (!empty($projeto['curtas'])): ?>
-            <div style="margin-bottom:1rem;">
-              <video controls width="300">
-                <source src="<?php echo htmlspecialchars($projeto['curtas']); ?>" type="video/mp4">
-              </video><br>
-              <label>
-                <input type="checkbox" name="excluir_curta" value="1">
-                Remover curta
-              </label>
-            </div>
-          <?php endif; ?>
-        </div>
-
+          <div style="margin-bottom:1rem;">
+            <video controls width="300">
+              <source src="<?= htmlspecialchars($projeto['curtas']) ?>" type="video/mp4">
+            </video><br>
+            <label>
+              <input type="checkbox" name="excluir_curta" value="1">
+              Remover curta
+            </label>
+          </div>
+        <?php endif; ?>
       </section>
-
 
       <button type="submit" class="botao-confirmar">Salvar Alterações</button>
     </form>
