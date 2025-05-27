@@ -157,10 +157,7 @@ $stmt->close();
         </div>
       <?php endforeach; ?>
        <div class="galeria-controls">
-          <div class="galeria-controls">
-          <button class="galeria-controls-previous" aria-label="Anterior">&#10094;</button>
-          <button class="galeria-controls-next" aria-label="Próximo">&#10095;</button>
-      </div>
+          <div class="galeria-controls"></div>
        </div>
     </div>
   </div>
