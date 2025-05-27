@@ -82,7 +82,7 @@
         FROM acervos a
         LEFT JOIN (
           SELECT acervo_id, dados, tipo_arquivo
-          FROM fotos_acervo
+          FROM foto_capa_acervo
           GROUP BY acervo_id
         ) f ON a.id_acervo = f.acervo_id
         WHERE a.edicao = 2023
