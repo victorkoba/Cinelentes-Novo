@@ -1,8 +1,12 @@
+/* Container geral */
 .equipe-container {
     text-align: center;
     padding: 64px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* Títulos */
 .titulo-equipe {
     font-size: 40px;
     font-weight: bold;
@@ -23,6 +27,7 @@
     padding-bottom: 8px;
 }
 
+/* Grid dos cartões */
 .idealizadores,
 .desenvolvedores {
     display: flex;
@@ -34,20 +39,53 @@
 
 .idealizador,
 .desenvolvedor {
-    width: 180px;
+    width: 150px;
+    text-align: center;
 }
 
+/* Fotos redondas e menores, sem borda */
 .imagem-idealizador,
 .imagem-desenvolvedor {
-    width: 100%;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background-color: #ccc;
-    padding: 8px;
+    object-fit: cover;
+    object-position: center;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto;
+    display: block;
+    padding: 0;
+    border: none;
 }
 
+/* Hover nas fotos */
+.imagem-idealizador:hover,
+.imagem-desenvolvedor:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Nome */
 .nome-idealizador,
 .nome-desenvolvedor {
-    margin-top: 12px;
-    font-size: 16px;
+    margin-top: 10px;
+    font-size: 15px;
     font-weight: 500;
+    color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .idealizador,
+    .desenvolvedor {
+        width: 100%;
+    }
+
+    .imagem-idealizador,
+    .imagem-desenvolvedor {
+        width: 100px;
+        height: 100px;
+    }
 }
