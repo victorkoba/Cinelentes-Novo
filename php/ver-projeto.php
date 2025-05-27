@@ -21,6 +21,7 @@ if (!$projeto) {
 
 $fotosArray = json_decode($projeto['fotos'], true) ?: [];
 $videosArray = json_decode($projeto['videos'], true) ?: [];
+$curtasArray = json_decode($projeto['curtas'], true) ?: [];
 $habilidadesArray = explode(',', $projeto['habilidades'] ?? '');
 $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 ?>
@@ -103,28 +104,13 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 
       <div class="projeto-video">
         <?php
-        if (!empty($projeto['curtas']) && $projeto['curtas'] !== 'Sem curta') {
-          echo '<video controls>
-                  <source src="' . htmlspecialchars($projeto['curtas']) . '" type="video/mp4">
-                </video>';
-        } elseif (!empty($fotosArray[0])) {
-          echo '<img src="' . htmlspecialchars(stripslashes($fotosArray[0])) . '" alt="Imagem do projeto">';
+        if (!empty($projeto['foto_capa']) && $projeto['foto_capa'] !== 'Sem imagem') {
+          echo '<img src="' . htmlspecialchars($projeto['foto_capa']) . '" alt="Imagem do projeto">';
         }
         ?>
       </div>
     </div>
-
-    <!-- CURTA -->
-    <?php if (!empty($projeto['curtas']) && $projeto['curtas'] !== 'Sem curta'): ?>
-      <section>
-        <h2>Curta-metragem</h2>
-        <video controls width="600">
-          <source src="<?php echo htmlspecialchars($projeto['curtas']); ?>" type="video/mp4">
-        </video>
-      </section>
-    <?php endif; ?>
-
-    <!-- FOTOS -->
+        <!-- FOTOS -->
     <?php if (!empty($fotosArray)): ?>
   <section>
     <h2>Fotos</h2>
@@ -176,6 +162,17 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     });
   });
 </script>
+
+    <!-- CURTA -->
+    <?php if (!empty($projeto['curtas']) && $projeto['curtas'] !== 'Sem curta'): ?>
+      <section>
+        <h2>Curta-metragem</h2>
+        <video controls width="600">
+          <source src="<?php echo htmlspecialchars($projeto['curtas']); ?>" type="video/mp4">
+        </video>
+      </section>
+    <?php endif; ?>
+
 
 
     <!-- VÍDEOS -->
@@ -229,5 +226,20 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
       <a class="btn-voltar-card" href="../index.php">Voltar</a>
     </div>
   </main>
+    <footer class="footer-container">
+    <div class="footer-topo">
+      <div class="div-vazia"></div>
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
+      </div>
+      <div class="botao-login-container">
+        <a href="login.php" class="botao-login">Login Administrador</a>
+      </div>
+    </div>
+    <div class="linha-branca-footer"></div>
+    <div class="linha-preta-footer">
+      <p class="footer-direitos">Todos os direitos reservados.</p>
+    </div>
+  </footer>
 </body>
 </html>
