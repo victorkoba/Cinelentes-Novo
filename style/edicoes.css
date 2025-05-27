@@ -1,15 +1,10 @@
-/* ============================== */
-/*        CONTAINER GERAL        */
-/* ============================== */
 .main-acervos {
   padding: 40px 20px;
   max-width: 1200px;
+  height: 100vh;
   margin: 0 auto;
 }
 
-/* ============================== */
-/*         TÍTULO E BOTÃO        */
-/* ============================== */
 .titulo-e-botao {
   display: flex;
   justify-content: space-between;
@@ -104,22 +99,20 @@
 
 .botao-editar,
 .botao-excluir {
-  padding: 8px 16px;
-  font-size: 14px;
+  text-decoration: none;
+  background-color: #000;
+  color: #f5e9d4;
   border: none;
-  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
+  font-size: 0.95rem;
   transition: background-color 0.3s, transform 0.2s;
-}
-
-.botao-editar {
-  background-color: #262AA0;
-  color: #fff;
+  font-weight: 600;
 }
 
 .botao-editar:hover {
-  background-color: #1e2290;
+  background-color: #333;
   transform: scale(1.05);
 }
 

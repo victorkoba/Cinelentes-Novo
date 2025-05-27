@@ -103,18 +103,18 @@
                 include 'conexao.php';
 
                 $edicao = 2024;
-                $sql = "SELECT * FROM acervos WHERE edicao = ? ORDER BY id_acervo DESC";
+                $sql = "SELECT * FROM acervos WHERE edicao = ? ORDER BY id_acervo ASC";
                 $stmt = $conexao->prepare($sql);
                 $stmt->bind_param("i", $edicao);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $titulo = $row['titulo'];
-                        $id = $row['id_acervo'];
-                        $fotosArray = json_decode($row['fotos'], true);
-                        $foto = isset($fotosArray[0]) ? $fotosArray[0] : '../img/img-icon-avatar.png';
+                 if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    $titulo = $row['titulo'];
+                    $foto = !empty($row['foto_capa']) ? $row['foto_capa'] : './img/img-icon-avatar.png';
+                    $descricao = $row['descricao'];
+                    $id = $row['id_acervo'];
 
                         echo '
     <div class="card">

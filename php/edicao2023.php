@@ -76,23 +76,21 @@
         <?php
         include 'conexao.php';
 
-        $sql = "SELECT * FROM acervos WHERE edicao = 2023 ORDER BY id_acervo DESC";
+        $sql = "SELECT * FROM acervos WHERE edicao = 2023 ORDER BY id_acervo ASC";
         $result = $conexao->query($sql);
 
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
             $titulo = $row['titulo'];
-            $fotosJson = $row['fotos'];
-            $fotosArray = json_decode($fotosJson, true);
-            $foto = isset($fotosArray[0]) ? $fotosArray[0] : '../img/img-icon-avatar.png';
+            $foto = !empty($row['foto_capa']) ? $row['foto_capa'] : './img/img-icon-avatar.png';
             $descricao = $row['descricao'];
-            $id = $row['id_acervo']; // Supondo que exista uma coluna ID
+            $id = $row['id_acervo'];
             echo '
-      <a href="ver-projeto.php?id=' . $id . '" class="card">
-        <img src="' . $foto . '" alt="' . htmlspecialchars($titulo) . '">
-        <div class="card-text">' . htmlspecialchars($titulo) . '</div>
-      </a>
-      ';
+              <a href="ver-projeto.php?id=' . $id . '" class="card">
+                <img src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
+                <div class="card-text">' . htmlspecialchars($titulo) . '</div>
+              </a>
+            ';
           }
         } else {
           echo "<p>Sem projetos cadastrados ainda.</p>";

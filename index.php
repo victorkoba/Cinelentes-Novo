@@ -164,17 +164,17 @@ $conexao->close();
       <div class="galeria">
         <div class="galeria">
           <div class="galeria-container">
-            <?php foreach ($acervos as $index => $acervo):
-              $fotos = json_decode($acervo['fotos'], true);
-              $fotoPrincipal = isset($fotos[0]) ? str_replace('../', './', $fotos[0]) : './img/default.jpg';
+            <?php foreach ($acervos as $index => $acervo): ?>
+            <?php
+              $foto = !empty($row['foto_capa']) ? $row['foto_capa'] : '../img/img-icon-avatar.png';
+              $fotoCorrigida = str_replace('../', './', $foto);
             ?>
-              <img
-                class="galeria-itens galeria-item-<?= $index + 1 ?>"
-                src="<?= htmlspecialchars($fotoPrincipal) ?>"
-                data-index="<?= $index + 1 ?>"
-                alt="Imagem do acervo <?= htmlspecialchars($acervo['titulo']) ?>">
-            <?php endforeach; ?>
-
+            <img
+              class="galeria-itens galeria-item-<?= $index + 1 ?>"
+              src="<?= htmlspecialchars($fotoCapaCorrigida) ?>"
+              data-index="<?= $index + 1 ?>"
+              alt="Imagem do acervo <?= htmlspecialchars($acervo['titulo']) ?>">
+          <?php endforeach; ?>
 
             <div class="galeria-controls"></div>
           </div>

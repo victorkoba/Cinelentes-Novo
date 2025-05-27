@@ -139,7 +139,7 @@ include 'conexao.php';
       <div class="upload-final-video">
         <p class="option-edicao">Faça o upload de uma imagem que ficará do lado do título e da descrição, além disso essa imagem que ficará na capa do card na página de edições.</p>
         <button type="button" class="botao-upload" data-type="video" data-target="final-video">Upload do Arquivo</button>
-        <input accept="image/*" type="file" name="final_video" id="final-video" style="display:none" />
+        <input accept="image/*" type="file" name="foto_capa" id="final-video" style="display:none" />
         <div id="final-video-name" class="file-name"></div>
       </div>
     </section>
@@ -197,7 +197,7 @@ include 'conexao.php';
               <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 2)</p>
             </div>
             <button type="button" class="botao-upload" data-type="video" data-target="upload-curta">Upload dos Arquivos</button>
-            <input accept="video/*" type="file" name="curta" id="upload-curta" style="display:none" />
+            <input accept="video/*" type="file" name="curta[]" id="upload-curta" multiple style="display:none" />
             <div id="upload-curta-name" class="file-name"></div>
           </div>
         </div>
@@ -209,34 +209,133 @@ include 'conexao.php';
         <h2>Músicas</h2>
         <div class="linha-preta"></div>
       </div>
-      <div class="musica-item">
-        <button name="musica1" type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica1-container">Upload de Link</button>
-        <input
-          type="url"
-          placeholder="Digite o nome da música"
-          class="input-musica option-edicao"
-        />
-        <div class="link-preview" id="musica1-container"></div>
-      </div>
-      <div class="musica-item">
-        <button name="musica2" type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica2-container">Upload de Link</button>
-        <input
-          type="url"
-          placeholder="Digite o nome da música"
-          class="input-musica option-edicao"
-        />
-        <div class="link-preview" id="musica2-container"></div>
-      </div>
-      <div class="musica-item">
-        <button name="musica3" type="button" class="botao-upload" data-action="link" data-link-type="música" data-container-id="musica3-container">Upload de Link</button>
-        <input
-          type="url"
-          placeholder="Digite o nome da música"
-          class="input-musica option-edicao"
-        />
-        <div class="link-preview" id="musica3-container"></div>
-      </div>
-    </section>
+        <!-- MÚSICA 1 -->
+        <div class="musica-item">
+          <input
+            type="url"
+            name="musica1"
+            placeholder="Link do YouTube ou MP3"
+            class="input-musica option-edicao"
+            oninput="ativarBotaoMultimidia(this, 'play-musica1', 'musica1-container')"
+          />
+          <button
+            type="button"
+            id="play-musica1"
+            class="botao-play"
+            onclick="alternarMultimidia(this, 'musica1-container')"
+            disabled
+          >
+            <span class="icone-play" role="img" aria-label="Ícone de play">▶</span> 
+
+          </button>
+          <div class="link-preview" id="musica1-container"></div>
+        </div>
+        <div class="musica-item">
+          <input
+            type="url"
+            name="musica2"
+            placeholder="Link do YouTube ou MP3"
+            class="input-musica option-edicao"
+            oninput="ativarBotaoMultimidia(this, 'play-musica2', 'musica2-container')"
+          />
+          <button
+            type="button"
+            id="play-musica2"
+            class="botao-play"
+            onclick="alternarMultimidia(this, 'musica2-container')"
+            disabled
+          >
+            <span class="icone-play" role="img" aria-label="Ícone de play">▶</span> 
+          </button>
+          <div class="link-preview" id="musica2-container"></div>
+        </div>
+        <div class="musica-item">
+          <input
+            type="url"
+            name="musica3"
+            placeholder="Link do YouTube ou MP3"
+            class="input-musica option-edicao"
+            oninput="ativarBotaoMultimidia(this, 'play-musica3', 'musica3-container')"
+          />
+          <button
+            type="button"
+            id="play-musica3"
+            class="botao-play"
+            onclick="alternarMultimidia(this, 'musica3-container')"
+            disabled
+          >
+            <span class="icone-play" role="img" aria-label="Ícone de play">▶</span> 
+          </button>
+          <div class="link-preview" id="musica3-container"></div>
+        </div>
+
+
+<script>
+  function getYoutubeEmbedUrl(url) {
+    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/);
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}?autoplay=1`;
+    }
+    return null;
+  }
+
+  function isMp3Url(url) {
+    return url.endsWith('.mp3');
+  }
+
+ function ativarBotaoMultimidia(input, botaoId, containerId) {
+  const url = input.value.trim();
+  const botao = document.getElementById(botaoId);
+  const container = document.getElementById(containerId);
+
+  const isYoutube = getYoutubeEmbedUrl(url) !== null;
+  const isMp3 = isMp3Url(url);
+
+  if (isYoutube || isMp3) {
+    botao.disabled = false;
+    botao.dataset.status = "parado";
+    botao.dataset.url = url;
+    botao.dataset.tipo = isYoutube ? "youtube" : "mp3";
+
+    // ✅ Limpa o preview se já tinha um
+    container.innerHTML = '';
+  } else {
+    botao.disabled = true;
+    botao.dataset.url = "";
+    botao.dataset.tipo = "";
+    container.innerHTML = "";
+  }
+}
+  function alternarMultimidia(botao, containerId) {
+    const container = document.getElementById(containerId);
+    const tipo = botao.dataset.tipo;
+    const status = botao.dataset.status;
+    const url = botao.dataset.url;
+
+    if (status === "parado") {
+      if (tipo === "youtube") {
+        const embed = getYoutubeEmbedUrl(url);
+        container.innerHTML = `
+          <iframe width="300" height="80" 
+            src="${embed}" frameborder="0" allow="autoplay" allowfullscreen>
+          </iframe>`;
+      } else if (tipo === "mp3") {
+        container.innerHTML = `
+          <audio controls autoplay>
+            <source src="${url}" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+          </audio>`;
+      }
+      botao.textContent = "⏸";
+      botao.dataset.status = "tocando";
+    } else {
+      container.innerHTML = "";
+      botao.textContent = "▶";
+      botao.dataset.status = "parado";
+    }
+  }
+</script>
+</section>
 
     <section class="secao-habilidades">
       <div class="titulo-secao">
