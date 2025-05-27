@@ -101,40 +101,55 @@
             </div>
 
             <div class="cards">
-                <?php
-                include 'conexao.php';
+            <?php
+            include 'conexao.php';
 
-                $edicao = 2023;
-                $sql = "SELECT * FROM acervos WHERE edicao = ? ORDER BY id_acervo ASC";
-                $stmt = $conexao->prepare($sql);
-                $stmt->bind_param("i", $edicao);
-                $stmt->execute();
-                $result = $stmt->get_result();
+            // Consulta com JOIN para pegar uma imagem por acervo
+            $sql = "
+              SELECT a.id_acervo, a.titulo, a.descricao, f.dados, f.tipo_arquivo
+              FROM acervos a
+              LEFT JOIN (
+                SELECT acervo_id, dados, tipo_arquivo
+                FROM fotos_acervo
+                GROUP BY acervo_id
+              ) f ON a.id_acervo = f.acervo_id
+              WHERE a.edicao = 2023
+              ORDER BY a.id_acervo ASC
+            ";
 
-                 if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    $titulo = $row['titulo'];
-                    $foto = !empty($row['foto_capa']) ? $row['foto_capa'] : './img/img-icon-avatar.png';
-                    $descricao = $row['descricao'];
-                    $id = $row['id_acervo'];
+            $result = $conexao->query($sql);
 
-                        echo '
-    <div class="card">
-      <img id="img-card" src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
-      <div class="card-text">' . htmlspecialchars($titulo) . '</div>
-      <div class="card-buttons">
-        <a href="editar-projeto.php?id=' . $id . '" class="botao-editar">EDITAR</a>
-        <button class="botao-excluir" onclick="confirmarExclusao(' . $id . ')">EXCLUIR</button>
-      </div>
-    </div>';
-                    }
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                $titulo = $row['titulo'];
+                $id = $row['id_acervo'];
+
+                // Verifica e converte a imagem
+                if (!empty($row['dados'])) {
+                  $tipo = $row['tipo_arquivo'];
+                  $foto = 'data:' . $tipo . ';base64,' . base64_encode($row['dados']);
                 } else {
-                    echo '<p>Nenhum projeto encontrado para esta edição.</p>';
+                  $foto = './img/img-icon-avatar.png';
                 }
 
-                $stmt->close();
-                $conexao->close();
-                ?>
+                echo '
+                  <div class="card">
+                    <img id="img-card" src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
+                    <div class="card-text">' . htmlspecialchars($titulo) . '</div>
+                    <div class="card-buttons">
+                      <a href="ver-projeto.php?id=' . $id . '" class="botao-editar">VER PROJETO</a>
+                      <a href="editar-projeto.php?id=' . $id . '" class="botao-editar">EDITAR</a>
+                      <button class="botao-excluir" onclick="confirmarExclusao(' . $id . ')">EXCLUIR</button>
+                    </div>
+                  </div>
+                ';
+              }
+            } else {
+              echo '<p>Nenhum projeto encontrado para esta edição.</p>';
+            }
+
+            $conexao->close();
+            ?>
             </div>
 
         </section>
