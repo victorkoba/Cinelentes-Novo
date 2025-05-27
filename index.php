@@ -1,43 +1,32 @@
 <?php
 include './php/conexao.php';
 
+// Consulta eventos
 $meses_abreviados = [
-  '01' => 'JAN',
-  '02' => 'FEV',
-  '03' => 'MAR',
-  '04' => 'ABR',
-  '05' => 'MAI',
-  '06' => 'JUN',
-  '07' => 'JUL',
-  '08' => 'AGO',
-  '09' => 'SET',
-  '10' => 'OUT',
-  '11' => 'NOV',
-  '12' => 'DEZ'
+  '01' => 'JAN', '02' => 'FEV', '03' => 'MAR', '04' => 'ABR',
+  '05' => 'MAI', '06' => 'JUN', '07' => 'JUL', '08' => 'AGO',
+  '09' => 'SET', '10' => 'OUT', '11' => 'NOV', '12' => 'DEZ'
 ];
 
 $eventos = [];
-
 $stmt = $conexao->prepare("SELECT id_data, titulo_data, dia, descricao_data FROM data ORDER BY dia ASC");
-
 if ($stmt->execute()) {
   $result = $stmt->get_result();
   while ($row = $result->fetch_assoc()) {
     $eventos[] = $row;
   }
 }
-
 $stmt->close();
-$conexao->close();
 
-?>
-
-<?php
-include './php/conexao.php';
-
-$stmt = $conexao->prepare("SELECT id_acervo, titulo, data_criacao FROM acervos ORDER BY data_criacao DESC LIMIT 5");
+// Consulta acervos (destaques)
 $acervos = [];
-
+$stmt = $conexao->prepare(
+  "SELECT acervos.id_acervo, acervos.titulo, acervos.data_criacao, foto_capa_acervo.nome_arquivo, foto_capa_acervo.tipo_arquivo, foto_capa_acervo.dados 
+   FROM acervos
+   LEFT JOIN foto_capa_acervo ON acervos.id_acervo = foto_capa_acervo.acervo_id
+   ORDER BY acervos.data_criacao DESC 
+   LIMIT 5"
+);
 if ($stmt->execute()) {
   $result = $stmt->get_result();
   while ($row = $result->fetch_assoc()) {
@@ -45,10 +34,7 @@ if ($stmt->execute()) {
   }
 }
 $stmt->close();
-$conexao->close();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -126,55 +112,60 @@ $conexao->close();
     });
   </script>
   </header>
-  <main>
-    <!-- Introdução -->
-    <div id="grid-introducao">
-      <div id="titulo">
-        <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
-      </div>
-      <div class="introducao-texto">
-        <div class="texto">
-          <p class="conteudo-introducao">
-            O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
-            democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
-            Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
-            e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
-            novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
-            a datas comemorativas relevantes daquele mês.
-          </p>
-        </div>
-        <div class="imagem">
-          <figure>
-            <img id="img-idealizadores" src="./img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores" />
-            <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
-          </figure>
-        </div>
 
-      </div>
+<main>
+
+<div id="grid-introducao">
+  <div id="titulo">
+    <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
+  </div>
+  <div class="introducao-texto">
+    <div class="texto">
+      <p class="conteudo-introducao">
+        O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
+        democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
+        Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
+        e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
+        novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
+        a datas comemorativas relevantes daquele mês.
+      </p>
     </div>
-    <div id="grid-destaques">
-      <div id="titulo">
-        <h1 class="titulo-pagina-inicial">Destaques</h1>
-      </div>
-      
-        <div class="galeria">
-          <div class="galeria-container">
-            <?php foreach ($acervos as $index => $acervo): ?>
-            <?php
-              $foto = !empty($row['foto_capa']) ? $row['foto_capa'] : '../img/img-icon-avatar.png';
-              $fotoCorrigida = str_replace('../', './', $foto);
-            ?>
-            <img
-              class="galeria-itens galeria-item-<?= $index + 1 ?>"
-              src="<?= htmlspecialchars($fotoCapaCorrigida) ?>"
-              data-index="<?= $index + 1 ?>"
-              alt="Imagem do acervo <?= htmlspecialchars($acervo['titulo']) ?>">
-          <?php endforeach; ?>
+    <div class="imagem">
+      <figure>
+        <img id="img-idealizadores" src="./img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores">
+        <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-            <div class="galeria-controls"></div>
-          </div>
+<div id="grid-destaques">
+  <div id="titulo">
+    <h1 class="titulo-pagina-inicial">Destaques</h1>
+  </div>
+  <div class="galeria">
+    <div class="galeria-container">
+      <?php foreach ($acervos as $acervo): ?>
+        <div class="acervo-item">
+          <?php if (!empty($acervo['dados'])): ?>
+            <img src="data:<?= htmlspecialchars($acervo['tipo_arquivo']) ?>;base64,<?= base64_encode($acervo['dados']) ?>"
+                 alt="<?= htmlspecialchars($acervo['nome_arquivo']) ?>" style="max-width: 100%; height: auto;">
+          <?php else: ?>
+            <img src="./img/img-email.png" alt="Imagem não disponível" style="max-width: 100%; height: auto;">
+          <?php endif; ?>
+          <h3><?= htmlspecialchars($acervo['titulo']) ?></h3>
         </div>
-
+      <?php endforeach; ?>
+       <div class="galeria-controls">
+          <div class="galeria-controls">
+          <button class="galeria-controls-previous" aria-label="Anterior">&#10094;</button>
+          <button class="galeria-controls-next" aria-label="Próximo">&#10095;</button>
+      </div>
+       </div>
+    </div>
+  </div>
+</div>
+<!-------------AGENDA------------->
         <div id="grid-agenda">
           <div id="titulo-agenda">
             <h1 class="titulo-pagina-inicial">Agenda</h1>
@@ -203,7 +194,7 @@ $conexao->close();
               <?php endforeach; ?>
             </div>
   </main>
-  <footer class="footer-container">
+   <footer class="footer-container">
     <div class="footer-topo">
       <div class="div-vazia"></div>
       <div class="footer-logo-container">

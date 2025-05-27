@@ -3,50 +3,48 @@ body {
   padding: 0;
 }
 
+/* Estilos da galeria/carrossel */
 .galeria {
   width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 .galeria-container {
-  align-items: center;
   display: flex;
+  align-items: center;
+  justify-content: center;
   height: 400px;
   margin: 0 auto;
   max-width: 1000px;
   position: relative;
 }
 
-.galeria-itens {
-  height: 200px;
-  opacity: 0;
+.acervo-item {
   position: absolute;
   transition: all 0.3s ease-in-out;
+  text-align: center;
   width: 330px;
-  z-index: 0;
+  opacity: 0;
   border-radius: 15px;
-  background-size: contain;
 }
 
-.galeria-item- {
+/* Posicionamento dos itens do carrossel */
+.acervo-item.galeria-item-0 {
   left: 15%;
   opacity: .4;
   transform: translateX(-50%);
 }
 
-.galeria-item-,
-.galeria-item- {
-  height: 250px;
+.acervo-item.galeria-item-1 {
+  left: 30%;
   opacity: 0.8;
+  transform: translateX(-50%);
   width: 380px;
   z-index: 1;
 }
 
-.galeria-item- {
-  left: 30%;
-  transform: translateX(-50%);
-}
-
-.galeria-item- {
+.acervo-item.galeria-item-2 {
   box-shadow: -2px 5px 33px 6px rgba(0, 0, 0, 0.35);
   height: 300px;
   opacity: 1;
@@ -56,24 +54,31 @@ body {
   z-index: 2;
 }
 
-.galeria-item- {
+.acervo-item.galeria-item-3 {
   left: 70%;
+  opacity: 0.8;
   transform: translateX(-50%);
+  width: 380px;
+  z-index: 1;
 }
 
-.galeria-item- {
+.acervo-item.galeria-item-4 {
   left: 85%;
   opacity: .4;
   transform: translateX(-50%);
 }
 
+/* Controles do carrossel */
 .galeria-controls {
+  position: absolute;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  position: relative;
-  margin-left: 255px;
-  z-index: 2;
-  gap: 437px;
+  justify-content: space-between;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .galeria-controls button {
@@ -81,44 +86,23 @@ body {
   border: 0;
   cursor: pointer;
   font-size: 50px;
-  
-}
-.galeria-controls-previous,
-.galeria-controls-next {
-    color: #000; 
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.galeria-controls-button:focus {
-  outline: none;
-}
-.galeria-nav {
-  bottom: -15px;
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-  position: absolute;
-  width: 100%;
-}
-.galeria-nav li {
-  background: #fcebd5;
-  border-radius: 50%;
-  height: 10px;
-  margin: 0 16px;
-  width: 10px;
+  color: #000;
+  z-index: 4;
+  transition: color 0.3s ease;
 }
 
-.galeria-nav li.galeria-item-selected {
-  background: #555;
+.galeria-controls button:hover {
+  color: #555;
 }
 
+/* Estilos gerais do grid */
 #grid-introducao,
 #grid-destaques {
   display: grid;
   width: 100%;
 }
 
+/* Estilos do título */
 #titulo,
 #titulo-destaque,
 #titulo-agenda {
@@ -134,15 +118,16 @@ body {
   font-size: 32px;
 }
 
-.titulo-pagina-inicial-adm{
+.titulo-pagina-inicial-adm {
   display: flex;
   justify-content: center;
 }
 
-#titulo-adm{
-    margin-top: 50px;
+#titulo-adm {
+  margin-top: 50px;
 }
 
+/* Seção introdução */
 .introducao-texto {
   margin-left: 100px;
   margin-top: 7px;
@@ -177,6 +162,7 @@ body {
   margin-top: 5px;
 }
 
+/* Seção agenda */
 #titulo-agenda {
   display: flex;
   flex-direction: column;
@@ -184,14 +170,13 @@ body {
   margin-bottom: 300px;
 }
 
-.agenda-eventos{
+.agenda-eventos {
   margin-top: 90px;
   margin-bottom: -300px;
   display: grid;
   grid-template-columns: 1fr 1fr; 
   margin-left: 100px;
   gap: 50px;
-  
 }
 
 .agenda-card {
@@ -207,7 +192,6 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 600px;
-  
 }
 
 .agenda-card:hover {
@@ -235,6 +219,8 @@ body {
 .data-agenda .mes {
   font-size: 18px;
   font-weight: bold;
+  display: block;
+  margin-top: 2px;
 }
 
 .conteudo-agenda {
@@ -248,7 +234,6 @@ body {
   align-items: center;
   font-size: 18px;
   font-weight: 700;
-  
 }
 
 .descricao-agenda {
@@ -266,6 +251,7 @@ body {
   opacity: 1;
 }
 
+/* Modal */
 .modal-agenda {
   position: fixed;
   top: 0;
@@ -280,6 +266,7 @@ body {
   z-index: 9999;
   overflow-y: auto;
 }
+
 #modal-agenda {
   display: none;
   position: fixed;
@@ -338,23 +325,24 @@ body {
   margin-top: 20px;
   font-size: 16px;
   color: #ccc;
-   white-space: normal; 
+  white-space: normal; 
   word-wrap: break-word; 
   overflow-wrap: break-word; 
   max-width: 100%; 
   word-break: break-word; 
 }
 
+/* Formulários */
 .container-form {
   max-width: 600px;
   margin: 40px auto;
   border-radius: 10px;
-  background: rgba( 255, 255, 255, 0.6 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 20px );
-  -webkit-backdrop-filter: blur( 20px );
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 20px;
 }
 
@@ -409,7 +397,7 @@ body {
   background-color: #ffdea4;
 }
 
-.container-botao-criar{
+.container-botao-criar {
   margin-top: 50px;
   display: flex;
   justify-content: center;
