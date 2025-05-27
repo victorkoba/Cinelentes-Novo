@@ -65,16 +65,16 @@ function salvarMultiplosArquivosBinarios($campo) {
 }
 
 // Uploads
-$imagem_capa = salvarArquivoBinario('foto_capa');
+$foto_capa = salvarArquivoBinario('foto_capa');
 $fotos = salvarMultiplosArquivosBinarios('fotos');
 $videos = salvarMultiplosArquivosBinarios('videos');
 $curta = salvarMultiplosArquivosBinarios('curta');
 
 // 1. Inserção na tabela acervos
-$sql = "INSERT INTO acervos (titulo, descricao, foto_capa, musicas, habilidades, feedback, edicao) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO acervos (titulo, descricao, musicas, habilidades, feedback, edicao) 
+        VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conexao->prepare($sql);
-$stmt->bind_param("ssssssi", $titulo, $conteudo, $imagem_capa, $musicas, $habilidades, $feedback, $edicao);
+$stmt->bind_param("sssssi", $titulo, $conteudo, $musicas, $habilidades, $feedback, $edicao);
 
 if ($stmt->execute()) {
     $acervo_id = $stmt->insert_id; // ID do acervo recém-criado
@@ -95,10 +95,21 @@ if ($stmt->execute()) {
         $stmt->close();
     }
 
+    $foto_capa_arquivo = [];
+
+        if ($foto_capa !== null) {
+            $foto_capa_arquivo[] = [
+                'nome' => $_FILES['foto_capa']['name'] ?? 'capa_sem_nome',
+                'tipo' => mime_content_type($_FILES['foto_capa']['tmp_name'] ?? ''),
+                'dados' => $foto_capa
+            ];
+        }
+
     // Inserir arquivos nas tabelas específicas
     inserirArquivo($conexao, "fotos_acervo", $acervo_id, $fotos);
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);
+    inserirArquivo($conexao, "foto_capa_acervo", $acervo_id, $foto_capa_arquivo);
 
     echo "<br><a href='pagina-inicial-adm.php'>Voltar</a>";
 } else {
