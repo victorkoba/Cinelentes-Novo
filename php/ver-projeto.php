@@ -58,25 +58,24 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 
   <!-- FOTOS -->
   <section>
-    <h2>Fotos</h2>
-    <div class="carrossel-container">
-      <button class="prev">&#10094;</button>
-      <div class="carrossel-slide">
-        <?php
-        $fotos = $conexao->prepare("SELECT * FROM fotos_acervo WHERE acervo_id = ?");
-        $fotos->bind_param("i", $id);
-        $fotos->execute();
-        $fotoRes = $fotos->get_result();
-        $i = 0;
-        while ($row = $fotoRes->fetch_assoc()) {
-          echo "<img src='ver-midia.php?tabela=fotos_acervo&id={$id}&midia={$i}' alt='Foto do projeto'>";
-          $i++;
-        }
-        ?>
-      </div>
-      <button class="next">&#10095;</button>
-    </div>
-  </section>
+  <h2>Fotos</h2>
+  <div class="grid-fotos">
+    <?php
+    $fotos = $conexao->prepare("SELECT * FROM fotos_acervo WHERE acervo_id = ?");
+    $fotos->bind_param("i", $id);
+    $fotos->execute();
+    $fotoRes = $fotos->get_result();
+    $i = 0;
+    while ($row = $fotoRes->fetch_assoc()) {
+      echo "<div class='foto-grid-item'>
+              <img src='ver-midia.php?tabela=fotos_acervo&id={$id}&midia={$i}' alt='Foto do projeto'>
+            </div>";
+      $i++;
+    }
+    ?>
+  </div>
+</section>
+
 
   <!-- CURTA -->
   <?php
