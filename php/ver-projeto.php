@@ -126,13 +126,57 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 
     <!-- FOTOS -->
     <?php if (!empty($fotosArray)): ?>
-      <section>
-        <h2>Fotos</h2>
+  <section>
+    <h2>Fotos</h2>
+    <div class="carrossel-container">
+      <button class="prev">&#10094;</button>
+      <div class="carrossel-slide">
         <?php foreach ($fotosArray as $foto): ?>
-          <img src="<?php echo htmlspecialchars(stripslashes($foto)); ?>" alt="Foto do projeto" style="max-width: 300px; margin: 10px;">
+          <img src="<?php echo htmlspecialchars(stripslashes($foto)); ?>" alt="Foto do projeto">
         <?php endforeach; ?>
-      </section>
-    <?php endif; ?>
+      </div>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+<?php endif; ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slide = document.querySelector('.carrossel-slide');
+    const images = document.querySelectorAll('.carrossel-slide img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let counter = 0;
+    const size = images[0].clientWidth;
+
+    function updateSlide() {
+      slide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (counter >= images.length  1) {
+        counter = 0;
+      } else {
+        counter++;
+      }
+      updateSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (counter <= 0) {
+        counter = images.length - 1;
+      } else {
+        counter--;
+      }
+      updateSlide();
+    });
+
+    window.addEventListener('resize', () => {
+      updateSlide();
+    });
+  });
+</script>
+
 
     <!-- VÍDEOS -->
     <?php if (!empty($videosArray)): ?>
