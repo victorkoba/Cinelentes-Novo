@@ -222,10 +222,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
-  width: 50px;
-  height: 100%;
+  padding: 6px 10px;   /* menor padding */
+  width: 40px;         /* largura menor */
+  height: auto;        /* altura automática */
+  border-radius: 6px;  /* opcional: canto arredondado */
 }
+
 
 .data-agenda .dia {
   font-size: 26px;
@@ -437,4 +439,371 @@ body {
 .botao-criar-projeto:hover {
   background-color: #333;
   transform: scale(1.05);
+}
+/* Responsividade para tablets e telas menores */
+@media (max-width: 768px) {
+  .galeria-container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .galeria-itens {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+    width: 100%;
+    max-width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .galeria-controls {
+    margin-left: 0;
+    gap: 60px;
+  }
+
+  .introducao-texto {
+    grid-template-columns: 1fr;
+    margin: 0 30px;
+    text-align: center;
+  }
+
+  #img-idealizadores {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .imagem {
+    text-align: center;
+    margin: 20px auto;
+  }
+
+  .agenda-eventos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 10px 20px;
+    margin: 0 auto;
+  }
+
+  .agenda-card {
+    width: 100%;
+    font-size: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
+  #titulo,
+  #titulo-destaque,
+  #titulo-agenda {
+    margin-left: 30px;
+    width: auto;
+  }
+
+  .conteudo-introducao {
+    width: auto;
+  }
+
+  .container-form {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #f1f1f1;
+    font-size: 14px;
+  }
+
+  footer p {
+    margin: 5px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-pagina-inicial {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .galeria-controls button {
+    font-size: 32px;
+  }
+
+  .modal-agenda {
+    width: 100%;
+    padding: 20px 15px;
+  }
+
+  .data-modal .dia {
+    font-size: 20px;
+  }
+
+  .data-modal .mes {
+    font-size: 14px;
+  }
+
+  #modal-descricao {
+    font-size: 14px;
+  }
+
+  .botao-criar-projeto {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .input-form {
+    width: 100%;
+  }
+
+  .agenda-eventos {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  .agenda-card {
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #000000;
+  }
+
+  .data-agenda {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0;
+    width: 100%;
+    height: auto;
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  footer {
+    padding: 15px;
+    font-size: 13px;
+    background-color: #f1f1f1;
+  }
+}
+@media (max-width: 768px) {
+  .modal-agenda {
+    width: 100%;     /* ocupar 100% da largura da tela */
+    padding: 20px 15px;
+  }
+
+  #modal-titulo {
+    font-size: 22px;
+  }
+
+  #modal-descricao {
+    font-size: 16px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Responsividade: celulares (muito pequenos) */
+@media (max-width: 480px) {
+  .modal-agenda {
+    width: 100%;
+    padding: 15px 10px;
+  }
+
+  #modal-titulo {
+    font-size: 20px;
+  }
+
+  #modal-descricao {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .data-modal .dia {
+    font-size: 18px;
+  }
+
+  .data-modal .mes {
+    font-size: 12px;
+  }
+
+  .modal-header {
+    gap: 8px;
+  }
+}
+
+/* Para fechar o modal no mobile, botao maior e mais fácil de clicar */
+.fechar-modal {
+  top: 15px;
+  right: 15px;
+  font-size: 32px;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Conteúdo dentro do card responsivo */
+.agenda-card {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  max-width: 600px;
+  background-color: #000;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin-bottom: 35px;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .agenda-card {
+    width: 100%;
+    grid-template-columns: 0.25fr 1fr; /* mantém colunas */
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-agenda {
+    width: 100%;     /* ocupar 100% da largura da tela */
+    padding: 20px 15px;
+  }
+
+  #modal-titulo {
+    font-size: 22px;
+  }
+
+  #modal-descricao {
+    font-size: 16px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Responsividade: celulares (muito pequenos) */
+@media (max-width: 480px) {
+  .modal-agenda {
+    width: 100%;
+    padding: 15px 10px;
+  }
+
+  #modal-titulo {
+    font-size: 20px;
+  }
+
+  #modal-descricao {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .data-modal .dia {
+    font-size: 18px;
+  }
+
+  .data-modal .mes {
+    font-size: 12px;
+  }
+
+  .modal-header {
+    gap: 8px;
+  }
+}
+
+/* Para fechar o modal no mobile, botao maior e mais fácil de clicar */
+.fechar-modal {
+  top: 15px;
+  right: 15px;
+  font-size: 32px;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Conteúdo dentro do card responsivo */
+.agenda-card {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  max-width: 600px;
+  background-color: #000;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin-bottom: 35px;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .agenda-card {
+    width: 100%;
+    grid-template-columns: 0.25fr 1fr; /* mantém colunas */
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agenda-card {
+    grid-template-columns: 1fr; /* só uma coluna */
+    font-size: 14px;
+    padding: 12px 10px;
+  }
+
+  .data-agenda {
+    width: auto;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+}
+@media (max-width: 768px) {
+  footer {
+    padding: 20px 15px;
+    font-size: 14px;
+  }
+
+  footer a {
+    margin: 0 6px;
+  }
+}
+
+/* Responsividade: celulares pequenos */
+@media (max-width: 480px) {
+  footer {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+
+  footer p {
+    margin: 4px 0;
+  }
+
+  footer a {
+    display: inline-block;
+    margin: 6px 8px 0 8px;
+  }
 }
