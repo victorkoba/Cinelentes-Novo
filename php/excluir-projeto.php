@@ -8,38 +8,38 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-$stmt = $conexao->prepare("SELECT fotos, videos, curtas FROM acervos WHERE id_acervo = ?");
+// Deletar da foto_capa_acervo
+$stmt = $conexao->prepare("DELETE FROM foto_capa_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$result = $stmt->get_result();
+$stmt->close();
 
-if ($result->num_rows === 0) {
-    die('Projeto não encontrado.');
-}
+// Deletar de fotos_acervo
+$stmt = $conexao->prepare("DELETE FROM fotos_acervo WHERE acervo_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->close();
 
-$projeto = $result->fetch_assoc();
+// Deletar de videos_acervo
+$stmt = $conexao->prepare("DELETE FROM videos_acervo WHERE acervo_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->close();
 
-$fotos = json_decode($projeto['fotos'], true) ?: [];
-$videos = json_decode($projeto['videos'], true) ?: [];
-$curta = $projeto['curtas'];
+// Deletar de curtas_acervo
+$stmt = $conexao->prepare("DELETE FROM curtas_acervo WHERE acervo_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->close();
 
-foreach ($fotos as $f) {
-    if (file_exists($f)) unlink($f);
-}
-
-foreach ($videos as $v) {
-    if (file_exists($v)) unlink($v);
-}
-
-if (!empty($curta) && file_exists($curta)) {
-    unlink($curta);
-}
-$deleteStmt = $conexao->prepare("DELETE FROM acervos WHERE id_acervo = ?");
-$deleteStmt->bind_param("i", $id);
-$deleteStmt->execute();
+// Deletar do acervos (último para manter integridade referencial)
+$stmt = $conexao->prepare("DELETE FROM acervos WHERE id_acervo = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->close();
 
 echo "<script>
-  alert('Projeto excluído com sucesso.');
-  window.location.href = 'pagina-inicial-adm.php';
+    alert('Projeto excluído com sucesso!');
+    window.location.href = 'pagina-inicial-adm.php';
 </script>";
 ?>
