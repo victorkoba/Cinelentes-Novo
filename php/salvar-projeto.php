@@ -140,7 +140,8 @@ if ($stmt->execute()) {
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);
 
-    echo "<br><a href='pagina-inicial-adm.php'>Voltar</a>";
+    header("Location: pagina-inicial-adm.php");
+    exit;
 } else {
     echo "Erro ao salvar projeto: " . $stmt->error;
 }

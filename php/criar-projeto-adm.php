@@ -362,8 +362,27 @@ include 'conexao.php';
         class="textarea-feedback option-edicao"
       ></textarea>
       <div class="alinhamento-confirmar">
-        <button type="submit" class="botao-confirmar">Criar Projeto</button>
+      <div class="alinhamento-confirmar">
+        <button type="button" onclick="confirmarEnvio()" class="botao-confirmar">Criar Projeto</button>
       </div>
+        <!-- SCRIPT DO SWEETALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          function confirmarEnvio() {
+            Swal.fire({
+              title: "Tem certeza?",
+              text: "Você deseja criar este projeto?",
+              icon: "question",
+              showCancelButton: true,
+              confirmButtonText: "Sim, criar",
+              cancelButtonText: "Cancelar"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                document.querySelector("form").submit();
+              }
+            });
+          }
+</script>
     </section>
   </form>
 </main>
