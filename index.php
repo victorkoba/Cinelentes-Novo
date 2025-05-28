@@ -31,21 +31,22 @@ $stmt->close();
   <script src="./js/carrosel.js"></script>
   <script src="./js/main.js"></script>
 </head>
-<div id="modal-agenda" class="modal-agenda">
-  <div class="modal-conteudo">
-    <span class="fechar-modal" onclick="fecharModal()">&times;</span>
-    <div class="modal-header">
-      <div class="data-modal">
-        <span class="dia" id="modal-dia"></span>
-        <span class="mes" id="modal-mes"></span>
-      </div>
-      <h2 id="modal-titulo"></h2>
-    </div>
-    <p id="modal-descricao"></p>
-  </div>
-</div>
 
 <body>
+  <div id="modal-agenda" class="modal-agenda">
+    <div class="modal-conteudo">
+      <span class="fechar-modal" onclick="fecharModal()">&times;</span>
+      <div class="modal-header">
+        <div class="data-modal">
+          <span class="dia" id="modal-dia"></span>
+          <span class="mes" id="modal-mes"></span>
+        </div>
+        <h2 id="modal-titulo"></h2>
+      </div>
+      <p id="modal-descricao"></p>
+    </div>
+  </div>
+
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <a href="index.php"><img id="logo-header" src="./img/logo-cinelentes-novo.png" alt=""></a>
@@ -69,6 +70,7 @@ $stmt->close();
       <a href="#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
   </header>
+
   <script>
     const hamburguer = document.getElementById('hamburguer');
     const navMenu = document.getElementById('nav-menu');
@@ -78,9 +80,7 @@ $stmt->close();
     hamburguer.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle('show');
       hamburguer.setAttribute('aria-expanded', isOpen);
-
       hamburguer.classList.toggle('open');
-
       dropdownContent.classList.remove('show');
     });
 
@@ -95,107 +95,103 @@ $stmt->close();
       }
     });
   </script>
-  </header>
 
-<main>
-
-<div id="grid-introducao">
-  <div id="titulo">
-    <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
-  </div>
-  <div class="introducao-texto">
-    <div class="texto">
-      <p class="conteudo-introducao">
-        O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
-        democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
-        Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
-        e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
-        novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
-        a datas comemorativas relevantes daquele mês.
-      </p>
-    </div>
-    <div class="imagem">
-      <figure>
-        <img id="img-idealizadores" src="./img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores">
-        <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
-      </figure>
-    </div>
-  </div>
-</div>
-
-<div id="grid-destaques">
-  <div id="titulo">
-    <h1 class="titulo-pagina-inicial">Destaques</h1>
-  </div>
-  <div class="galeria">
-    <div class="galeria-container">
-      <?php
-      $diretorio = './php/uploads/';
-      $url_base = './php/uploads/';
-
-
-      $imagens = [];
-
-      if (is_dir($diretorio)) {
-        $arquivos = array_diff(scandir($diretorio), array('.', '..'));
-
-        foreach ($arquivos as $arquivo) {
-          $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
-          if (in_array($extensao, ['jpg', 'jpeg', 'png', 'gif'])) {
-            $imagens[] = $arquivo;
-            if (count($imagens) >= 5) break;
-          }
-        }
-      } else {
-        echo "<p>Pasta de uploads não encontrada: $diretorio</p>";
-      }
-      ?>
-
-      <?php foreach ($imagens as $imagem): ?>
-        <div class="acervo-item">
-          <img src="<?= $url_base . htmlspecialchars($imagem) ?>" 
-               alt="<?= htmlspecialchars($imagem) ?>" 
-               style="max-width: 100%; height: auto;">
-          <h3><?= htmlspecialchars(pathinfo($imagem, PATHINFO_FILENAME)) ?></h3>
+  <main>
+    <div id="grid-introducao">
+      <div id="titulo">
+        <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
+      </div>
+      <div class="introducao-texto">
+        <div class="texto">
+          <p class="conteudo-introducao">
+            O Projeto “Cinelentes” tem o objetivo de fomentar a cultura no ambiente escolar,
+            democratizando o acesso ao cinema e outras linguagens artísticas/culturais.
+            Proporcionar um ambiente de interação, debate e criatividade que envolve não só o corpo docente
+            e discente, mas toda a comunidade escolar, proporcionando a criticidade necessária para buscar
+            novas lentes através de curtas metragens. Durante cada mês serão abordados temas relacionados
+            a datas comemorativas relevantes daquele mês.
+          </p>
         </div>
-      <?php endforeach; ?>
-
-      <div class="galeria-controls"></div>
+        <div class="imagem">
+          <figure>
+            <img id="img-idealizadores" src="./img/img-mes-mulher-foto1.jpg" alt="Imagem idealizadores">
+            <figcaption>Foto dos idealizadores do projeto no evento "Mês das Mulheres".</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
+    <div id="grid-destaques">
+      <div id="titulo">
+        <h1 class="titulo-pagina-inicial">Destaques</h1>
+      </div>
+      <div class="galeria">
+        <div class="galeria-container">
+          <?php
+          $diretorio = './php/uploads/';
+          $url_base = './php/uploads/';
+          $imagens = [];
 
-<!-------------AGENDA------------->
-        <div id="grid-agenda">
-          <div id="titulo-agenda">
-            <h1 class="titulo-pagina-inicial">Agenda</h1>
-            <div class="agenda-eventos">
-              <?php foreach ($eventos as $evento):
-                $dataObj = new DateTime($evento['dia']);
-                $dia = $dataObj->format('d');
-                $numero_mes = $dataObj->format('m');
-                $mes = $meses_abreviados[$numero_mes];
-              ?>
-                <div class="agenda-card"
-                  data-titulo="<?= htmlspecialchars($evento['titulo_data'], ENT_QUOTES, 'UTF-8') ?>"
-                  data-descricao="<?= htmlspecialchars($evento['descricao_data'], ENT_QUOTES, 'UTF-8') ?>"
-                  data-dia="<?= htmlspecialchars($dia) ?>"
-                  data-mes="<?= htmlspecialchars($mes) ?>">
+          if (is_dir($diretorio)) {
+            $arquivos = array_diff(scandir($diretorio), array('.', '..'));
+            foreach ($arquivos as $arquivo) {
+              $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
+              if (in_array($extensao, ['jpg', 'jpeg', 'png', 'gif'])) {
+                $imagens[] = $arquivo;
+                if (count($imagens) >= 5) break;
+              }
+            }
+          } else {
+            echo "<p>Pasta de uploads não encontrada: $diretorio</p>";
+          }
+          ?>
 
-                  <div class="data-agenda">
-                    <span class="dia"><?= htmlspecialchars($dia) ?></span>
-                    <span class="mes"><?= htmlspecialchars($mes) ?></span>
-                  </div>
-
-                  <div class="overflow titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
-                  <div class="overflow descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
-
-                </div>
-              <?php endforeach; ?>
+          <?php foreach ($imagens as $imagem): ?>
+            <div class="acervo-item">
+              <img src="<?= $url_base . htmlspecialchars($imagem) ?>" 
+                   alt="<?= htmlspecialchars($imagem) ?>" 
+                   style="max-width: 100%; height: auto;">
             </div>
+          <?php endforeach; ?>
+
+          <div class="galeria-controls"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-------------AGENDA------------->
+    <div id="grid-agenda">
+      <div id="titulo-agenda">
+        <h1 class="titulo-pagina-inicial">Agenda</h1>
+        <div class="agenda-eventos">
+          <?php foreach ($eventos as $evento):
+            $dataObj = new DateTime($evento['dia']);
+            $dia = $dataObj->format('d');
+            $numero_mes = $dataObj->format('m');
+            $mes = $meses_abreviados[$numero_mes];
+          ?>
+            <div class="agenda-card"
+              data-titulo="<?= htmlspecialchars($evento['titulo_data'], ENT_QUOTES, 'UTF-8') ?>"
+              data-descricao="<?= htmlspecialchars($evento['descricao_data'], ENT_QUOTES, 'UTF-8') ?>"
+              data-dia="<?= htmlspecialchars($dia) ?>"
+              data-mes="<?= htmlspecialchars($mes) ?>">
+
+              <div class="data-agenda">
+                <span class="dia"><?= htmlspecialchars($dia) ?></span>
+                <span class="mes"><?= htmlspecialchars($mes) ?></span>
+              </div>
+
+              <div class="overflow titulo-agenda"><?= htmlspecialchars($evento['titulo_data']) ?></div>
+              <div class="overflow descricao-agenda"><?= htmlspecialchars($evento['descricao_data']) ?></div>
+
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
   </main>
-   <footer class="footer-container">
+
+  <footer class="footer-container">
     <div class="footer-topo">
       <div class="div-vazia"></div>
       <div class="footer-logo-container">
@@ -210,6 +206,7 @@ $stmt->close();
       <p class="footer-direitos">Todos os direitos reservados.</p>
     </div>
   </footer>
+
   <script>
     document.querySelectorAll('.agenda-card').forEach(function(card) {
       card.addEventListener('click', function() {
@@ -231,10 +228,7 @@ $stmt->close();
 
     function fecharModal() {
       document.getElementById('modal-agenda').style.display = 'none';
-      document.body.style.overflow = 'auto';
     }
   </script>
-
 </body>
-
 </html>
