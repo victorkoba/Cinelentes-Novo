@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/edicoes.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/main.js"></script>
 </head>
 
@@ -88,7 +87,6 @@
               });
           });
         </script>
-    </nav>
   </header>
 
     <main class="main-acervos">
@@ -101,57 +99,48 @@
             </div>
 
             <div class="cards">
-            <?php
-            include 'conexao.php';
+          <?php
+          include 'conexao.php';
 
-            // Consulta com JOIN para pegar uma imagem por acervo
-            $sql = "
-              SELECT a.id_acervo, a.titulo, a.descricao, f.dados, f.tipo_arquivo
-              FROM acervos a
-              LEFT JOIN (
-                SELECT acervo_id, dados, tipo_arquivo
-                FROM foto_capa_acervo
-                GROUP BY acervo_id
-              ) f ON a.id_acervo = f.acervo_id
-              WHERE a.edicao = 2023
-              ORDER BY a.id_acervo ASC
-            ";
+          $sql = "
+            SELECT id_acervo, titulo, descricao, foto_capa_acervo
+            FROM acervos
+            WHERE edicao = 2023
+            ORDER BY id_acervo ASC
+          ";
 
+          $result = $conexao->query($sql);
 
-            $result = $conexao->query($sql);
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $titulo = $row['titulo'];
+              $id = $row['id_acervo'];
+              $caminhoImagem = $row['foto_capa_acervo']; // já é uma string
+              $caminhoFisico = __DIR__ . '/' . $caminhoImagem;
 
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $titulo = $row['titulo'];
-                $id = $row['id_acervo'];
-
-                // Verifica e converte a imagem
-                if (!empty($row['dados'])) {
-                  $tipo = $row['tipo_arquivo'];
-                  $foto = 'data:' . $tipo . ';base64,' . base64_encode($row['dados']);
-                } else {
-                  $foto = './img/img-icon-avatar.png';
-                }
-
-                echo '
-                  <div class="card">
-                    <img id="img-card" src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
-                    <div class="card-text">' . htmlspecialchars($titulo) . '</div>
-                    <div class="card-buttons">
-                      <a href="ver-projeto.php?id=' . $id . '" class="botao-editar">VER PROJETO</a>
-                      <a href="editar-projeto.php?id=' . $id . '" class="botao-editar">EDITAR</a>
-                      <button class="botao-excluir" onclick="confirmarExclusao(' . $id . ')">EXCLUIR</button>
-                    </div>
-                  </div>
-                ';
+              if (!empty($caminhoImagem) && file_exists($caminhoFisico)) {
+                  $foto = $caminhoImagem;
+              } else {
+                  htmlspecialchars("Foto não encontrada."); // fallback
               }
-            } else {
-              echo '<p>Nenhum projeto encontrado para esta edição.</p>';
-            }
 
-            $conexao->close();
-            ?>
-            </div>
+              echo '
+                <div class="card">
+                  <img id="img-card" src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
+                  <div class="card-text">' . htmlspecialchars($titulo) . '</div>
+                  <div class="card-buttons">
+                    <a href="editar-projeto.php?id=' . $id . '" class="botao-editar">EDITAR</a>
+                    <button class="botao-excluir" onclick="confirmarExclusao(' . $id . ')">EXCLUIR</button>
+                  </div>
+                </div>
+              ';
+            }
+          } else {
+            echo '<p>Nenhum projeto encontrado para esta edição.</p>';
+          }
+
+          $conexao->close();
+          ?>
 
         </section>
     </main>
@@ -173,8 +162,6 @@
             });
         }
     </script>
-
-
     <footer class="footer-container">
         <div class="footer-topo">
             <div class="footer-logo-container">
