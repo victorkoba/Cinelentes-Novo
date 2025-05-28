@@ -17,24 +17,8 @@ if ($stmt->execute()) {
   }
 }
 $stmt->close();
-
-// Consulta acervos (destaques)
-$acervos = [];
-$stmt = $conexao->prepare(
-  "SELECT acervos.id_acervo, acervos.titulo, acervos.data_criacao, foto_capa_acervo.nome_arquivo, foto_capa_acervo.tipo_arquivo, foto_capa_acervo.dados 
-   FROM acervos
-   LEFT JOIN foto_capa_acervo ON acervos.id_acervo = foto_capa_acervo.acervo_id
-   ORDER BY acervos.data_criacao DESC 
-   LIMIT 5"
-);
-if ($stmt->execute()) {
-  $result = $stmt->get_result();
-  while ($row = $result->fetch_assoc()) {
-    $acervos[] = $row;
-  }
-}
-$stmt->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -145,23 +129,43 @@ $stmt->close();
   </div>
   <div class="galeria">
     <div class="galeria-container">
-      <?php foreach ($acervos as $acervo): ?>
+      <?php
+      $diretorio = __DIR__ . '/php/uploads/';
+      $url_base = 'php/uploads/';
+
+
+      $imagens = [];
+
+      if (is_dir($diretorio)) {
+        $arquivos = array_diff(scandir($diretorio), array('.', '..'));
+
+        foreach ($arquivos as $arquivo) {
+          $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
+          if (in_array($extensao, ['jpg', 'jpeg', 'png', 'gif'])) {
+            $imagens[] = $arquivo;
+            if (count($imagens) >= 5) break;
+          }
+        }
+      } else {
+        echo "<p>Pasta de uploads não encontrada: $diretorio</p>";
+      }
+      ?>
+
+      <?php foreach ($imagens as $imagem): ?>
         <div class="acervo-item">
-          <?php if (!empty($acervo['dados'])): ?>
-            <img src="data:<?= htmlspecialchars($acervo['tipo_arquivo']) ?>;base64,<?= base64_encode($acervo['dados']) ?>"
-                 alt="<?= htmlspecialchars($acervo['nome_arquivo']) ?>" style="max-width: 100%; height: auto;">
-          <?php else: ?>
-            <img src="./img/img-email.png" alt="Imagem não disponível" style="max-width: 100%; height: auto;">
-          <?php endif; ?>
-          <h3><?= htmlspecialchars($acervo['titulo']) ?></h3>
+          <img src="<?= $url_base . htmlspecialchars($imagem) ?>" 
+               alt="<?= htmlspecialchars($imagem) ?>" 
+               style="max-width: 100%; height: auto;">
+          <h3><?= htmlspecialchars(pathinfo($imagem, PATHINFO_FILENAME)) ?></h3>
         </div>
       <?php endforeach; ?>
-       <div class="galeria-controls">
-          <div class="galeria-controls"></div>
-       </div>
+
+      <div class="galeria-controls"></div>
     </div>
   </div>
 </div>
+
+
 <!-------------AGENDA------------->
         <div id="grid-agenda">
           <div id="titulo-agenda">
