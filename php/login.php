@@ -76,8 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <img class="img-icon" src="../img/img-icon-senha.png" alt="ícone senha">
             <input class="input-email-senha" name="senha" type="password" placeholder="Senha" required />
           </div>
-
-          <button type="submit" class="botao-entrar">ENTRAR</button>
+          <div class="alinhamento-botao">
+            <button type="submit" class="botao-entrar">ENTRAR</button>
+          </div>
           <a href="redefinir-senha.php" class="bot-esqueceu-senha">Esqueceu a senha?</a>
         </form>
       </div>

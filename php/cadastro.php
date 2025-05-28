@@ -36,7 +36,9 @@ include 'verificar-login.php';
             <input class="input-email-senha" name="senha" type="password" placeholder="Senha" required />
           </div>
 
-          <button type="submit" class="botao-entrar">Cadastrar</button>
+          <div class="alinhamento-botao">
+            <button type="submit" class="botao-entrar">CADASTRAR</button>
+          </div>
         </form>
       </div>
     </div>

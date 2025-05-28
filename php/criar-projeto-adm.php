@@ -139,7 +139,7 @@ include 'conexao.php';
       <div class="upload-final-video">
         <p class="option-edicao">Faça o upload de uma imagem que ficará do lado do título e da descrição, além disso essa imagem que ficará na capa do card na página de edições.</p>
         <button type="button" class="botao-upload" data-type="video" data-target="final-video">Upload do Arquivo</button>
-        <input accept="image/*" type="file" name="foto_capa" id="final-video" style="display:none" />
+        <input accept="image/*" type="file" name="foto_capa_acervo" id="final-video" style="display:none" />
         <div id="final-video-name" class="file-name"></div>
       </div>
     </section>
@@ -361,7 +361,9 @@ include 'conexao.php';
         placeholder="Suba o link do formulário do seu projeto para os alunos darem suas avaliações quanto ao projeto (Pode ser adicionado futuramente através da edição)."
         class="textarea-feedback option-edicao"
       ></textarea>
-      <button type="submit" class="botao-confirmar">Confirmar</button>
+      <div class="alinhamento-confirmar">
+        <button type="submit" class="botao-confirmar">Criar Projeto</button>
+      </div>
     </section>
   </form>
 </main>

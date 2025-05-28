@@ -73,7 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input class="input-email-redefinir-senha" type="password" name="nova_senha" placeholder="Nova senha" required />
           </div>
 
-          <button type="submit" class="botao-enviar">REDEFINIR</button>
+          <div class="alinhamento-botao">
+            <button type="submit" class="botao-entrar">REDEFINIR SENHA</button>
+          </div>
         </form>
       </div>
     </div>

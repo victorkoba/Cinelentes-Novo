@@ -1,4 +1,12 @@
 /* Container geral */
+html, body {
+    height: 100vh;
+}
+
+main{
+    height: 100vh;
+}
+
 .equipe-container {
     text-align: center;
     padding: 64px 32px;

@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
   </header>
 
-  <main>
+  <main id="main-pagina-inicial">
     <div class="container-botao-criar">
       <a href="criar-projeto-adm.php" class="botao-criar-projeto">+ Criar Projeto</a>
     </div>
