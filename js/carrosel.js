@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryContainer = document.querySelector('.galeria-container');
     const galleryControlsContainer = document.querySelector('.galeria-controls');
     const galleryControls = ['previous', 'next'];
-    const galleryItems = document.querySelectorAll('.galeria-itens');
+    const galleryItems = document.querySelectorAll('.acervo-item');
 
     class Carousel {
         constructor(container, items, controls) {
@@ -13,16 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateGallery() {
             this.carouselArray.forEach(el => {
-                el.classList.remove('galeria-item-1');
-                el.classList.remove('galeria-item-2');
-                el.classList.remove('galeria-item-3');
-                el.classList.remove('galeria-item-4');
-                el.classList.remove('galeria-item-5');
-            });
+    for (let i = 1; i <= 5; i++) {
+        el.classList.remove(`acervo-item-${i}`);
+    }
+});
 
-            this.carouselArray.slice(0, 5).forEach((el, i) => {
-                el.classList.add(`galeria-item-${i + 1}`);
-            });
+this.carouselArray.slice(0, 5).forEach((el, i) => {
+    el.classList.add(`acervo-item-${i + 1}`);
+});
         }
 
         setCurrentState(direction) {

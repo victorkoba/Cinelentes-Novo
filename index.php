@@ -130,8 +130,8 @@ $stmt->close();
   <div class="galeria">
     <div class="galeria-container">
       <?php
-      $diretorio = __DIR__ . '/php/uploads/';
-      $url_base = 'php/uploads/';
+      $diretorio = './php/uploads/';
+      $url_base = './php/uploads/';
 
 
       $imagens = [];
