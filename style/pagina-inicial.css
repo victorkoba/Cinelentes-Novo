@@ -19,11 +19,10 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 500px;
+  height: 400px;
   margin: 0 auto;
   max-width: 1000px;
   position: relative;
-  z-index: 2;
 }
 
 .acervo-item {
@@ -32,6 +31,7 @@ body, html {
   text-align: center;
   width: 330px;
   opacity: 1;
+  border-radius: 15px;
 }
 
 
@@ -55,7 +55,7 @@ body, html {
   opacity: 0.8;
   transform: translateX(-50%);
   width: 380px;
-  z-index: 2;
+  z-index: 1;
 }
 
 .acervo-item.galeria-item-2 {
@@ -114,6 +114,11 @@ body, html {
 #grid-destaques {
   display: grid;
   width: 100%;
+}
+#grid-destaques {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Estilos do título */
@@ -400,7 +405,7 @@ body, html {
 
 .button-entrar {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   height: 50px;
   width: 200px;
@@ -450,39 +455,26 @@ body, html {
   transform: scale(1.05);
 }
 /* Responsividade para tablets e telas menores */
-/* Tablets */
 @media (max-width: 768px) {
   .galeria-container {
-    height: 400px;
+    flex-direction: column;
+    height: auto;
+    padding: 20px 10px;
   }
 
-  .acervo-item-1 {
-    width: 95%;
-    max-height: 400px;
+  .galeria-itens {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+    width: 100%;
+    max-width: 90%;
+    margin-bottom: 20px;
   }
 
-  .galeria-controls button {
-    font-size: 2.5rem;
-    padding: 0.6rem 1rem;
+  .galeria-controls {
+    margin-left: 0;
+    gap: 60px;
   }
-}
-
-/* Celulares */
-@media (max-width: 480px) {
-  .galeria-container {
-    height: 300px;
-  }
-
-  .acervo-item-1 {
-    width: 98%;
-    max-height: 300px;
-  }
-
-  .galeria-controls button {
-    font-size: 2rem;
-    padding: 0.5rem 0.8rem;
-  }
-
 
   .introducao-texto {
     grid-template-columns: 1fr;
@@ -827,5 +819,40 @@ body, html {
   footer a {
     display: inline-block;
     margin: 6px 8px 0 8px;
+  }
+}
+
+
+/* Tablets */
+@media (max-width: 768px) {
+  .galeria-container {
+    height: 400px;
+  }
+
+  .acervo-item-1 {
+    width: 95%;
+    max-height: 400px;
+  }
+
+  .galeria-controls button {
+    font-size: 2.5rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+  .galeria-container {
+    height: 300px;
+  }
+
+  .acervo-item-1 {
+    width: 98%;
+    max-height: 300px;
+  }
+
+  .galeria-controls button {
+    font-size: 2rem;
+    padding: 0.5rem 0.8rem;
   }
 }

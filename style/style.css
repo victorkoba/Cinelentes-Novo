@@ -119,6 +119,7 @@ nav a {
   font-weight: bold;
 }
 
+
 /* FOOTER */
 
 footer {
@@ -240,6 +241,28 @@ nav#nav-menu {
   gap: 20px;
 }
 
+.acervo-item img {
+  width: 100%;
+  height: auto; /* Corrige o achatamento */
+  max-height: 300px; /* Ou aumente conforme necessário */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Mobile */
 @media (max-width: 818px) {
@@ -313,5 +336,25 @@ nav#nav-menu {
     display: block;
     margin-top: 50px; /* aumente esse valor para descer mais */
     align-self: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-topo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .botao-login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .botao-login {
+    text-align: center;
+    width: auto;
   }
 }
