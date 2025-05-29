@@ -128,31 +128,37 @@ $stmt->close();
       <div class="galeria">
         <div class="galeria-container">
           <?php
-          $diretorio = './php/uploads/';
-          $url_base = './php/uploads/';
-          $imagens = [];
+$diretorio = './php/uploads/';
+$url_base = './php/uploads/';
+$imagens = [];
 
-          if (is_dir($diretorio)) {
-            $arquivos = array_diff(scandir($diretorio), array('.', '..'));
-            foreach ($arquivos as $arquivo) {
-              $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
-              if (in_array($extensao, ['jpg', 'jpeg', 'png', 'gif'])) {
-                $imagens[] = $arquivo;
-                if (count($imagens) >= 5) break;
-              }
-            }
-          } else {
-            echo "<p>Pasta de uploads não encontrada: $diretorio</p>";
-          }
-          ?>
+if (is_dir($diretorio)) {
+  $arquivos = array_diff(scandir($diretorio), array('.', '..'));
 
-          <?php foreach ($imagens as $imagem): ?>
-            <div class="acervo-item">
-              <img src="<?= $url_base . htmlspecialchars($imagem) ?>" 
-                   alt="<?= htmlspecialchars($imagem) ?>" 
-                   style="max-width: 100%; height: auto;">
-            </div>
-          <?php endforeach; ?>
+  usort($arquivos, function($a, $b) use ($diretorio) {
+    return filemtime($diretorio . $b) - filemtime($diretorio . $a);
+  });
+
+  foreach ($arquivos as $arquivo) {
+    $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
+    if (in_array($extensao, ['jpg', 'jpeg', 'png', 'gif']) && @getimagesize($diretorio . $arquivo)) {
+      $imagens[] = $arquivo;
+      if (count($imagens) >= 5) break;
+    }
+  }
+} else {
+  echo "<p>Pasta de uploads não encontrada: $diretorio</p>";
+}
+?>
+
+<?php foreach ($imagens as $imagem): ?>
+  <div class="acervo-item">
+    <img class="galeria-img" 
+         src="<?= $url_base . htmlspecialchars($imagem) ?>" 
+         alt="Imagem destaque: <?= htmlspecialchars($imagem) ?>">
+  </div>
+<?php endforeach; ?>
+
 
           <div class="galeria-controls"></div>
         </div>

@@ -34,6 +34,15 @@ body, html {
   border-radius: 15px;
 }
 
+
+
+.acervo-item img{
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  display: block;
+
+}
 /* Posicionamento dos itens do carrossel */
 .acervo-item.galeria-item-0 {
   left: 15%;

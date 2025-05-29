@@ -2,33 +2,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryContainer = document.querySelector('.galeria-container');
     const galleryControlsContainer = document.querySelector('.galeria-controls');
     const galleryControls = ['previous', 'next'];
-    const galleryItems = document.querySelectorAll('.acervo-item');
+    const galleryItems = Array.from(document.querySelectorAll('.acervo-item'));
 
     class Carousel {
         constructor(container, items, controls) {
             this.carouselContainer = container;
+            this.carouselArray = items;
             this.carouselControls = controls;
-            this.carouselArray = [...items];
+            this.currentIndex = 0; // ✅ Agora dentro da classe
+
+            this.setControls();
+            this.updateGallery();
+            this.useControls(); // ✅ Já pode chamar aqui
         }
 
         updateGallery() {
+            // Oculta todos os itens
             this.carouselArray.forEach(el => {
-    for (let i = 1; i <= 5; i++) {
-        el.classList.remove(`acervo-item-${i}`);
-    }
-});
+                el.style.display = 'none';
+            });
 
-this.carouselArray.slice(0, 5).forEach((el, i) => {
-    el.classList.add(`galeria-item-${i}`);
-
-});
+            // Mostra os 5 itens a partir do índice atual
+            for (let i = 0; i < 5; i++) {
+                const index = (this.currentIndex + i) % this.carouselArray.length;
+                this.carouselArray[index].style.display = 'block';
+            }
         }
 
-        setCurrentState(direction) {
-            if (direction.classList.contains('galeria-controls-previous')) {
-                this.carouselArray.unshift(this.carouselArray.pop());
-            } else if (direction.classList.contains('galeria-controls-next')) {
-                this.carouselArray.push(this.carouselArray.shift());
+        setCurrentState(control) {
+            if (control.classList.contains('galeria-controls-previous')) {
+                this.currentIndex = (this.currentIndex - 1 + this.carouselArray.length) % this.carouselArray.length;
+            } else if (control.classList.contains('galeria-controls-next')) {
+                this.currentIndex = (this.currentIndex + 1) % this.carouselArray.length;
             }
             this.updateGallery();
         }
@@ -45,7 +50,7 @@ this.carouselArray.slice(0, 5).forEach((el, i) => {
         useControls() {
             const triggers = [...galleryControlsContainer.querySelectorAll('button')];
             triggers.forEach(control => {
-                control.addEventListener('click', e => {
+                control.addEventListener('click', (e) => {
                     e.preventDefault();
                     this.setCurrentState(control);
                 });
@@ -54,6 +59,4 @@ this.carouselArray.slice(0, 5).forEach((el, i) => {
     }
 
     const exampleCarousel = new Carousel(galleryContainer, galleryItems, galleryControls);
-    exampleCarousel.setControls();
-    exampleCarousel.useControls();
 });
