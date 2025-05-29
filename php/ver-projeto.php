@@ -137,15 +137,23 @@ function embedLink($url) {
     </div>
   </section>
 
-  <!-- CURTA -->
-  <?php if (count($curtas) > 0): ?>
+  <!-- VÍDEOS -->
+  <?php if (count($videos) > 0): ?>
     <section>
-      <h2 class="titulo-linha">Curta-metragem</h2>
-      <?php foreach ($curtas as $curta): ?>
-        <video controls width="600">
-          <source src="exibir-arquivo.php?tabela=curtas_acervo&id=<?= $curta['id_curtas'] ?>" type="<?= $curta['tipo_arquivo'] ?>">
-        </video>
-      <?php endforeach; ?>
+      <h2 class="titulo-linha">Vídeos</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <?php foreach ($videos as $video): ?>
+  <div class="card-midia">
+    <video controls width="320">
+      <source src="exibir-arquivo.php?tabela=videos_acervo&id=<?= $video['id_videos'] ?>" type="<?= $video['tipo_arquivo'] ?>">
+      Seu navegador não suporta vídeo.
+    </video>
+    <p><?= htmlspecialchars($video['nome_arquivo']) ?></p>
+  </div>
+<?php endforeach; ?>
+
+
+      </div>
     </section>
   <?php endif; ?>
   <!-- MÚSICAS -->
@@ -169,17 +177,15 @@ function embedLink($url) {
 <?php endif; ?>
 
 
-  <!-- VÍDEOS -->
-  <?php if (count($videos) > 0): ?>
+ <!-- CURTA -->
+  <?php if (count($curtas) > 0): ?>
     <section>
-      <h2 class="titulo-linha">Vídeos</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-        <?php foreach ($videos as $video): ?>
-          <video controls width="400">
-            <source src="exibir-arquivo.php?tabela=videos_acervo&id=<?= $video['id_videos'] ?>" type="<?= $video['tipo_arquivo'] ?>">
-          </video>
-        <?php endforeach; ?>
-      </div>
+      <h2 class="titulo-linha">Curta-metragem</h2>
+      <?php foreach ($curtas as $curta): ?>
+        <video controls width="600">
+          <source src="exibir-arquivo.php?tabela=curtas_acervo&id=<?= $curta['id_curtas'] ?>" type="<?= $curta['tipo_arquivo'] ?>">
+        </video>
+      <?php endforeach; ?>
     </section>
   <?php endif; ?>
 
