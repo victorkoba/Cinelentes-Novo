@@ -377,7 +377,7 @@ include 'conexao.php';
     }).then((result) => {
       if (result.isConfirmed) {
         // Aqui simula o envio
-        // document.querySelector("form").submit(); // Descomente esta linha se quiser enviar de verdade
+        document.querySelector("form").submit();
 
         // Alerta de sucesso após confirmar
         Swal.fire({
