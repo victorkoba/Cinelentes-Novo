@@ -360,25 +360,38 @@ include 'conexao.php';
       ></textarea>
       <div class="alinhamento-confirmar">
       <div class="alinhamento-confirmar">
-        <button type="button" onclick="confirmarEnvio()" class="botao-confirmar">Criar Projeto</button>
-      </div>
-        <!-- SCRIPT DO SWEETALERT -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-          function confirmarEnvio() {
-            Swal.fire({
-              title: "Tem certeza?",
-              text: "Você deseja criar este projeto?",
-              icon: "question",
-              showCancelButton: true,
-              confirmButtonText: "Sim, criar",
-              cancelButtonText: "Cancelar"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                document.querySelector("form").submit();
-              }
-            });
-          }
+  <button type="button" onclick="confirmarEnvio()" class="botao-confirmar">Criar Projeto</button>
+</div>
+
+<!-- SCRIPT DO SWEETALERT -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function confirmarEnvio() {
+    Swal.fire({
+      title: "Tem certeza?",
+      text: "Você deseja criar este projeto?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sim, criar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aqui simula o envio
+        // document.querySelector("form").submit(); // Descomente esta linha se quiser enviar de verdade
+
+        // Alerta de sucesso após confirmar
+        Swal.fire({
+          title: "Projeto criado!",
+          text: "O projeto foi criado com sucesso.",
+          icon: "success",
+          confirmButtonText: "OK"
+        }).then(() => {
+          // Redirecionar para outra página após clicar em OK
+          window.location.href = "pagina-inicial-adm.php";
+        });
+      }
+    });
+  }
 </script>
     </section>
   </form>
