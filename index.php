@@ -122,48 +122,20 @@ $stmt->close();
     </div>
 
     <div id="grid-destaques">
-      <div id="titulo">
-        <h1 class="titulo-pagina-inicial">Destaques</h1>
+            <div id="titulo">
+                <h1 class="titulo-pagina-inicial">Destaques</h1>
+            </div>
+            <div class="galeria">
+              <div class="galeria-container">
+                <img class="galeria-itens galeria-item-1" src="./php/uploads/foto_6837b501188d98.81916981.jpg"  data-index="1" alt="" a>
+                <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
+                <img  class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="" >
+                <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
+                <img class="galeria-itens galeria-item-5" src="./img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
+              </div>
+              <div class="galeria-controls"></div> 
+            </div>
       </div>
-      <div class="galeria">
-        <div class="galeria-container">
-          <?php
-$diretorio = './php/uploads/';
-$url_base = './php/uploads/';
-$imagens = [];
-
-if (is_dir($diretorio)) {
-  $arquivos = array_diff(scandir($diretorio), array('.', '..'));
-
-  usort($arquivos, function($a, $b) use ($diretorio) {
-    return filemtime($diretorio . $b) - filemtime($diretorio . $a);
-  });
-
-  foreach ($arquivos as $arquivo) {
-    $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
-    if (in_array($extensao, ['jpg', 'jpeg', 'png', 'gif']) && @getimagesize($diretorio . $arquivo)) {
-      $imagens[] = $arquivo;
-      if (count($imagens) >= 5) break;
-    }
-  }
-} else {
-  echo "<p>Pasta de uploads não encontrada: $diretorio</p>";
-}
-?>
-
-<?php foreach ($imagens as $imagem): ?>
-  <div class="acervo-item">
-    <img class="galeria-img" 
-         src="<?= $url_base . htmlspecialchars($imagem) ?>" 
-         alt="Imagem destaque: <?= htmlspecialchars($imagem) ?>">
-  </div>
-<?php endforeach; ?>
-
-
-          <div class="galeria-controls"></div>
-        </div>
-      </div>
-    </div>
 
     <!-------------AGENDA------------->
     <div id="grid-agenda">

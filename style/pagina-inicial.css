@@ -11,8 +11,6 @@ body, html {
 /* Estilos da galeria/carrossel */
 .galeria {
   width: 100%;
-  overflow: hidden;
-  position: relative;
 }
 
 .galeria-container {
@@ -25,40 +23,37 @@ body, html {
   position: relative;
 }
 
-.acervo-item {
+.galeria-itens{
+  height: 200px;
+  opacity: 0;
   position: absolute;
   transition: all 0.3s ease-in-out;
-  text-align: center;
   width: 330px;
-  opacity: 1;
+  z-index: 0;
   border-radius: 15px;
-}
-
-
-
-.acervo-item img{
-  max-width: 100%;
-  height: auto;
-  border-radius: 20px;
-  display: block;
+  background-size: contain;
 
 }
-/* Posicionamento dos itens do carrossel */
-.acervo-item.galeria-item-0 {
+
+.galeria-item-1 {
   left: 15%;
   opacity: .4;
   transform: translateX(-50%);
 }
 
-.acervo-item.galeria-item-1 {
-  left: 30%;
+.galeria-item-2, .galeria-item-4 {
+  height: 250px;
   opacity: 0.8;
-  transform: translateX(-50%);
   width: 380px;
   z-index: 1;
 }
 
-.acervo-item.galeria-item-2 {
+.galeria-item-2{
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+.galeria-item-3 {
   box-shadow: -2px 5px 33px 6px rgba(0, 0, 0, 0.35);
   height: 300px;
   opacity: 1;
@@ -68,15 +63,12 @@ body, html {
   z-index: 2;
 }
 
-.acervo-item.galeria-item-3 {
+.galeria-item-4 {
   left: 70%;
-  opacity: 0.8;
   transform: translateX(-50%);
-  width: 380px;
-  z-index: 1;
 }
 
-.acervo-item.galeria-item-4 {
+.galeria-item-5{
   left: 85%;
   opacity: .4;
   transform: translateX(-50%);
@@ -84,15 +76,14 @@ body, html {
 
 /* Controles do carrossel */
 .galeria-controls {
-  position: absolute;
+  position: relative;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  top: 50%;
+  justify-content: center;
+  bottom: 200px;
+  gap : 440px;
   transform: translateY(-50%);
-  z-index: 3;
-  padding: 0 20px;
-  box-sizing: border-box;
+  z-index: 10;
 }
 
 .galeria-controls button {
@@ -100,7 +91,7 @@ body, html {
   border: 0;
   cursor: pointer;
   font-size: 50px;
-  color: #000;
+  color: #fff;
   z-index: 4;
   transition: color 0.3s ease;
 }
@@ -114,11 +105,6 @@ body, html {
 #grid-destaques {
   display: grid;
   width: 100%;
-}
-#grid-destaques {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 /* Estilos do título */
@@ -405,7 +391,7 @@ body, html {
 
 .button-entrar {
   display: flex;
-  justify-content: center;
+  justify-content: center; 
   align-items: center;
   height: 50px;
   width: 200px;
@@ -455,25 +441,37 @@ body, html {
   transform: scale(1.05);
 }
 /* Responsividade para tablets e telas menores */
+/* Tablets */
 @media (max-width: 768px) {
   .galeria-container {
-    flex-direction: column;
-    height: auto;
-    padding: 20px 10px;
+    height: 400px;
   }
 
-  .galeria-itens {
-    position: static;
-    transform: none !important;
-    opacity: 1 !important;
-    width: 100%;
-    max-width: 90%;
-    margin-bottom: 20px;
+  .acervo-item-1 {
+    width: 95%;
+    max-height: 400px;
   }
 
-  .galeria-controls {
-    margin-left: 0;
-    gap: 60px;
+  .galeria-controls button {
+    font-size: 2.5rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+  .galeria-container {
+    height: 300px;
+  }
+
+  .acervo-item-1 {
+    width: 98%;
+    max-height: 300px;
+  }
+
+  .galeria-controls button {
+    font-size: 2rem;
+    padding: 0.5rem 0.8rem;
   }
 
   .introducao-texto {
@@ -819,40 +817,5 @@ body, html {
   footer a {
     display: inline-block;
     margin: 6px 8px 0 8px;
-  }
-}
-
-
-/* Tablets */
-@media (max-width: 768px) {
-  .galeria-container {
-    height: 400px;
-  }
-
-  .acervo-item-1 {
-    width: 95%;
-    max-height: 400px;
-  }
-
-  .galeria-controls button {
-    font-size: 2.5rem;
-    padding: 0.6rem 1rem;
-  }
-}
-
-/* Celulares */
-@media (max-width: 480px) {
-  .galeria-container {
-    height: 300px;
-  }
-
-  .acervo-item-1 {
-    width: 98%;
-    max-height: 300px;
-  }
-
-  .galeria-controls button {
-    font-size: 2rem;
-    padding: 0.5rem 0.8rem;
   }
 }
