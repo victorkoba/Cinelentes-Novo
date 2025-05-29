@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 this.carouselArray.slice(0, 5).forEach((el, i) => {
-    el.classList.add(`acervo-item-${i + 1}`);
+    el.classList.add(`galeria-item-${i}`);
+
 });
         }
 
