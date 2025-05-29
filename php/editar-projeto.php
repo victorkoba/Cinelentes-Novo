@@ -136,8 +136,6 @@ select {
     });
   });
 </script>
-
-<body>
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
@@ -278,25 +276,29 @@ while ($row = $resultCurtas->fetch_assoc()) {
     <!-- Foto de capa -->
     <h2>Foto de Capa:</h2>
     <?php if (!empty($projeto['foto_capa_acervo'])): ?>
-      <div class="card-midia">
-        <img src="uploads/<?= htmlspecialchars($projeto['foto_capa_acervo']) ?>" alt="Capa atual" />
-        <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
-      </div>
-    <?php endif; ?>
-    <input type="file" name="foto_capa" accept="image/*" />
+  <?php
+    $base64Capa = base64_encode($projeto['foto_capa_acervo']);
+    $mime = 'image/'; // ou 'image/png', dependendo do tipo armazenado
+  ?>
+  <div class="card-midia">
+    <img src="<?php echo $projeto['foto_capa_acervo']; ?>" alt="Capa atual">
+    <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
+  </div>
+<?php endif; ?>
 
-    <!-- Galeria de Fotos -->
-    <?php $fotosArray = array_filter(explode(',', $projeto['fotos_acervo'])); ?>
-    <h2>Fotos:</h2>
-    <div class="galeria-fotos">
-      <?php foreach ($fotosArray as $index => $fotoNome): ?>
-        <div class="card-midia">
-          <img src="uploads/<?= htmlspecialchars(trim($fotoNome)) ?>" alt="Foto <?= $index + 1 ?>" />
-          <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars(trim($fotoNome)) ?>"> Excluir</label>
-        </div>
-      <?php endforeach; ?>
+<!-- Galeria de Fotos -->
+<?php $fotosArray = json_decode($projeto['fotos_acervo'], true); ?>
+<h2>Fotos:</h2>
+<div class="galeria-fotos">
+  <?php foreach ($fotosArray as $index => $fotoNome): ?>
+    <div class="card-midia">
+      <img src="<?= htmlspecialchars(trim($fotoNome)) ?>" alt="Foto <?= $index + 1 ?>" />
+      <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars(trim($fotoNome)) ?>"> Excluir</label>
     </div>
-    <input type="file" name="fotos[]" multiple accept="image/*" />
+  <?php endforeach; ?>
+</div>
+<input type="file" name="fotos[]" multiple accept="image/*" />
+
 
     <!-- Galeria de Vídeos -->
     <h2>Vídeos:</h2>
@@ -341,25 +343,6 @@ while ($row = $resultCurtas->fetch_assoc()) {
     <button type="submit" class="botao-confirmar">Salvar Alterações</button>
   </form>
 </main>
-
-  <script>
-    document.getElementById("botao-logout").addEventListener("click", function (e) {
-      e.preventDefault();
-      Swal.fire({
-        title: "Deseja sair da conta?",
-        text: "Você precisará fazer login novamente para continuar.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim, sair"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "logout.php";
-        }
-      });
-    });
-  </script>
     <footer class="footer-container">
     <div class="footer-topo">
       <div class="footer-logo-container">
