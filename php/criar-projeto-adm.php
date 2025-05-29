@@ -295,7 +295,6 @@ include 'conexao.php';
     botao.dataset.url = url;
     botao.dataset.tipo = isYoutube ? "youtube" : "mp3";
 
-    // ✅ Limpa o preview se já tinha um
     container.innerHTML = '';
   } else {
     botao.disabled = true;
