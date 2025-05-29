@@ -481,6 +481,7 @@ body, html {
     padding: 0.5rem 0.8rem;
   }
 
+
   .introducao-texto {
     grid-template-columns: 1fr;
     margin: 0 30px;
