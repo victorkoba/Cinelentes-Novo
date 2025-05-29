@@ -125,17 +125,25 @@ if ($stmt->execute()) {
 
     // Função para inserir um arquivo em uma tabela (fotos, vídeos ou curtas)
     function inserirArquivo($conexao, $tabela, $acervo_id, $arquivos) {
-        $sql = "INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)";
-        $stmt = $conexao->prepare($sql);
-        foreach ($arquivos as $arquivo) {
-            $nome = $arquivo['nome'];
-            $tipo = $arquivo['tipo'];
-            $dados = $arquivo['dados']; // já está em binário
-            $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null); // 'b' para blob
-            $stmt->send_long_data(3, $dados); // índice 3 é o quarto parâmetro (dados)
-            $stmt->execute();
-        }
+    $sql = "INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)";
+    $stmt = $conexao->prepare($sql);
+    
+    foreach ($arquivos as $arquivo) {
+        $nome = $arquivo['nome'];
+        $tipo = $arquivo['tipo'];
+        $dados = $arquivo['dados']; // binário puro
+
+        // Inicializa o parâmetro blob como null (temporário)
+        $null = NULL;
+        $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null);
+
+        // Envia os dados binários reais
+        $stmt->send_long_data(3, $dados); // 3 = índice do blob
+        $stmt->execute();
     }
+
+    $stmt->close();
+}
     // Inserir arquivos nas tabelas específicas
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);

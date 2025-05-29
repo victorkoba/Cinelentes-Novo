@@ -103,7 +103,7 @@
           $sql = "
             SELECT id_acervo, titulo, descricao, foto_capa_acervo
             FROM acervos
-            WHERE edicao = 2023
+            WHERE edicao = 2025
             ORDER BY id_acervo ASC
           ";
 

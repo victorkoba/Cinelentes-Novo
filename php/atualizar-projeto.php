@@ -1,6 +1,6 @@
 <?php
-include('verificar-login.php');
-include('conexao.php');
+include 'verificar-login.php';
+include 'conexao.php';
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -9,34 +9,65 @@ error_reporting(E_ALL);
 $id = intval($_POST['id'] ?? 0);
 if (!$id) die('ID inválido');
 
-// Limpeza de dados
+// Função para limpar entradas
 function limpar($texto) {
-  return trim(htmlspecialchars($texto));
+  return trim(htmlspecialchars($texto ?? '', ENT_QUOTES, 'UTF-8'));
 }
 
-// Campos de texto
-$titulo = limpar($_POST['titulo']);
-$conteudo = limpar($_POST['conteudo']);
-$habilidades = limpar($_POST['habilidades']);
-$feedback = limpar($_POST['feedback']);
-$edicao = intval($_POST['edicao']);
+// Coleta e limpeza dos campos de texto
+$titulo = limpar($_POST['titulo'] ?? '');
+$conteudo = limpar($_POST['conteudo'] ?? '');
+$habilidades = limpar($_POST['habilidades'] ?? '');
+$feedback = limpar($_POST['feedback'] ?? '');
+$edicao = intval($_POST['edicao'] ?? 0);
 
-// Atualizar tabela acervos
-$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
-$stmt->bind_param("ssssii", $titulo, $conteudo, $habilidades, $feedback, $edicao, $id);
+// Processar exclusão de fotos marcadas
+$fotosExistentes = explode(',', $_POST['fotos_atual'] ?? '');
+$fotosAtualizadas = [];
+if (!empty($_POST['excluir_fotos'])) {
+  $fotosExcluir = $_POST['excluir_fotos'];
+  foreach ($fotosExistentes as $foto) {
+    if (!in_array($foto, $fotosExcluir)) {
+      $fotosAtualizadas[] = $foto;
+    } else {
+      $caminho = 'uploads/' . $foto;
+      if (file_exists($caminho)) unlink($caminho);
+    }
+  }
+} else {
+  $fotosAtualizadas = $fotosExistentes;
+}
+
+// Upload de novas fotos
+if (!empty($_FILES['fotos']['name'][0])) {
+  foreach ($_FILES['fotos']['name'] as $i => $nome) {
+    if ($_FILES['fotos']['error'][$i] === 0) {
+      $novoNome = uniqid('foto_') . '_' . basename($nome);
+      move_uploaded_file($_FILES['fotos']['tmp_name'][$i], "uploads/$novoNome");
+      $fotosAtualizadas[] = $novoNome;
+    }
+  }
+}
+$fotos_acervo = implode(',', $fotosAtualizadas);
+
+// Upload de nova capa (opcional)
+$foto_capa_acervo = $_POST['foto_capa_atual'] ?? '';
+if (!empty($_FILES['foto_capa']['name']) && $_FILES['foto_capa']['error'] === 0) {
+  $novoNome = uniqid('capa_') . '_' . basename($_FILES['foto_capa']['name']);
+  move_uploaded_file($_FILES['foto_capa']['tmp_name'], "uploads/$novoNome");
+  $foto_capa_acervo = $novoNome;
+}
+
+// Atualizar a tabela acervos
+$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, fotos_acervo=?, foto_capa_acervo=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+$stmt->bind_param("ssssssii", $titulo, $conteudo, $fotos_acervo, $foto_capa_acervo, $habilidades, $feedback, $edicao, $id);
 $stmt->execute();
 $stmt->close();
 
+// Função para excluir por índice
 function excluirPorIndice($conexao, $tabela, $acervo_id, $indices) {
-  // Mapear chave primária por tabela
-  $coluna_id = [
-    'fotos_acervo' => 'id_fotos',
-    'videos_acervo' => 'id_videos',
-    'curtas_acervo' => 'id_curtas',
-    'foto_capa_acervo' => 'id' // caso necessário
-  ][$tabela] ?? 'id'; // fallback
-
-  $sql = "SELECT $coluna_id AS id FROM $tabela WHERE acervo_id = ?";
+  $id_coluna = ($tabela === 'videos_acervo') ? 'id_videos' : 'id_curtas';
+  $sql = "SELECT $id_coluna AS id FROM $tabela WHERE acervo_id = ?";
   $stmt = $conexao->prepare($sql);
   $stmt->bind_param("i", $acervo_id);
   $stmt->execute();
@@ -44,60 +75,74 @@ function excluirPorIndice($conexao, $tabela, $acervo_id, $indices) {
   $todos = $result->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
 
-  foreach ($indices as $index) {
-    if (isset($todos[$index])) {
-      $idArquivo = $todos[$index]['id'];
-      $stmt = $conexao->prepare("DELETE FROM $tabela WHERE $coluna_id = ?");
-      $stmt->bind_param("i", $idArquivo);
-      $stmt->execute();
-      $stmt->close();
+  foreach ($indices as $i) {
+    if (isset($todos[$i])) {
+      $idArquivo = $todos[$i]['id'];
+      $del = $conexao->prepare("DELETE FROM $tabela WHERE $id_coluna = ?");
+      $del->bind_param("i", $idArquivo);
+      $del->execute();
+      $del->close();
     }
   }
 }
 
+// Excluir vídeos
+if (!empty($_POST['excluir_videos'])) {
+  excluirPorIndice($conexao, 'videos_acervo', $id, $_POST['excluir_videos']);
+}
 
-// Excluir arquivos marcados
-if (!empty($_POST['excluir_fotos'])) excluirPorIndice($conexao, 'fotos_acervo', $id, $_POST['excluir_fotos']);
-if (!empty($_POST['excluir_videos'])) excluirPorIndice($conexao, 'videos_acervo', $id, $_POST['excluir_videos']);
-if (!empty($_POST['excluir_curta'])) $conexao->query("DELETE FROM curtas_acervo WHERE acervo_id = $id");
+// Excluir curta
+if (!empty($_POST['excluir_curta'])) {
+  $conexao->query("DELETE FROM curtas_acervo WHERE acervo_id = $id");
+}
 
-// Função de upload múltiplo
+// Upload múltiplo para tabela de vídeos
 function salvarMultiplosArquivos($conexao, $tabela, $acervo_id, $campo) {
   if (!isset($_FILES[$campo])) return;
 
-  for ($i = 0; $i < count($_FILES[$campo]['name']); $i++) {
+  foreach ($_FILES[$campo]['tmp_name'] as $i => $tmp) {
     if ($_FILES[$campo]['error'][$i] === 0) {
       $nome = $_FILES[$campo]['name'][$i];
-      $tipo = mime_content_type($_FILES[$campo]['tmp_name'][$i]);
-      $dados = file_get_contents($_FILES[$campo]['tmp_name'][$i]);
+      $tipo = mime_content_type($tmp);
 
       $stmt = $conexao->prepare("INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)");
+      $null = NULL;
       $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null);
-      $stmt->send_long_data(3, $dados);
+
+      $fp = fopen($tmp, 'rb');
+      while (!feof($fp)) {
+        $stmt->send_long_data(3, fread($fp, 8192));
+      }
+      fclose($fp);
+
       $stmt->execute();
       $stmt->close();
     }
   }
 }
 
-// Upload de curta (único)
+salvarMultiplosArquivos($conexao, 'videos_acervo', $id, 'videos');
+
+// Upload do curta (único)
 if (isset($_FILES['curta']) && $_FILES['curta']['error'] === 0) {
   $nome = $_FILES['curta']['name'];
   $tipo = mime_content_type($_FILES['curta']['tmp_name']);
-  $dados = file_get_contents($_FILES['curta']['tmp_name']);
 
   $stmt = $conexao->prepare("INSERT INTO curtas_acervo (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)");
+  $null = NULL;
   $stmt->bind_param("issb", $id, $nome, $tipo, $null);
-  $stmt->send_long_data(3, $dados);
+
+  $fp = fopen($_FILES['curta']['tmp_name'], 'rb');
+  while (!feof($fp)) {
+    $stmt->send_long_data(3, fread($fp, 8192));
+  }
+  fclose($fp);
+
   $stmt->execute();
   $stmt->close();
 }
 
-// Salvar novos arquivos
-salvarMultiplosArquivos($conexao, 'fotos_acervo', $id, 'fotos');
-salvarMultiplosArquivos($conexao, 'videos_acervo', $id, 'videos');
-
-// Redirecionar
-header("Location: pagina-inicial-adm.php");
+// Redireciona ou exibe mensagem
+header("Location: visualizar-projeto.php?id=$id");
 exit;
 ?>

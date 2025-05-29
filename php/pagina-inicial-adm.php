@@ -141,7 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               });
           });
         </script>
-    </nav>
   </header>
 
   <main id="main-pagina-inicial">
