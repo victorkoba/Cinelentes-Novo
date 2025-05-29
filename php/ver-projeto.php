@@ -100,7 +100,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     <div class="projeto-video">
       <?php
       // Foto de capa (primeira entrada da tabela foto_capa_acervo)
-      $foto = $conexao->prepare("SELECT * FROM foto_capa_acervo WHERE acervo_id = ? LIMIT 1");
+      $foto = $conexao->prepare("SELECT * FROM videos_acervo WHERE acervo_id = ? LIMIT 1");
       $foto->bind_param("i", $id);
       $foto->execute();
       $fotoRes = $foto->get_result();
@@ -116,7 +116,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
   <h2>Fotos</h2>
   <div class="grid-fotos">
     <?php
-    $fotos = $conexao->prepare("SELECT * FROM fotos_acervo WHERE acervo_id = ?");
+    $fotos = $conexao->prepare("SELECT * FROM curtas_acervo WHERE acervo_id = ?");
     $fotos->bind_param("i", $id);
     $fotos->execute();
     $fotoRes = $fotos->get_result();
@@ -134,7 +134,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 
   <!-- CURTA -->
   <?php
-  $curta = $conexao->prepare("SELECT * FROM curtas_acervo WHERE acervo_id = ? LIMIT 1");
+  $curta = $conexao->prepare("SELECT * FROM videos_acervo WHERE acervo_id = ? LIMIT 1");
   $curta->bind_param("i", $id);
   $curta->execute();
   $curtaRes = $curta->get_result();
