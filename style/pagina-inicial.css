@@ -19,10 +19,11 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 400px;
+  height: 500px;
   margin: 0 auto;
   max-width: 1000px;
   position: relative;
+  z-index: 2;
 }
 
 .acervo-item {
@@ -31,9 +32,15 @@ body, html {
   text-align: center;
   width: 330px;
   opacity: 1;
-  border-radius: 15px;
 }
 
+.acervo-item img{
+  max-width: 100%;
+  height: auto;
+  border-radius: 30px;
+  display: block;
+
+}
 /* Posicionamento dos itens do carrossel */
 .acervo-item.galeria-item-0 {
   left: 15%;
@@ -46,7 +53,7 @@ body, html {
   opacity: 0.8;
   transform: translateX(-50%);
   width: 380px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .acervo-item.galeria-item-2 {
