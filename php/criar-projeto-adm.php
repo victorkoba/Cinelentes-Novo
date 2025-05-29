@@ -12,7 +12,6 @@ include 'conexao.php';
   <link rel="stylesheet" href="../style/criar-projeto.css" />
   <link rel="stylesheet" href="../style/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../js/criar-projeto.js"></script>
   <style>
     .file-name {
@@ -47,7 +46,6 @@ include 'conexao.php';
       </div>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
       <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
-    </nav>
   </header>
   <script>
     const hamburguer = document.getElementById('hamburguer');

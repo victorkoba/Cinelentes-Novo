@@ -6,10 +6,8 @@ $acervo_id = intval($_GET['id']);
 $index = intval($_GET['midia'] ?? 0);
 
 $tabelasPermitidas = [
-  'fotos_acervo',
   'videos_acervo',
   'curtas_acervo',
-  'foto_capa_acervo'
 ];
 
 if (!in_array($tabela, $tabelasPermitidas)) {

@@ -76,38 +76,31 @@
       <?php
       include 'conexao.php';
 
-      // Pegando o primeiro registro de imagem associada ao acervo (se existir)
       $sql = "
-        SELECT a.id_acervo, a.titulo, a.descricao, f.dados, f.tipo_arquivo
-        FROM acervos a
-        LEFT JOIN (
-          SELECT acervo_id, dados, tipo_arquivo
-          FROM foto_capa_acervo
-          GROUP BY acervo_id
-        ) f ON a.id_acervo = f.acervo_id
-        WHERE a.edicao = 2023
-        ORDER BY a.id_acervo ASC
-      ";
+            SELECT id_acervo, titulo, descricao, foto_capa_acervo
+            FROM acervos
+            WHERE edicao = 2023
+            ORDER BY id_acervo ASC
+          ";
 
-      $result = $conexao->query($sql);
+          $result = $conexao->query($sql);
 
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-          $titulo = $row['titulo'];
-          $id = $row['id_acervo'];
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $titulo = $row['titulo'];
+              $id = $row['id_acervo'];
+              $caminhoImagem = $row['foto_capa_acervo']; // já é uma string
+              $caminhoFisico = __DIR__ . '/' . $caminhoImagem;
 
-          // Se houver foto no banco, converte para base64
-          if (!empty($row['dados'])) {
-            $tipo = $row['tipo_arquivo'];
-            $foto_base64 = 'data:' . $tipo . ';base64,' . base64_encode($row['dados']);
-          } else {
-            // Caso não tenha imagem no banco, usa uma imagem padrão
-            $foto_base64 = './img/img-icon-avatar.png';
-          }
+              if (!empty($caminhoImagem) && file_exists($caminhoFisico)) {
+                  $foto = $caminhoImagem;
+              } else {
+                  htmlspecialchars("Foto não encontrada."); // fallback
+              }
 
           echo '
             <a href="ver-projeto.php?id=' . $id . '" class="card">
-              <img src="' . htmlspecialchars($foto_base64) . '" alt="' . htmlspecialchars($titulo) . '">
+              <img src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
               <div class="card-text">' . htmlspecialchars($titulo) . '</div>
             </a>
           ';
