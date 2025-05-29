@@ -2,34 +2,52 @@
 include 'conexao.php';
 
 $tabela = $_GET['tabela'] ?? '';
-$acervo_id = intval($_GET['id']);
-$index = intval($_GET['midia'] ?? 0);
+$id = intval($_GET['id'] ?? 0);
+$midiaIndex = intval($_GET['midia'] ?? 0);
 
+// Verifica a tabela permitida
 $tabelasPermitidas = [
   'videos_acervo',
   'curtas_acervo',
+  'fotos_acervo',
+  'foto_capa_acervo'
 ];
-
 if (!in_array($tabela, $tabelasPermitidas)) {
-  http_response_code(403);
-  exit('Acesso negado.');
+  http_response_code(400);
+  exit('Tabela inválida.');
 }
 
-$sql = "SELECT tipo_arquivo, dados FROM $tabela WHERE acervo_id = ? LIMIT 1 OFFSET ?";
-$stmt = $conexao->prepare($sql);
-$stmt->bind_param("ii", $acervo_id, $index);
+// Busca a mídia
+$stmt = $conexao->prepare("SELECT * FROM $tabela WHERE acervo_id = ?");
+$stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->store_result();
+$result = $stmt->get_result();
 
-if ($stmt->num_rows === 0) {
-  http_response_code(404);
-  exit('Arquivo não encontrado.');
+$midias = [];
+while ($row = $result->fetch_assoc()) {
+  $midias[] = $row;
 }
 
-$stmt->bind_result($tipo, $dados);
-$stmt->fetch();
+if (!isset($midias[$midiaIndex])) {
+  http_response_code(404);
+  exit('Mídia não encontrada.');
+}
+
+$midia = $midias[$midiaIndex];
+
+// Campo da mídia: pode ser 'arquivo', 'foto', ou 'video' dependendo da tabela
+$campo = 'arquivo';
+if ($tabela === 'fotos_acervo' || $tabela === 'foto_capa_acervo') {
+  $campo = 'foto';
+} elseif ($tabela === 'curtas_acervo') {
+  $campo = 'video';
+}
+
+// Tipo MIME correto
+$tipo = $midia['tipo_arquivo'] ?? 'application/octet-stream';
+$dados = $midia[$campo];
 
 header("Content-Type: $tipo");
+header("Content-Length: " . strlen($dados));
 echo $dados;
 exit;
-?>

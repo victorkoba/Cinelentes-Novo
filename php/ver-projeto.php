@@ -37,7 +37,6 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
   <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
     <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
-    <!-- Botão hamburguer para mobile -->
     <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -58,6 +57,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
       <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
   </header>
+
   <script>
     const hamburguer = document.getElementById('hamburguer');
     const navMenu = document.getElementById('nav-menu');
@@ -67,28 +67,21 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     hamburguer.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle('show');
       hamburguer.setAttribute('aria-expanded', isOpen);
-
-      // Alterna classe 'open' para animação do botão
       hamburguer.classList.toggle('open');
-
-      // Fecha dropdown quando abrir/fechar menu
       dropdownContent.classList.remove('show');
     });
 
-    // Dropdown toggle mobile
     dropdownBtn.addEventListener('click', (e) => {
       e.preventDefault();
       dropdownContent.classList.toggle('show');
     });
 
-    // Fecha dropdown se clicar fora
     window.addEventListener('click', function(event) {
       if (!event.target.matches('.dropbtn')) {
         dropdownContent.classList.remove('show');
       }
     });
   </script>
-  </header>
 
 <main class="main-projeto">
   <div class="projeto-topo">
@@ -99,13 +92,12 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
     </div>
     <div class="projeto-video">
       <?php
-      // Foto de capa (primeira entrada da tabela foto_capa_acervo)
       $foto = $conexao->prepare("SELECT * FROM videos_acervo WHERE acervo_id = ? LIMIT 1");
       $foto->bind_param("i", $id);
       $foto->execute();
       $fotoRes = $foto->get_result();
       if ($fotoRow = $fotoRes->fetch_assoc()) {
-        echo "<img src='ver-midia.php?tabela=foto_capa_acervo&id={$id}&midia=0' width='300'>";
+        echo "<img src='ver-midia.php?tabela=videos_acervo&id={$id}&midia=0' width='300'>";
       }
       ?>
     </div>
@@ -113,24 +105,23 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 
   <!-- FOTOS -->
   <section>
-  <h2>Fotos</h2>
-  <div class="grid-fotos">
-    <?php
-    $fotos = $conexao->prepare("SELECT * FROM curtas_acervo WHERE acervo_id = ?");
-    $fotos->bind_param("i", $id);
-    $fotos->execute();
-    $fotoRes = $fotos->get_result();
-    $i = 0;
-    while ($row = $fotoRes->fetch_assoc()) {
-      echo "<div class='foto-grid-item'>
-              <img src='ver-midia.php?tabela=fotos_acervo&id={$id}&midia={$i}' alt='Foto do projeto'>
-            </div>";
-      $i++;
-    }
-    ?>
-  </div>
-</section>
-
+    <h2>Fotos</h2>
+    <div class="grid-fotos">
+      <?php
+      $fotos = $conexao->prepare("SELECT * FROM curtas_acervo WHERE acervo_id = ?");
+      $fotos->bind_param("i", $id);
+      $fotos->execute();
+      $fotoRes = $fotos->get_result();
+      $i = 0;
+      while ($row = $fotoRes->fetch_assoc()) {
+        echo "<div class='foto-grid-item'>
+                <img src='ver-midia.php?tabela=curtas_acervo&id={$id}&midia={$i}' alt='Foto do projeto'>
+              </div>";
+        $i++;
+      }
+      ?>
+    </div>
+  </section>
 
   <!-- CURTA -->
   <?php
@@ -141,7 +132,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
   if ($curtaRow = $curtaRes->fetch_assoc()) {
     echo "<section><h2>Curta-metragem</h2>
           <video controls width='600'>
-            <source src='ver-midia.php?tabela=curtas_acervo&id={$id}&midia=0' type='video/mp4'>
+            <source src='ver-midia.php?tabela=videos_acervo&id={$id}&midia=0' type='{$curtaRow['tipo_arquivo']}'>
           </video></section>";
   }
   ?>
@@ -200,7 +191,7 @@ $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
 </footer>
 
 <script>
-  // Script do carrossel igual anterior...
+  // Script do carrossel, se necessário...
 </script>
 </body>
 </html>
