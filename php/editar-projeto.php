@@ -226,26 +226,6 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $projeto = $stmt->get_result()->fetch_assoc();
 $fotosArray = array_filter(array_map('trim', explode(',', $projeto['fotos_acervo'] ?? '')));
-
-// Buscar vídeos
-$stmtVideos = $conexao->prepare("SELECT * FROM videos_acervo WHERE acervo_id = ?");
-$stmtVideos->bind_param("i", $id);
-$stmtVideos->execute();
-$resultVideos = $stmtVideos->get_result();
-$videos = [];
-while ($row = $resultVideos->fetch_assoc()) {
-    $videos[] = $row;
-}
-
-// Buscar curtas
-$stmtCurtas = $conexao->prepare("SELECT * FROM curtas_acervo WHERE acervo_id = ?");
-$stmtCurtas->bind_param("i", $id);
-$stmtCurtas->execute();
-$resultCurtas = $stmtCurtas->get_result();
-$curtas = [];
-while ($row = $resultCurtas->fetch_assoc()) {
-    $curtas[] = $row;
-}
 ?>
 
 <main class="main-container">
@@ -273,72 +253,74 @@ while ($row = $resultCurtas->fetch_assoc()) {
     <label for="feedback">Feedback:</label>
     <textarea id="feedback" name="feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
 
-    <!-- Foto de capa -->
     <h2>Foto de Capa:</h2>
     <?php if (!empty($projeto['foto_capa_acervo'])): ?>
-  <?php
-    $base64Capa = base64_encode($projeto['foto_capa_acervo']);
-    $mime = 'image/'; // ou 'image/png', dependendo do tipo armazenado
-  ?>
-  <div class="card-midia">
-    <img src="<?php echo $projeto['foto_capa_acervo']; ?>" alt="Capa atual">
-    <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
-  </div>
-<?php endif; ?>
-
-<!-- Galeria de Fotos -->
-<?php $fotosArray = json_decode($projeto['fotos_acervo'], true); ?>
-<h2>Fotos:</h2>
-<div class="galeria-fotos">
-  <?php foreach ($fotosArray as $index => $fotoNome): ?>
+      <?php
+        $base64Capa = base64_encode($projeto['foto_capa_acervo']);
+        $mime = 'image/'; // ou 'image/png', dependendo do tipo armazenado
+      ?>
     <div class="card-midia">
-      <img src="<?= htmlspecialchars(trim($fotoNome)) ?>" alt="Foto <?= $index + 1 ?>" />
-      <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars(trim($fotoNome)) ?>"> Excluir</label>
+      <img src="<?php echo $projeto['foto_capa_acervo']; ?>" alt="Capa atual">
+      <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
     </div>
-  <?php endforeach; ?>
-</div>
-<input type="file" name="fotos[]" multiple accept="image/*" />
+  <?php endif; ?>
 
-
-    <!-- Galeria de Vídeos -->
-    <h2>Vídeos:</h2>
-<div class="galeria-videos">
-  <?php if (count($videos) > 0): ?>
-    <?php foreach ($videos as $video): ?>
+  <!-- Galeria de Fotos -->
+  <?php $fotosArray = json_decode($projeto['fotos_acervo'], true); ?>
+  <h2>Fotos:</h2>
+  <div class="galeria-fotos">
+    <?php foreach ($fotosArray as $index => $fotoNome): ?>
       <div class="card-midia">
-        <video controls>
-          <source src="exibir-arquivo.php?tabela=videos_acervo&id=<?= $video['id_videos'] ?>" type="video/mp4">
-          Seu navegador não suporta vídeo.
-        </video>
-        <label>
-          <input type="checkbox" name="excluir_videos[]" value="<?= $video['id_videos'] ?>"> Excluir
-        </label>
+        <img src="<?= htmlspecialchars(trim($fotoNome)) ?>" alt="Foto <?= $index + 1 ?>" />
+        <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars(trim($fotoNome)) ?>"> Excluir</label>
       </div>
     <?php endforeach; ?>
-  <?php else: ?>
-    <p>Não há vídeos cadastrados para este projeto.</p>
-  <?php endif; ?>
-</div>
-<input type="file" name="videos[]" multiple accept="video/*" />
+  </div>
+  <input type="file" name="fotos[]" multiple accept="image/*" />
 
-    <!-- Curta -->
-    <h2>Curta:</h2>
-<?php if (count($curtas) > 0): ?>
-  <?php foreach ($curtas as $curta): ?>
-    <div class="card-midia">
-      <video controls>
-        <source src="exibir-arquivo.php?tabela=curtas_acervo&id=<?= $curta['id_curtas'] ?>" type="video/mp4">
-        Seu navegador não suporta vídeo.
-      </video>
-      <label>
-        <input type="checkbox" name="excluir_curta[]" value="<?= $curta['id_curtas'] ?>"> Excluir
-      </label>
+
+    <h2>Vídeos:</h2>
+    <div class="galeria-videos">
+      <?php
+      $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
+      $stmt = $conexao->prepare($sqlVideos);
+      $stmt->bind_param("i", $projeto['id_acervo']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      while ($video = $result->fetch_assoc()):
+      ?>
+        <div class="card-midia">
+          <video controls width="320">
+            <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+          <p><?= htmlspecialchars($video['nome_arquivo']) ?></p>
+        </div>
+      <?php endwhile; $stmt->close(); ?>
     </div>
-  <?php endforeach; ?>
-<?php else: ?>
-  <p>Não há curta cadastrado para este projeto.</p>
-<?php endif; ?>
-<input type="file" name="curta" accept="video/*" />
+
+
+    <h2>Curtas:</h2>
+    <div class="galeria-videos">
+      <?php
+      $sqlVideos = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
+      $stmt = $conexao->prepare($sqlVideos);
+      $stmt->bind_param("i", $projeto['id']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      while ($video = $result->fetch_assoc()):
+      ?>
+        <div class="card-midia">
+          <video controls width="320">
+            <source src="exibir-curta.php?id=<?= $video['id_curtas'] ?>" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+          <p><?= htmlspecialchars($video['nome_arquivo']) ?></p>
+        </div>
+      <?php endwhile; $stmt->close(); ?>
+    </div>
 
     <button type="submit" class="botao-confirmar">Salvar Alterações</button>
   </form>
