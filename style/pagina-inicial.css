@@ -23,44 +23,44 @@ body, html {
   position: relative;
 }
 
-.galeria-itens{
+.galeria-itens {
+  position: absolute;
+  width: 330px;
   height: 200px;
   opacity: 0;
-  position: absolute;
   transition: all 0.3s ease-in-out;
-  width: 330px;
   z-index: 0;
   border-radius: 15px;
   background-size: contain;
-
 }
 
 .galeria-item-1 {
   left: 15%;
-  opacity: .4;
+  opacity: 0.4;
   transform: translateX(-50%);
 }
 
-.galeria-item-2, .galeria-item-4 {
+.galeria-item-2,
+.galeria-item-4 {
+  width: 380px;
   height: 250px;
   opacity: 0.8;
-  width: 380px;
   z-index: 1;
 }
 
-.galeria-item-2{
+.galeria-item-2 {
   left: 30%;
   transform: translateX(-50%);
 }
 
 .galeria-item-3 {
-  box-shadow: -2px 5px 33px 6px rgba(0, 0, 0, 0.35);
-  height: 300px;
-  opacity: 1;
-  left: 50%;
-  transform: translateX(-50%);
   width: 430px;
+  height: 300px;
+  left: 50%;
+  opacity: 1;
+  transform: translateX(-50%);
   z-index: 2;
+  box-shadow: -2px 5px 33px 6px rgba(0, 0, 0, 0.35);
 }
 
 .galeria-item-4 {
@@ -68,37 +68,108 @@ body, html {
   transform: translateX(-50%);
 }
 
-.galeria-item-5{
+.galeria-item-5 {
   left: 85%;
-  opacity: .4;
+  opacity: 0.4;
   transform: translateX(-50%);
 }
 
 /* Controles do carrossel */
 .galeria-controls {
-  position: relative;
-  width: 100%;
+  position:relative; /* Para ficar sobre as imagens */
+  bottom: 20px; /* Ajuste para deixar um pouco acima da borda inferior */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  bottom: 200px;
-  gap : 440px;
-  transform: translateY(-50%);
-  z-index: 10;
+  gap: 400px; /* Espaçamento entre os botões */
+  z-index: 10; /* Na frente das imagens */
+  width: auto;
+  top: -230px;
 }
 
+
+
 .galeria-controls button {
-  background-color: transparent;
-  border: 0;
+  background: transparent;
+  border: none;
   cursor: pointer;
   font-size: 50px;
   color: #fff;
-  z-index: 4;
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease;
+  position: relative; /* Para que o ::before posicione corretamente */
+  width: 60px; /* Para garantir uma área clicável maior */
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.galeria-controls button:hover {
-  color: #555;
+.galeria-controls button:focus {
+  outline: none;
 }
+
+.galeria-controls-previous::before,
+.galeria-controls-next::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  padding: 10px;
+  border: solid #000;
+  border-width: 0 5px 5px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.galeria-controls-previous::before {
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.galeria-controls-previous:hover::before {
+  transform: translate(calc(-50% - 10px), -50%) rotate(135deg);
+}
+
+.galeria-controls-next::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  left: 50%;
+}
+
+.galeria-controls-next:hover::before {
+  transform: translate(calc(-50% + 10px), -50%) rotate(-45deg);
+}
+
+
+
+/* Navegação inferior */
+.galeria-nav {
+  position: absolute;
+  bottom: -15px;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.galeria-nav li {
+  width: 10px;
+  height: 10px;
+  margin: 0 16px;
+  background: #fcebd5;
+  border-radius: 50%;
+}
+
+.galeria-nav li.galeria-item-selected {
+  background: #555;
+}
+
+
+
 
 /* Estilos gerais do grid */
 #grid-introducao,
@@ -211,10 +282,10 @@ body, html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 25px;   /* menor padding */
-  width: 40px;         /* largura menor */
-  height: auto;        /* altura automática */
-  border-radius: 6px;  /* opcional: canto arredondado */
+  padding: 12px 25px;   
+  width: 40px;         
+  height: auto;       
+  border-radius: 6px;  
 }
 
 
