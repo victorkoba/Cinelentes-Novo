@@ -73,14 +73,13 @@
         <h1 class="titulo-acervo-h1">Acervo Cinelentes - 2025</h1>
       </div>
       <div class="cards">
-      <?php
+            <?php
       include 'conexao.php';
 
-      // Pegando o primeiro registro de imagem associada ao acervo (se existir)
       $sql = "
             SELECT id_acervo, titulo, descricao, foto_capa_acervo
             FROM acervos
-            WHERE edicao = 2023
+            WHERE edicao = 2025
             ORDER BY id_acervo ASC
           ";
 
@@ -90,18 +89,18 @@
             while ($row = $result->fetch_assoc()) {
               $titulo = $row['titulo'];
               $id = $row['id_acervo'];
-              $caminhoImagem = json_decode($row['foto_capa_acervo']); // tira as aspas extras do caminho salvo
+              $caminhoImagem = $row['foto_capa_acervo']; // já é uma string
+              $caminhoFisico = __DIR__ . '/' . $caminhoImagem;
 
-              // Verifica se o caminho da imagem existe no servidor
-              if (!empty($caminhoImagem) && file_exists($caminhoImagem)) {
-                $foto = $caminhoImagem;
+              if (!empty($caminhoImagem) && file_exists($caminhoFisico)) {
+                  $foto = $caminhoImagem;
               } else {
-                $foto = './img/img-icon-avatar.png'; // imagem padrão
+                  htmlspecialchars("Foto não encontrada."); // fallback
               }
 
           echo '
             <a href="ver-projeto.php?id=' . $id . '" class="card">
-              <img src="' . htmlspecialchars($foto_base64) . '" alt="' . htmlspecialchars($titulo) . '">
+              <img src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
               <div class="card-text">' . htmlspecialchars($titulo) . '</div>
             </a>
           ';

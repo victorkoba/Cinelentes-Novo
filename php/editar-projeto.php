@@ -24,10 +24,88 @@ $projeto = $result->fetch_assoc();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Editar Projeto - Cinelentes</title>
-  <link rel="stylesheet" href="../style/style.css" />
+  <title>Cinelentes</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
   <link rel="stylesheet" href="../style/editar-projeto.css" />
+  <link rel="stylesheet" href="../style/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<body class="body-pagina-inicial">
+
+  <header class="header-geral">
+    <h1 class="sesi-senai">SESI | SENAI</h1>
+    <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
+    <!-- Botão hamburguer para mobile -->
+    <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <nav id="nav-menu">
+      <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
+      <div class="dropdown">
+        <a href="#" class="dropbtn link-animado">EDIÇÕES</a>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="edicao2023-adm.php" class="link-animado">EDIÇÃO 2023</a>
+          <a href="edicao2024-adm.php" class="link-animado">EDIÇÃO 2024</a>
+          <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
+        </div>
+      </div>
+      <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
+      <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+    </nav>
+  </header>
+  <script>
+    const hamburguer = document.getElementById('hamburguer');
+    const navMenu = document.getElementById('nav-menu');
+    const dropdownBtn = document.querySelector('.dropbtn');
+    const dropdownContent = document.getElementById('myDropdown');
+
+    hamburguer.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('show');
+      hamburguer.setAttribute('aria-expanded', isOpen);
+
+      // Alterna classe 'open' para animação do botão
+      hamburguer.classList.toggle('open');
+
+      // Fecha dropdown quando abrir/fechar menu
+      dropdownContent.classList.remove('show');
+    });
+
+    // Dropdown toggle mobile
+    dropdownBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdownContent.classList.toggle('show');
+    });
+
+    // Fecha dropdown se clicar fora
+    window.addEventListener('click', function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        dropdownContent.classList.remove('show');
+      }
+    });
+  </script>
+        <script>
+          document.getElementById("botao-logout").addEventListener("click", function (e) {
+              e.preventDefault();
+
+              Swal.fire({
+                  title: "Deseja sair da conta?",
+                  text: "Você precisará fazer login novamente para continuar.",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Sim, sair"
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      window.location.href = "logout.php";
+                  }
+              });
+          });
+        </script>
+  </header>
 <body class="body-pagina-inicial">
   <main class="main-container">
     <h1 class="titulo-pagina">Editar Projeto</h1>
@@ -54,20 +132,18 @@ $projeto = $result->fetch_assoc();
       <label for="feedback">Feedback:</label>
       <textarea id="feedback" name="feedback" class="textarea-feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
 
+      <?php
+      $fotosArray = explode(',', $projeto['fotos_acervo']);
+      ?>
       <h2>Fotos:</h2>
       <div class="galeria-fotos">
-        <?php
-        $fotoStmt = $conexao->prepare("SELECT COUNT(*) as total FROM fotos_acervo WHERE acervo_id = ?");
-        $fotoStmt->bind_param("i", $id);
-        $fotoStmt->execute();
-        $fotoTotal = $fotoStmt->get_result()->fetch_assoc()['total'];
-
-        for ($i = 0; $i < $fotoTotal; $i++): ?>
+        <?php foreach ($fotosArray as $index => $fotoNome): ?>
+          <?php $fotoNome = trim($fotoNome); ?>
           <div class="card-midia">
-            <img src="ver-midia.php?tabela=fotos_acervo&id=<?= $id ?>&midia=<?= $i ?>" alt="Foto <?= $i ?>" />
-            <label><input type="checkbox" name="excluir_fotos[]" value="<?= $i ?>"> Excluir</label>
+            <img src="uploads/<?= htmlspecialchars($fotoNome) ?>" alt="Foto <?= $index + 1 ?>" />
+            <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars($fotoNome) ?>"> Excluir</label>
           </div>
-        <?php endfor; ?>
+        <?php endforeach; ?>
       </div>
       <input type="file" name="fotos[]" multiple accept="image/*">
 
@@ -112,5 +188,16 @@ $projeto = $result->fetch_assoc();
       <button type="submit" class="botao-confirmar">Salvar Alterações</button>
     </form>
   </main>
+  <footer class="footer-container">
+    <div class="footer-topo">
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="Cinelentes">
+      </div>
+    </div>
+    <div class="linha-branca-footer"></div>
+    <div class="linha-preta-footer">
+      <p class="footer-direitos">Todos os direitos reservados.</p>
+    </div>
+  </footer>
 </body>
 </html>
