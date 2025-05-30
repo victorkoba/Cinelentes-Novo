@@ -187,21 +187,19 @@
 
 .titulo-pagina-inicial {
   position: relative;
-  font-size: 2em; /* ajuste conforme o tamanho atual */
-  padding-left: 20px; /* espaço para a linha */
+  display: inline-block; /* Para a linha ajustar ao tamanho */
+  margin-bottom: 16px; /* Espaço entre o texto e a linha */
 }
 
-.titulo-pagina-inicial::before {
+.titulo-pagina-inicial::after {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px; /* largura da linha */
-  height: 80%; /* altura proporcional ao texto */
-  background-color: black; /* cor da linha */
-  border-radius: 4px; /* opcional: borda arredondada */
+  display: block;
+  width: 120px;
+  height: 2px;
+  background-color: #000; /* Pode mudar a cor aqui */
+  margin-top: 8px; /* Espaço entre o texto e a linha */
 }
+
 
 
 .titulo-pagina-inicial-adm {
