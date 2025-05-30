@@ -84,12 +84,13 @@ function embedLink($url) {
   <title><?= htmlspecialchars($projeto['titulo']) ?> - Cinelentes</title>
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/ver-projeto.css">
+  <script src="../main/main.js"></script>
 
 </head>
 <body class="body-pagina-inicial">
 <header class="header-geral">
     <h1 class="sesi-senai">SESI | SENAI</h1>
-    <a href="pagina-inicial-adm.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
+    <a href="../index.php"><img id="logo-header" src="../img/logo-cinelentes-novo.png" alt=""></a>
     <!-- Botão hamburguer para mobile -->
     <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false">
       <span class="bar"></span>
@@ -98,17 +99,49 @@ function embedLink($url) {
     </button>
 
     <nav id="nav-menu">
-      <a href="pagina-inicial-adm.php" class="link-animado">INÍCIO</a>
+      <a href="../index.php" class="link-animado">INÍCIO</a>
       <div class="dropdown">
         <a href="#" class="dropbtn link-animado">EDIÇÕES</a>
         <div id="myDropdown" class="dropdown-content">
-          <a href="edicao2023-adm.php" class="link-animado">EDIÇÃO 2023</a>
-          <a href="edicao2024-adm.php" class="link-animado">EDIÇÃO 2024</a>
-          <a href="edicao2025-adm.php" class="link-animado">EDIÇÃO 2025</a>
+          <a href="edicao2023.php" class="link-animado">EDIÇÃO 2023</a>
+          <a href="edicao2024.php" class="link-animado">EDIÇÃO 2024</a>
+          <a href="edicao2025.php" class="link-animado">EDIÇÃO 2025</a>
         </div>
       </div>
-      <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
-      <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+      <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
+      <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
+    </nav>
+  </header>
+  <script>
+    const hamburguer = document.getElementById('hamburguer');
+    const navMenu = document.getElementById('nav-menu');
+    const dropdownBtn = document.querySelector('.dropbtn');
+    const dropdownContent = document.getElementById('myDropdown');
+
+    hamburguer.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('show');
+      hamburguer.setAttribute('aria-expanded', isOpen);
+
+      // Alterna classe 'open' para animação do botão
+      hamburguer.classList.toggle('open');
+
+      // Fecha dropdown quando abrir/fechar menu
+      dropdownContent.classList.remove('show');
+    });
+
+    // Dropdown toggle mobile
+    dropdownBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdownContent.classList.toggle('show');
+    });
+
+    // Fecha dropdown se clicar fora
+    window.addEventListener('click', function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        dropdownContent.classList.remove('show');
+      }
+    });
+  </script>
   </header>
 
 <main class="main-projeto">
@@ -138,24 +171,28 @@ function embedLink($url) {
   </section>
 
   <!-- VÍDEOS -->
-  <?php if (count($videos) > 0): ?>
     <section>
       <h2 class="titulo-linha">Vídeos</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-        <?php foreach ($videos as $video): ?>
-  <div class="card-midia">
-    <video controls width="320">
-      <source src="exibir-arquivo.php?tabela=videos_acervo&id=<?= $video['id_videos'] ?>" type="<?= $video['tipo_arquivo'] ?>">
-      Seu navegador não suporta vídeo.
-    </video>
-    <p><?= htmlspecialchars($video['nome_arquivo']) ?></p>
-  </div>
-<?php endforeach; ?>
+      <div class="galeria-videos">
+      <?php
+      $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
+      $stmt = $conexao->prepare($sqlVideos);
+      $stmt->bind_param("i", $projeto['id_acervo']);
+      $stmt->execute();
+      $result = $stmt->get_result();
 
-
+      while ($video = $result->fetch_assoc()):
+      ?>
+        <div class="card-midia">
+          <video controls width="320">
+            <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+        </div>
+      <?php endwhile; $stmt->close(); ?>
+    </div>
       </div>
     </section>
-  <?php endif; ?>
   <!-- MÚSICAS -->
    <?php if (!empty($musicasArray)): ?>
   <section>
@@ -175,19 +212,25 @@ function embedLink($url) {
     </div>
   </section>
 <?php endif; ?>
-
-
  <!-- CURTA -->
-  <?php if (count($curtas) > 0): ?>
-    <section>
-      <h2 class="titulo-linha">Curta-metragem</h2>
-      <?php foreach ($curtas as $curta): ?>
-        <video controls width="600">
-          <source src="exibir-arquivo.php?tabela=curtas_acervo&id=<?= $curta['id_curtas'] ?>" type="<?= $curta['tipo_arquivo'] ?>">
-        </video>
-      <?php endforeach; ?>
-    </section>
-  <?php endif; ?>
+  <div class="galeria-videos">
+      <?php
+      $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
+      $stmt = $conexao->prepare($sqlCurtas);
+      $stmt->bind_param("i", $projeto['id_acervo']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      while ($curta = $result->fetch_assoc()):
+      ?>
+        <div class="card-midia">
+          <video controls width="320">
+            <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+        </div>
+      <?php endwhile; $stmt->close(); ?>
+    </div>
 
   <!-- HABILIDADES -->
   <?php if (!empty($habilidadesArray[0])): ?>
@@ -218,9 +261,23 @@ function embedLink($url) {
   </div>
 </main>
 
-<footer class="footer-container">
-  <p style="text-align:center;">© Cinelentes</p>
-</footer>
+  <footer class="footer-container">
+    <div class="footer-topo">
+      <div class="div-vazia"></div>
+      <div class="footer-logo-container">
+        <img id="logo-cinelentes-footer" src="../img/logo-cinelentes-novo.png" alt="CineLentes">
+      </div>
+      <div class="botao-login-container">
+        <a href="login.php" class="botao-login">Login Administrador</a>
+      </div>
+    </div>
+
+    <div class="linha-branca-footer"></div>
+
+    <div class="linha-preta-footer">
+      <p class="footer-direitos">Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
 <style>
 /* Copie seu CSS aqui se quiser manter o estilo */

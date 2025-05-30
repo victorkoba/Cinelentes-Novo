@@ -143,6 +143,6 @@ if (isset($_FILES['curta']) && $_FILES['curta']['error'] === 0) {
 }
 
 // Redireciona ou exibe mensagem
-header("Location: visualizar-projeto.php?id=$id");
+header("Location: ver-projeto.php?id=$id");
 exit;
 ?>

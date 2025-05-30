@@ -127,7 +127,7 @@ $stmt->close();
             </div>
             <div class="galeria">
               <div class="galeria-container">
-                <img class="galeria-itens galeria-item-1" src="./php/uploads/foto_6837b501188d98.81916981.jpg"  data-index="1" alt="" a>
+                <img class="galeria-itens galeria-item-1" src="./img/img-mes-povos-originarios.jpg"  data-index="1" alt="" a>
                 <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
                 <img  class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="" >
                 <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">

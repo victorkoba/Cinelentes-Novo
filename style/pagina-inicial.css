@@ -191,16 +191,6 @@
   margin-bottom: 16px; /* Espaço entre o texto e a linha */
 }
 
-.titulo-pagina-inicial::after {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 2px;
-  background-color: #000; /* Pode mudar a cor aqui */
-  margin-top: 8px; /* Espaço entre o texto e a linha */
-}
-
-
 
 .titulo-pagina-inicial-adm {
   display: flex;

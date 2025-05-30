@@ -109,6 +109,12 @@ section h2 {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
+.card-midia {
+  width: 100vw;
+  justify-content: center;
+  display: flex;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .projeto-topo {

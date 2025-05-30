@@ -187,7 +187,6 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
             <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
             Seu navegador não suporta vídeo.
           </video>
-          <p><?= htmlspecialchars($video['nome_arquivo']) ?></p>
         </div>
       <?php endwhile; $stmt->close(); ?>
     </div>
@@ -208,7 +207,6 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
             <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
             Seu navegador não suporta vídeo.
           </video>
-          <p><?= htmlspecialchars($curta['nome_arquivo']) ?></p>
         </div>
       <?php endwhile; $stmt->close(); ?>
     </div>
