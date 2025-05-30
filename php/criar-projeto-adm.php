@@ -376,19 +376,8 @@ include 'conexao.php';
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aqui simula o envio
+        // Envia o formulário
         document.querySelector("form").submit();
-
-        // Alerta de sucesso após confirmar
-        Swal.fire({
-          title: "Projeto criado!",
-          text: "O projeto foi criado com sucesso.",
-          icon: "success",
-          confirmButtonText: "OK"
-        }).then(() => {
-          // Redirecionar para outra página após clicar em OK
-          window.location.href = "pagina-inicial-adm.php";
-        });
       }
     });
   }
