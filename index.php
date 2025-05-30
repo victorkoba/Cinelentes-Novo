@@ -133,7 +133,7 @@ $stmt->close();
                 <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
                 <img class="galeria-itens galeria-item-5" src="./img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
               </div>
-  <div class="galeria-controls"></div>            </div>
+  <div class="galeria-controls"></div></div>
       </div>
 
     <!-------------AGENDA------------->
