@@ -77,10 +77,11 @@ section h2 {
   padding-left: 1rem;
 }
 
-/* Galeria de Fotos */
+/* Galeria de Fotos, vídeos e curtas */
 .grid-fotos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex; /* Mude de grid para flex */
+  flex-wrap: wrap;
+  justify-content: center; /* Centraliza quando sobrar 1 ou 2 */
   gap: 2rem;
   background-color: #fff;
   padding: 2rem;
@@ -89,11 +90,16 @@ section h2 {
 }
 
 .foto-grid-item {
+  flex: 1 1 280px; /* mínimo de 280px, mas permite crescer */
+  max-width: 300px; /* Limita o tamanho */
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .foto-grid-item img {
@@ -101,18 +107,48 @@ section h2 {
   height: 220px;
   object-fit: cover;
   border-radius: 12px;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .foto-grid-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.img-fotos {
+  border-radius: 10px;
+}
+
+.container-fotos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-curtas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centraliza a última linha */
+  gap: 2rem;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .card-midia {
-  width: 100vw;
-  justify-content: center;
+  flex: 1 1 45%; /* Tenta ocupar ~45% de largura (2 por linha) */
+  max-width: 500px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-midia video {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Responsividade */

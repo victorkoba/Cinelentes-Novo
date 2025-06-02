@@ -168,45 +168,47 @@ function embedLink($url) {
   <!-- FOTOS -->
     <section>
       <h2 class="titulo-linha">Fotos</h2>
-      <div class="grid-fotos">
-      <?php
-      $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
-      $stmt = $conexao->prepare($sqlFotos);
-      $stmt->bind_param("i", $projeto['id_acervo']);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      while ($fotos = $result->fetch_assoc()):
-      ?>
-        <div class="card-midia">
-          <img width="300" src="exibir-foto.php?id=<?= $fotos['id_fotos'] ?>" type="image/*"/>
+      <div class="container-fotos">
+        <div class="grid-fotos">
+        <?php
+        $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
+        $stmt = $conexao->prepare($sqlFotos);
+        $stmt->bind_param("i", $projeto['id_acervo']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+  
+        while ($fotos = $result->fetch_assoc()):
+        ?>
+          <div class="foto-grid-item">
+            <img class="img-fotos" width="300" src="exibir-foto.php?id=<?= $fotos['id_fotos'] ?>" />
+          </div>
+        <?php endwhile; $stmt->close(); ?>
+      </div>
         </div>
-      <?php endwhile; $stmt->close(); ?>
-    </div>
       </div>
     </section>
 
   <!-- VÍDEOS -->
     <section>
       <h2 class="titulo-linha">Vídeos</h2>
-      <div class="galeria-videos">
-      <?php
-      $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
-      $stmt = $conexao->prepare($sqlVideos);
-      $stmt->bind_param("i", $projeto['id_acervo']);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      while ($video = $result->fetch_assoc()):
-      ?>
-        <div class="card-midia">
-          <video controls width="320">
-            <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
-            Seu navegador não suporta vídeo.
-          </video>
+      <div class="container-fotos">
+        <div class="grid-fotos">
+        <?php
+        $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
+        $stmt = $conexao->prepare($sqlVideos);
+        $stmt->bind_param("i", $projeto['id_acervo']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+  
+        while ($video = $result->fetch_assoc()):
+        ?>
+            <video width="500" class="img-fotos" controls width="320">
+              <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
+              Seu navegador não suporta vídeo.
+            </video>
+        <?php endwhile; $stmt->close(); ?>
+      </div>
         </div>
-      <?php endwhile; $stmt->close(); ?>
-    </div>
       </div>
     </section>
     
@@ -231,24 +233,25 @@ function embedLink($url) {
 <?php endif; ?>
 
  <!-- CURTA -->
-  <div class="galeria-videos">
-      <?php
-      $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
-      $stmt = $conexao->prepare($sqlCurtas);
-      $stmt->bind_param("i", $projeto['id_acervo']);
-      $stmt->execute();
-      $result = $stmt->get_result();
+  <div class="grid-curtas">
+  <?php
+  $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
+  $stmt = $conexao->prepare($sqlCurtas);
+  $stmt->bind_param("i", $projeto['id_acervo']);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-      while ($curta = $result->fetch_assoc()):
-      ?>
-        <div class="card-midia">
-          <video controls width="320">
-            <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
-            Seu navegador não suporta vídeo.
-          </video>
-        </div>
-      <?php endwhile; $stmt->close(); ?>
+  while ($curta = $result->fetch_assoc()):
+  ?>
+    <div class="card-midia">
+      <video controls>
+        <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
+        Seu navegador não suporta vídeo.
+      </video>
     </div>
+  <?php endwhile; $stmt->close(); ?>
+</div>
+
 
   <!-- HABILIDADES -->
   <?php if (!empty($habilidadesArray[0])): ?>
