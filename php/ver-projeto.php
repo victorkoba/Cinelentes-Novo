@@ -20,7 +20,7 @@ if (!$projeto) {
 
 $habilidadesArray = explode(',', $projeto['habilidades'] ?? '');
 $feedbacksArray = explode('||', $projeto['feedback'] ?? '');
-$fotosArray = json_decode($projeto['fotos_acervo'] ?? '[]', true);
+$fotosArray = explode ('||', $projeto['foto_capa_acervo'] ?? '');
 
 // Vídeos
 $stmtVideos = $conexao->prepare("SELECT * FROM videos_acervo WHERE acervo_id = ?");
@@ -32,6 +32,16 @@ while ($row = $resultVideos->fetch_assoc()) {
   $videos[] = $row;
 }
 
+// Fotos
+$stmtFotos = $conexao->prepare("SELECT * FROM fotos_acervo WHERE acervo_id = ?");
+$stmtFotos->bind_param("i", $id);
+$stmtFotos->execute();
+$resultFotos = $stmtFotos->get_result();
+$fotos = [];
+while ($row = $resultFotos->fetch_assoc()) {
+  $fotos[] = $row;
+}
+
 // Curtas
 $stmtCurtas = $conexao->prepare("SELECT * FROM curtas_acervo WHERE acervo_id = ?");
 $stmtCurtas->bind_param("i", $id);
@@ -40,19 +50,17 @@ $resultCurtas = $stmtCurtas->get_result();
 $curtas = [];
 while ($row = $resultCurtas->fetch_assoc()) {
   $curtas[] = $row;
-  $musicasArray = [];
+}
 
-// Se o campo vier em formato JSON
+// Agora sim, fora do while, processamos músicas
+$musicasArray = [];
 if (!empty($projeto['musicas'])) {
   $decoded = json_decode($projeto['musicas'], true);
   if (is_array($decoded)) {
     $musicasArray = $decoded;
   } else {
-    // fallback caso esteja como texto separado por vírgula ou quebra de linha
     $musicasArray = array_filter(array_map('trim', preg_split('/[\r\n,]+/', $projeto['musicas'])));
   }
-}
-
 }
 ?>
 <?php
@@ -111,7 +119,6 @@ function embedLink($url) {
       <a href="quem-somos.php" class="link-animado">QUEM SOMOS</a>
       <a href="../index.php#grid-agenda" class="link-animado">AGENDA</a>
     </nav>
-  </header>
   <script>
     const hamburguer = document.getElementById('hamburguer');
     const navMenu = document.getElementById('nav-menu');
@@ -159,16 +166,25 @@ function embedLink($url) {
   </div>
 
   <!-- FOTOS -->
-  <section>
-    <h2 class="titulo-linha">Fotos</h2>
-    <div class="grid-fotos">
-      <?php foreach ($fotosArray as $foto): ?>
-        <div class="foto-grid-item">
-          <img src="<?= htmlspecialchars(trim($foto)) ?>" alt="Foto do projeto">
+    <section>
+      <h2 class="titulo-linha">Fotos</h2>
+      <div class="grid-fotos">
+      <?php
+      $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
+      $stmt = $conexao->prepare($sqlFotos);
+      $stmt->bind_param("i", $projeto['id_acervo']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      while ($fotos = $result->fetch_assoc()):
+      ?>
+        <div class="card-midia">
+          <img width="300" src="exibir-foto.php?id=<?= $fotos['id_fotos'] ?>" type="image/*"/>
         </div>
-      <?php endforeach; ?>
+      <?php endwhile; $stmt->close(); ?>
     </div>
-  </section>
+      </div>
+    </section>
 
   <!-- VÍDEOS -->
     <section>
@@ -193,6 +209,7 @@ function embedLink($url) {
     </div>
       </div>
     </section>
+    
   <!-- MÚSICAS -->
    <?php if (!empty($musicasArray)): ?>
   <section>
@@ -212,6 +229,7 @@ function embedLink($url) {
     </div>
   </section>
 <?php endif; ?>
+
  <!-- CURTA -->
   <div class="galeria-videos">
       <?php
@@ -279,9 +297,6 @@ function embedLink($url) {
     </div>
   </footer>
 
-<style>
-/* Copie seu CSS aqui se quiser manter o estilo */
-</style>
 
 </body>
 </html>

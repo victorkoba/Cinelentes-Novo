@@ -41,7 +41,7 @@ form select {
 form input[type="text"]:focus,
 form textarea:focus,
 form select:focus {
-  border-color: #3085d6;
+  border-color: #ffdea4;
   outline: none;
 }
 

@@ -14,12 +14,6 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
-// Deletar de fotos_acervo
-$stmt = $conexao->prepare("DELETE FROM acervos WHERE fotos_acervo = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$stmt->close();
-
 // Deletar de videos_acervo
 $stmt = $conexao->prepare("DELETE FROM videos_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);

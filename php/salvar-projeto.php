@@ -19,7 +19,6 @@ function limpar($texto) {
 // Coleta os campos de texto
 $titulo = limpar($_POST['titulo'] ?? '');
 $conteudo = limpar($_POST['conteudo'] ?? '');
-$fotos_acervo = limpar($_POST['fotos_acervo'] ?? '');
 $foto_capa_acervo = limpar($_POST ['foto_capa_acervo'] ?? '');
 $diretorio = 'uploads/';
 $habilidades = limpar($_POST['habilidades'] ?? '');
@@ -44,8 +43,6 @@ function salvarArquivoBinario($campo) {
     return null;
 }
 
-$fotos = salvarMultiplosArquivos('fotos', 'foto_');
-$fotos_acervo = json_encode($fotos);
 $foto_capa_acervo = salvarImagemCapa('foto_capa_acervo', 'foto_capa_acervo_');
 
 function salvarImagemCapa($campo, $prefixo = '') {
@@ -66,24 +63,6 @@ function salvarImagemCapa($campo, $prefixo = '') {
     }
 
     return $caminho;
-}
-
-function salvarMultiplosArquivos($campo, $prefixo = '') {
-    global $diretorio;
-    $caminhos = [];
-    if (isset($_FILES[$campo]) && is_array($_FILES[$campo]['name'])) {
-        for ($i = 0; $i < count($_FILES[$campo]['name']); $i++) {
-            if ($_FILES[$campo]['error'][$i] === 0) {
-                $ext = pathinfo($_FILES[$campo]['name'][$i], PATHINFO_EXTENSION);
-                $novoNome = uniqid($prefixo, true) . '.' . $ext;
-                $caminhoCompleto = $diretorio . $novoNome;
-                if (move_uploaded_file($_FILES[$campo]['tmp_name'][$i], $caminhoCompleto)) {
-                    $caminhos[] = $caminhoCompleto;
-                }
-            }
-        }
-    }
-    return $caminhos;
 }
 
 // Função para salvar múltiplos arquivos binários
@@ -114,10 +93,10 @@ $videos = salvarMultiplosArquivosBinarios('videos');
 $curta = salvarMultiplosArquivosBinarios('curta');
 
 // 1. Inserção na tabela acervos
-$sql = "INSERT INTO acervos (titulo, descricao, fotos_acervo, foto_capa_acervo, musicas, habilidades, feedback, edicao) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO acervos (titulo, descricao, foto_capa_acervo, musicas, habilidades, feedback, edicao) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conexao->prepare($sql);
-$stmt->bind_param("sssssssi", $titulo, $conteudo, $fotos_acervo, $foto_capa_acervo, $musicas, $habilidades, $feedback, $edicao);
+$stmt->bind_param("ssssssi", $titulo, $conteudo, $foto_capa_acervo, $musicas, $habilidades, $feedback, $edicao);
 
 if ($stmt->execute()) {
     $acervo_id = $stmt->insert_id; // ID do acervo recém-criado
@@ -147,6 +126,7 @@ if ($stmt->execute()) {
     // Inserir arquivos nas tabelas específicas
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);
+    inserirArquvio($conexao, "fotos_acervo", $acervo_id, $fotos);
 
     header("Location: pagina-inicial-adm.php");
     exit;
