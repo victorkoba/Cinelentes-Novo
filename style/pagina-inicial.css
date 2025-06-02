@@ -195,11 +195,8 @@
 
 .titulo-pagina-inicial-adm {
   display: flex;
+  align-items: center;
   justify-content: center;
-}
-
-#titulo-adm {
-  margin-top: 50px;
 }
 
 /* Seção introdução */

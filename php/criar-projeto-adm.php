@@ -360,7 +360,7 @@ include 'conexao.php';
       ></textarea>
       <div class="alinhamento-confirmar">
       <div class="alinhamento-confirmar">
-  <button type="button" onclick="confirmarEnvio()" class="botao-confirmar">Criar Projeto</button>
+  <button type="button" onclick="confirmarEnvio()"  class="botao-confirmar">Criar Projeto</button>
 </div>
 
 <!-- SCRIPT DO SWEETALERT -->
@@ -381,7 +381,7 @@ include 'conexao.php';
       }
     });
   }
-</script>
+</script> 
     </section>
   </form>
 </main>
