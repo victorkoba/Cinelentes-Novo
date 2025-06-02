@@ -127,7 +127,7 @@ $stmt->close();
             </div>
             <div class="galeria">
               <div class="galeria-container">
-                <img class="galeria-itens galeria-item-1" src="./img/img-mes-povos-originarios.jpg"  data-index="1" alt="" a>
+                <img class="galeria-itens galeria-item-1" src="./img/img-mes-povos-originarios-2024.jpg"  data-index="1" alt="" a>
                 <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
                 <img  class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="" >
                 <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
@@ -137,9 +137,10 @@ $stmt->close();
       </div>
 
     <!-------------AGENDA------------->
+    <div id="titulo-agenda">
+      <h1 class="titulo-pagina-inicial">Agenda</h1>
+    </div>
     <div id="grid-agenda">
-      <div id="titulo-agenda">
-        <h1 class="titulo-pagina-inicial">Agenda</h1>
         <div class="agenda-eventos">
           <?php foreach ($eventos as $evento):
             $dataObj = new DateTime($evento['dia']);
