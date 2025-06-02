@@ -20,6 +20,12 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
+// Deletar de fotos_acervo
+$stmt = $conexao->prepare("DELETE FROM videos_acervo WHERE acervo_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->close();
+
 // Deletar de curtas_acervo
 $stmt = $conexao->prepare("DELETE FROM curtas_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);

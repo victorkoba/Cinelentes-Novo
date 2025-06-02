@@ -150,11 +150,11 @@ include 'conexao.php';
       <div class="cards-container">
         <div class="content-card" id="fotos-card">
           <div class="card-header">
-            <h3>Upload de fotos para o carrossel</h3>
+            <h3>Fotos</h3>
           </div>
           <div class="card-content">
             <div class="div-p-upload">
-              <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 5)</p>
+              <p class="p-upload">Envie vários arquivos de uma vez.</p>
             </div>            
             <button type="button" class="botao-upload" data-type="photo" data-target="upload-fotos">Upload dos Arquivos</button>
             <input accept="image/*" type="file" name="fotos[]" id="upload-fotos" multiple style="display:none" />
@@ -173,7 +173,7 @@ include 'conexao.php';
           </div>
           <div class="card-content">
             <div class="div-p-upload">
-              <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 3)</p>
+              <p class="p-upload">Envie vários arquivos de uma vez.</p>
             </div>            
             <button type="button" class="botao-upload" data-type="video" data-target="upload-videos">Upload dos Arquivos</button>
             <input accept="video/*" type="file" name="videos[]" id="upload-videos" multiple style="display:none" />
@@ -192,7 +192,7 @@ include 'conexao.php';
           </div>
           <div class="card-content">
             <div class="div-p-upload">
-              <p class="p-upload">Envie vários arquivos de uma vez. (Recomendado 2)</p>
+              <p class="p-upload">Envie vários arquivos de uma vez.</p>
             </div>
             <button type="button" class="botao-upload" data-type="video" data-target="upload-curta">Upload dos Arquivos</button>
             <input accept="video/*" type="file" name="curta[]" id="upload-curta" multiple style="display:none" />
@@ -266,8 +266,6 @@ include 'conexao.php';
           </button>
           <div class="link-preview" id="musica3-container"></div>
         </div>
-
-
 <script>
   function getYoutubeEmbedUrl(url) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/);
