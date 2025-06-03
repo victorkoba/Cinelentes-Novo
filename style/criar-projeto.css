@@ -59,6 +59,17 @@ a {
   margin-bottom: 1rem;
 }
 
+
+
+.linha-titulo {
+  width: 6px;
+  height: 45px;
+  background-color: #cbbf9f; /* Cor da linha */
+  margin: 10px 0; /* opcional, só pra espaçar */
+  margin-top: -2px;
+  
+}
+
 .titulo-secao h2 {
   margin: 0;
   font-size: 1.5rem;

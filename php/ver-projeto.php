@@ -240,24 +240,28 @@ function linkify($text) {
 <?php endif; ?>
 
  <!-- CURTA -->
-  <div class="grid-curtas">
-  <?php
+  <section>
+
+    <h2 class="titulo-linha">Curtas</h2>
+    <div class="grid-curtas">
+      <?php
   $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
   $stmt = $conexao->prepare($sqlCurtas);
   $stmt->bind_param("i", $projeto['id_acervo']);
   $stmt->execute();
   $result = $stmt->get_result();
-
+  
   while ($curta = $result->fetch_assoc()):
-  ?>
+    ?>
     <div class="card-midia">
       <video controls>
         <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
         Seu navegador não suporta vídeo.
       </video>
     </div>
-  <?php endwhile; $stmt->close(); ?>
-</div>
+    <?php endwhile; $stmt->close(); ?>
+  </div>
+</section>
 
 
   <!-- HABILIDADES -->
