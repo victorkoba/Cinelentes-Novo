@@ -8,31 +8,27 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-// Deletar da foto_capa_acervo
-$stmt = $conexao->prepare("DELETE FROM acervos WHERE foto_capa_acervo = ?");
+// Se tiver uma tabela que armazena a foto de capa no servidor, delete o arquivo antes (opcional)
+
+// Deletar fotos associadas
+$stmt = $conexao->prepare("DELETE FROM fotos_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
-// Deletar de videos_acervo
+// Deletar vídeos associados
 $stmt = $conexao->prepare("DELETE FROM videos_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
-// Deletar de fotos_acervo
-$stmt = $conexao->prepare("DELETE FROM videos_acervo WHERE acervo_id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$stmt->close();
-
-// Deletar de curtas_acervo
+// Deletar curtas associados
 $stmt = $conexao->prepare("DELETE FROM curtas_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
-// Deletar do acervos (último para manter integridade referencial)
+// Agora sim, deletar o projeto (acervo)
 $stmt = $conexao->prepare("DELETE FROM acervos WHERE id_acervo = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();

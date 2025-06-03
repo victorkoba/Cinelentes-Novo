@@ -25,6 +25,18 @@ while ($row = $resultFotos->fetch_assoc()) {
 
 $fotosArray = explode ('||', $projeto['foto_capa_acervo'] ?? '');
 
+// Agora sim, fora do while, processamos músicas
+if (!empty($_POST['novas_musicas'])) {
+  $novas = array_filter(array_map('trim', $_POST['novas_musicas']));
+  // Adicione ao $musicasArray atual
+  $musicasArray = array_merge($musicasArray, $novas);
+  // Atualize o JSON para salvar no banco
+  $musicasJson = json_encode(array_values($musicasArray));
+  // Salve no banco, ex:
+  // UPDATE projetos SET musicas = '$musicasJson' WHERE id = ...
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -158,14 +170,14 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
       <div class="projeto-video">
         <?php if (!empty($fotosArray[0])): ?>
           <img src="<?= htmlspecialchars(trim($fotosArray[0])) ?>" alt="Imagem de destaque" id="imgCapaPreview">
-          <div class="overlay" onclick="document.getElementById('inputCapa').click();">
+          <!-- <div class="overlay" onclick="document.getElementById('inputCapa').click();">
             Substituir Imagem
-          </div>
+          </div> -->
         <?php endif; ?>
-        <input type="file" name="nova_capa" id="inputCapa" accept="image/*" onchange="previewCapa(this)">
+        <!-- <input type="file" name="nova_capa" id="inputCapa" accept="image/*" onchange="previewCapa(this)"> -->
       </div>
 
-      <script>
+      <!-- <script>
         function previewCapa(input) {
           const file = input.files[0];
           if (file) {
@@ -176,12 +188,23 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
             reader.readAsDataURL(file);
           }
         }
-      </script>
+      </script> -->
     </div>
   </section>
 
 <section>
   <h2 class="titulo-linha">Fotos</h2>
+
+  <!-- Botão para adicionar novas imagens -->
+  <div class="adicionar-fotos-container">
+    <label class="btn-adicionar-imagens">
+      + Adicionar novas imagens
+      <input class="input-adicionar-imagens" type="file" name="fotos[]" accept="image/*" multiple onchange="mostrarNomesArquivos(this)">
+    </label>
+    <div id="nomesSelecionados" class="nomes-imagens-selecionadas"></div>
+  </div>
+
+  <!-- Galeria de fotos -->
   <div class="container-fotos">
     <div class="grid-fotos">
       <?php
@@ -196,17 +219,10 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
       ?>
         <div class="foto-grid-item">
           <img class="img-fotos" src="exibir-foto.php?id=<?= $fotoId ?>" alt="Foto do projeto">
-
           <div class="foto-overlay">
             <label>
               <input type="checkbox" name="excluir_fotos[]" value="<?= $fotoId ?>" hidden>
-              <button type="button" class="btn-excluir" onclick="removerFoto(this)">Excluir</button>
-            </label>
-
-            <!-- Botão estilizado de substituição -->
-            <label class="btn-substituir">
-              Substituir
-              <input class="input-substituir" type="file" name="substituir_fotos[<?= $fotoId ?>]" accept="image/*">
+              <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
             </label>
           </div>
         </div>
@@ -216,26 +232,47 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
 </section>
 
 <script>
-  function removerFoto(button) {
+  function alternarExclusao(button) {
     const checkbox = button.closest('label').querySelector('input[type="checkbox"]');
-    checkbox.checked = true;
-
     const fotoItem = button.closest('.foto-grid-item');
-    fotoItem.style.opacity = "0.4"; // Feedback visual
-    button.textContent = "Marcada";
-    button.disabled = true;
+
+    checkbox.checked = !checkbox.checked;
+
+    if (checkbox.checked) {
+      button.textContent = "Marcada";
+      button.style.backgroundColor = "#999";
+      button.style.cursor = "default";
+      fotoItem.classList.add("marcada");
+    } else {
+      button.textContent = "Excluir";
+      button.style.backgroundColor = "#e63946";
+      button.style.cursor = "pointer";
+      fotoItem.classList.remove("marcada");
+    }
+  }
+
+  function mostrarNomesArquivos(input) {
+    const container = document.getElementById("nomesSelecionados");
+    const arquivos = input.files;
+
+    if (arquivos.length === 0) {
+      container.innerHTML = "";
+      return;
+    }
+
+    let nomes = "<strong>Selecionadas:</strong><ul>";
+    for (let i = 0; i < arquivos.length; i++) {
+      nomes += "<li>" + arquivos[i].name + "</li>";
+    }
+    nomes += "</ul>";
+    container.innerHTML = nomes;
   }
 </script>
 
-    <label for="habilidades">Habilidades</label>
-    <textarea id="habilidades" name="habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
-
-    <label for="feedback">Feedback</label>
-    <textarea id="feedback" name="feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
-
-
-    <h2>Vídeos</h2>
-    <div class="galeria-videos">
+<section>
+  <h2 class="titulo-linha">Vídeos</h2>
+  <div class="container-fotos">
+    <div class="grid-fotos">
       <?php
       $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
       $stmt = $conexao->prepare($sqlVideos);
@@ -244,37 +281,147 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
       $result = $stmt->get_result();
 
       while ($video = $result->fetch_assoc()):
+        $videoId = $video['id_videos'];
       ?>
-        <div class="card-midia">
-          <video controls width="320">
-            <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
+        <div class="foto-grid-item card-midia"> <!-- mantive foto-grid-item para a estilização -->
+          <video controls width="500" >
+            <source src="exibir-video.php?id=<?= $videoId ?>" type="video/mp4">
             Seu navegador não suporta vídeo.
           </video>
+          <div class="foto-overlay">
+            <label>
+              <input type="checkbox" name="excluir_videos[]" value="<?= $videoId ?>" hidden>
+              <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
+            </label>
+          </div>
         </div>
       <?php endwhile; $stmt->close(); ?>
     </div>
+  </div>
+</section>
 
-    <h2>Curtas</h2>
-    <div class="galeria-videos">
-      <?php
-      $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
-      $stmt = $conexao->prepare($sqlCurtas);
-      $stmt->bind_param("i", $projeto['id_acervo']);
-      $stmt->execute();
-      $result = $stmt->get_result();
+<section>
+  <h2 class="titulo-linha">Músicas</h2>
 
-      while ($curta = $result->fetch_assoc()):
-      ?>
-        <div class="card-midia">
-          <video controls width="320">
-            <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
-            Seu navegador não suporta vídeo.
-          </video>
+  <!-- Botão para adicionar novas músicas -->
+  <div class="adicionar-fotos-container">
+    <!-- Aqui um campo único para digitar o link da música + botão -->
+    <input 
+      type="url" 
+      name="novas_musicas[]" 
+      placeholder="Cole o link do YouTube" 
+      class="input-adicionar-imagens" 
+      style="width: 80%;" 
+      onkeypress="if(event.key === 'Enter') { adicionarCampoMusica(); return false; }"
+    >
+    <button type="button" onclick="adicionarCampoMusica()">+ Adicionar mais links</button>
+  </div>
+
+  <div class="grid-musicas">
+    <?php if (!empty($musicasArray)): ?>
+      <?php foreach ($musicasArray as $i => $link): ?>
+        <div class="musica-item foto-grid-item">
+          <iframe 
+            width="100%" height="220" 
+            src="<?= htmlspecialchars(embedLink($link)) ?>" 
+            frameborder="0" allowfullscreen>
+          </iframe>
+          <div class="foto-overlay">
+            <label>
+              <input type="checkbox" name="excluir_musicas[]" value="<?= $i ?>" hidden>
+              <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
+            </label>
+          </div>
         </div>
-      <?php endwhile; $stmt->close(); ?>
-    </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p>Nenhuma música adicionada ainda.</p>
+    <?php endif; ?>
+  </div>
+</section>
 
-    <button type="submit" class="botao-confirmar">Salvar Alterações</button>
+<script>
+function alternarExclusao(botao) {
+  const label = botao.closest('label');
+  const checkbox = label.querySelector('input[type="checkbox"]');
+  if (checkbox.checked) {
+    checkbox.checked = false;
+    botao.textContent = 'Excluir';
+    botao.classList.remove('btn-excluir-ativo');
+  } else {
+    checkbox.checked = true;
+    botao.textContent = 'Cancelar';
+    botao.classList.add('btn-excluir-ativo');
+  }
+}
+
+// Função para adicionar mais inputs de links de música
+function adicionarCampoMusica() {
+  const container = document.querySelector('.adicionar-fotos-container');
+  const novoInput = document.createElement('input');
+  novoInput.type = 'url';
+  novoInput.name = 'novas_musicas[]';
+  novoInput.placeholder = 'Cole o link do YouTube';
+  novoInput.className = 'input-adicionar-imagens';
+  novoInput.style.width = '80%';
+  novoInput.style.marginTop = '0.5rem';
+  novoInput.onkeypress = function(e) {
+    if (e.key === 'Enter') {
+      adicionarCampoMusica();
+      e.preventDefault();
+    }
+  };
+  container.appendChild(novoInput);
+}
+</script>
+
+<section>
+  <h2 class="titulo-linha">Curtas</h2>
+
+  <!-- Botão para adicionar novos curtas -->
+  <div class="adicionar-fotos-container">
+    <label class="btn-adicionar-imagens">
+      + Adicionar novos curtas
+      <input class="input-adicionar-imagens" type="file" name="curtas[]" accept="video/mp4" multiple>
+    </label>
+  </div>
+
+  <div class="grid-fotos">
+    <?php
+    $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
+    $stmt = $conexao->prepare($sqlCurtas);
+    $stmt->bind_param("i", $projeto['id_acervo']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($curta = $result->fetch_assoc()):
+      $curtaId = $curta['id_curtas'];
+    ?>
+      <div class="foto-grid-item card-midia">
+        <video controls width="500">
+          <source src="exibir-curta.php?id=<?= $curtaId ?>" type="video/mp4">
+          Seu navegador não suporta vídeo.
+        </video>
+        <div class="foto-overlay">
+          <label>
+            <input type="checkbox" name="excluir_curtas[]" value="<?= $curtaId ?>" hidden>
+            <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
+          </label>
+        </div>
+      </div>
+    <?php endwhile; $stmt->close(); ?>
+  </div>
+</section>
+
+      
+      <label for="habilidades">Habilidades</label>
+      <textarea id="habilidades" name="habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
+      
+      <label for="feedback">Feedback</label>
+      <textarea id="feedback" name="feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
+      <div class="botao-editar">
+        <button type="submit" class="botao-confirmar">Salvar Alterações</button>
+      </div>
   </form>
 </main>
 

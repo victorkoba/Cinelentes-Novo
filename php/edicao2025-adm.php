@@ -98,48 +98,47 @@
 
             <div class="cards">
                       <?php
-          include 'conexao.php';
+include 'conexao.php';
 
-          $sql = "
-            SELECT id_acervo, titulo, descricao, foto_capa_acervo
-            FROM acervos
-            WHERE edicao = 2025
-            ORDER BY id_acervo ASC
-          ";
+$sql = "
+  SELECT id_acervo, titulo, descricao, foto_capa_acervo
+  FROM acervos
+  WHERE edicao = 2025
+  ORDER BY id_acervo ASC
+";
 
-          $result = $conexao->query($sql);
+$result = $conexao->query($sql);
 
-          if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-              $titulo = $row['titulo'];
-              $id = $row['id_acervo'];
-              $caminhoImagem = $row['foto_capa_acervo']; // já é uma string
-              $caminhoFisico = __DIR__ . '/' . $caminhoImagem;
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $titulo = $row['titulo'];
+    $id = $row['id_acervo'];
+    $caminhoImagem = $row['foto_capa_acervo']; // caminho relativo para usar no <img>
+    $caminhoFisico = __DIR__ . '/' . $caminhoImagem;
 
-              if (!empty($caminhoImagem) && file_exists($caminhoFisico)) {
-                  $foto = $caminhoImagem;
-              } else {
-                  htmlspecialchars("Foto não encontrada."); // fallback
-              }
+    if (!empty($caminhoImagem) && file_exists($caminhoFisico)) {
+        $foto = $caminhoImagem;
+    } else {
+        $foto = 'imagens/imagem-padrao.png'; // defina uma imagem padrão para fallback
+    }
 
+    echo '
+      <div class="card">
+        <img id="img-card" src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
+        <div class="card-text">' . htmlspecialchars($titulo) . '</div>
+        <div class="card-buttons">
+          <a href="editar-projeto.php?id=' . $id . '" class="botao-editar">EDITAR</a>
+          <button class="botao-excluir" onclick="confirmarExclusao(' . $id . ')">EXCLUIR</button>
+        </div>
+      </div>
+    ';
+  }
+} else {
+  echo '<p>Nenhum projeto encontrado para esta edição.</p>';
+}
 
-              echo '
-                <div class="card">
-                  <img id="img-card" src="' . htmlspecialchars($foto) . '" alt="' . htmlspecialchars($titulo) . '">
-                  <div class="card-text">' . htmlspecialchars($titulo) . '</div>
-                  <div class="card-buttons">
-                    <a href="editar-projeto.php?id=' . $id . '" class="botao-editar">EDITAR</a>
-                    <button class="botao-excluir" onclick="confirmarExclusao(' . $id . ')">EXCLUIR</button>
-                  </div>
-                </div>
-              ';
-            }
-          } else {
-            echo '<p>Nenhum projeto encontrado para esta edição.</p>';
-          }
-
-          $conexao->close();
-          ?>
+$conexao->close();
+?>
             </div>
 
         </section>
