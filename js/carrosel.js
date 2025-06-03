@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryControlsContainer = document.querySelector('.galeria-controls');
   const galleryControls = ['previous', 'next'];
   const galleryItems = document.querySelectorAll('.galeria-itens');
+  const legenda = document.getElementById('legenda'); // <- ADICIONADO
 
   class Carousel {
     constructor(container, items, controls) {
@@ -22,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    updateLegenda() {
+      const itemCentral = this.carouselArray[2]; // Assumindo o centro como o 3º item
+      const textoLegenda = itemCentral.getAttribute('data-legenda');
+      legenda.textContent = textoLegenda;
+    }
+
     setCurrentState(direction) {
       if (direction.className.includes('previous')) {
         this.carouselArray.unshift(this.carouselArray.pop());
@@ -29,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.carouselArray.push(this.carouselArray.shift());
       }
       this.updateGallery();
+      this.updateLegenda(); // <- ADICIONADO
     }
 
     setControls() {
@@ -54,4 +62,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const exampleCarousel = new Carousel(galleryContainer, galleryItems, galleryControls);
   exampleCarousel.setControls();
   exampleCarousel.useControls();
+  exampleCarousel.updateLegenda(); // <- ADICIONADO
 });
