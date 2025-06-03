@@ -21,34 +21,15 @@ $habilidades = limpar($_POST['habilidades'] ?? '');
 $feedback = limpar($_POST['feedback'] ?? '');
 $edicao = intval($_POST['edicao'] ?? 0);
 
-// Processar exclusão de fotos marcadas
-$fotosExistentes = explode(',', $_POST['fotos_atual'] ?? '');
-$fotosAtualizadas = [];
-if (!empty($_POST['excluir_fotos'])) {
-  $fotosExcluir = $_POST['excluir_fotos'];
-  foreach ($fotosExistentes as $foto) {
-    if (!in_array($foto, $fotosExcluir)) {
-      $fotosAtualizadas[] = $foto;
-    } else {
-      $caminho = 'uploads/' . $foto;
-      if (file_exists($caminho)) unlink($caminho);
-    }
-  }
-} else {
-  $fotosAtualizadas = $fotosExistentes;
-}
-
-// Upload de novas fotos
-if (!empty($_FILES['fotos']['name'][0])) {
-  foreach ($_FILES['fotos']['name'] as $i => $nome) {
-    if ($_FILES['fotos']['error'][$i] === 0) {
-      $novoNome = uniqid('foto_') . '_' . basename($nome);
-      move_uploaded_file($_FILES['fotos']['tmp_name'][$i], "uploads/$novoNome");
-      $fotosAtualizadas[] = $novoNome;
-    }
+$musicasArray = [];
+if (!empty($projeto['musicas'])) {
+  $decoded = json_decode($projeto['musicas'], true);
+  if (is_array($decoded)) {
+    $musicasArray = $decoded;
+  } else {
+    $musicasArray = array_filter(array_map('trim', preg_split('/[\r\n,]+/', $projeto['musicas'])));
   }
 }
-$fotos_acervo = implode(',', $fotosAtualizadas);
 
 // Upload de nova capa (opcional)
 $foto_capa_acervo = $_POST['foto_capa_atual'] ?? '';
@@ -59,10 +40,33 @@ if (!empty($_FILES['foto_capa']['name']) && $_FILES['foto_capa']['error'] === 0)
 }
 
 // Atualizar a tabela acervos
-$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, fotos_acervo=?, foto_capa_acervo=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
-$stmt->bind_param("ssssssii", $titulo, $conteudo, $fotos_acervo, $foto_capa_acervo, $habilidades, $feedback, $edicao, $id);
+$stmt = $conexao->prepare("UPDATE acervos SET titulo=?, descricao=?, foto_capa_acervo=?, habilidades=?, feedback=?, edicao=? WHERE id_acervo=?");
+$stmt->bind_param("sssssii", $titulo, $conteudo, $foto_capa_acervo, $habilidades, $feedback, $edicao, $id);
 $stmt->execute();
 $stmt->close();
+
+
+function excluirFotosPorIndice($conexao, $acervo_id, $indices) {
+  // Buscar todas as fotos associadas a esse acervo
+  $sql = "SELECT id_fotos AS id FROM fotos_acervo WHERE acervo_id = ?";
+  $stmt = $conexao->prepare($sql);
+  $stmt->bind_param("i", $acervo_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $fotos = $result->fetch_all(MYSQLI_ASSOC);
+  $stmt->close();
+
+  // Excluir as fotos nos índices especificados
+  foreach ($indices as $i) {
+    if (isset($fotos[$i])) {
+      $idFoto = $fotos[$i]['id'];
+      $del = $conexao->prepare("DELETE FROM fotos_acervo WHERE id_fotos = ?");
+      $del->bind_param("i", $idFoto);
+      $del->execute();
+      $del->close();
+    }
+  }
+}
 
 // Função para excluir por índice
 function excluirPorIndice($conexao, $tabela, $acervo_id, $indices) {
@@ -93,7 +97,12 @@ if (!empty($_POST['excluir_videos'])) {
 
 // Excluir curta
 if (!empty($_POST['excluir_curta'])) {
-  $conexao->query("DELETE FROM curtas_acervo WHERE acervo_id = $id");
+  excluirPorIndice($conexao, 'curtas_acervo', $id, $_POST['excluir_curtas']);
+}
+
+// Excluir fotos
+if (!empty($_POST['excluir_fotos'])) {
+  $conexao->query("DELETE FROM fotos_acervo WHERE acervo_id = $id");
 }
 
 // Upload múltiplo para tabela de vídeos
@@ -122,25 +131,8 @@ function salvarMultiplosArquivos($conexao, $tabela, $acervo_id, $campo) {
 }
 
 salvarMultiplosArquivos($conexao, 'videos_acervo', $id, 'videos');
-
-// Upload do curta (único)
-if (isset($_FILES['curta']) && $_FILES['curta']['error'] === 0) {
-  $nome = $_FILES['curta']['name'];
-  $tipo = mime_content_type($_FILES['curta']['tmp_name']);
-
-  $stmt = $conexao->prepare("INSERT INTO curtas_acervo (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)");
-  $null = NULL;
-  $stmt->bind_param("issb", $id, $nome, $tipo, $null);
-
-  $fp = fopen($_FILES['curta']['tmp_name'], 'rb');
-  while (!feof($fp)) {
-    $stmt->send_long_data(3, fread($fp, 8192));
-  }
-  fclose($fp);
-
-  $stmt->execute();
-  $stmt->close();
-}
+salvarMultiplosArquivos($conexao, 'fotos_acervo', $id, 'fotos');
+salvarMultiplosArquivos($conexao, 'curtas_acervo', $id, 'curtas');
 
 // Redireciona ou exibe mensagem
 header("Location: ver-projeto.php?id=$id");

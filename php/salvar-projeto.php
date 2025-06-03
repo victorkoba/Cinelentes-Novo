@@ -91,7 +91,7 @@ function salvarMultiplosArquivosBinarios($campo) {
 // Uploads
 $videos = salvarMultiplosArquivosBinarios('videos');
 $curta = salvarMultiplosArquivosBinarios('curta');
-$fotos = salvarMultiplosArquivosBinarios('fotos')
+$fotos = salvarMultiplosArquivosBinarios('fotos');
 
 // 1. Inserção na tabela acervos
 $sql = "INSERT INTO acervos (titulo, descricao, foto_capa_acervo, musicas, habilidades, feedback, edicao) 

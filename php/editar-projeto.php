@@ -14,10 +14,17 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $projeto = $stmt->get_result()->fetch_assoc();
 
-$fotosArray = [];
-if (!empty($projeto['fotos_acervo'])) {
-  $fotosArray = json_decode($projeto['fotos_acervo'], true);
+$stmtFotos = $conexao->prepare("SELECT * FROM fotos_acervo WHERE acervo_id = ?");
+$stmtFotos->bind_param("i", $id);
+$stmtFotos->execute();
+$resultFotos = $stmtFotos->get_result();
+$fotos = [];
+while ($row = $resultFotos->fetch_assoc()) {
+  $fotos[] = $row;
 }
+
+$fotosArray = explode ('||', $projeto['foto_capa_acervo'] ?? '');
+
 ?>
 
 <!DOCTYPE html>
@@ -133,7 +140,7 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
     <div class="projeto-topo">
       <div class="projeto-texto">
         <h1 class="titulo-pagina">Editar Projeto</h1>
-        <label for="edicao">Edição:</label>
+        <label for="edicao">Edição</label>
         <select id="edicao" name="edicao" required>
           <?php foreach ([2023, 2024, 2025] as $ano): ?>
             <option value="<?= $ano ?>" <?= $projeto['edicao'] == $ano ? 'selected' : '' ?>><?= $ano ?></option>
@@ -148,37 +155,48 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
           <label for="conteudo">Descrição:</label>
           <textarea id="conteudo" name="conteudo" required><?= htmlspecialchars($projeto['descricao']) ?></textarea>
       </div>
+      <div class="projeto-video">
+        <h2>Foto de Capa</h2>
+        <?php if (!empty($fotosArray[0])): ?>
+            <img src="<?= htmlspecialchars(trim($fotosArray[0])) ?>" width="300" alt="Imagem de destaque">
+            <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
+          </div>
+          <?php endif; ?>
+      </div>
     </div>
   </section>
 
-    <label for="habilidades">Habilidades:</label>
-    <textarea id="habilidades" name="habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
-
-    <label for="feedback">Feedback:</label>
-    <textarea id="feedback" name="feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
-
-    <h2>Foto de Capa:</h2>
-    <?php if (!empty($projeto['foto_capa_acervo'])): ?>
-      <div class="card-midia">
-        <img src="<?= htmlspecialchars($projeto['foto_capa_acervo']) ?>" alt="Capa atual">
-        <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
-      </div>
-    <?php endif; ?>
-
-    <h2>Fotos:</h2>
-    <div class="galeria-fotos">
-      <?php if (!empty($fotosArray)): ?>
-        <?php foreach ($fotosArray as $index => $fotoNome): ?>
-          <div class="card-midia">
-            <img src="<?= htmlspecialchars(trim($fotoNome)) ?>" alt="Foto <?= $index + 1 ?>" />
+  <section>
+    <h2 class="titulo-linha">Fotos</h2>
+      <div class="container-fotos">
+        <div class="grid-fotos">
+        <?php
+        $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
+        $stmt = $conexao->prepare($sqlFotos);
+        $stmt->bind_param("i", $projeto['id_acervo']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+  
+        while ($fotos = $result->fetch_assoc()):
+        ?>
+          <div class="foto-grid-item">
+            <img class="img-fotos" width="300" src="exibir-foto.php?id=<?= $fotos['id_fotos'] ?>" />
             <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars(trim($fotoNome)) ?>"> Excluir</label>
           </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </div>
-    <input type="file" name="fotos[]" multiple accept="image/*" />
+        <?php endwhile; $stmt->close(); ?>
+      </div>
+        </div>
+      </div>
+  </section>
+  <input type="file" name="fotos[]" multiple accept="image/*" />
+    <label for="habilidades">Habilidades</label>
+    <textarea id="habilidades" name="habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
 
-    <h2>Vídeos:</h2>
+    <label for="feedback">Feedback</label>
+    <textarea id="feedback" name="feedback"><?= htmlspecialchars($projeto['feedback']) ?></textarea>
+
+
+    <h2>Vídeos</h2>
     <div class="galeria-videos">
       <?php
       $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
@@ -198,7 +216,7 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
       <?php endwhile; $stmt->close(); ?>
     </div>
 
-    <h2>Curtas:</h2>
+    <h2>Curtas</h2>
     <div class="galeria-videos">
       <?php
       $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
