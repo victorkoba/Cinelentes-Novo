@@ -243,6 +243,15 @@
   margin-top: 5px;
 }
 
+.linha-titulo {
+  width: 6px;
+  height: 35px;
+  background-color: #cbbf9f; /* Cor da linha */
+  margin-top: -15px;
+  margin-right: 10px;
+}
+
+
 /* Seção agenda */
 
 .agenda-eventos {

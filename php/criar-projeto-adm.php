@@ -340,7 +340,7 @@ include 'conexao.php';
       <textarea
         name="habilidades"
         style="resize: vertical"
-        placeholder="Digite aqui as expectativas trabalhadas e as hashtags (se tiver)."
+        placeholder="Insira as habilidades desejadas, separando cada uma com vírgula. Ex.: habilidade 1, habilidade 2, habilidade 3, ..."
         class="textarea-habilidades option-edicao"
       ></textarea>
     </section>

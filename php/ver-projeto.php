@@ -84,6 +84,13 @@ function embedLink($url) {
   return $url;
 }
 ?>
+<?php
+function linkify($text) {
+    $pattern = '/(https?:\/\/[^\s]+)/i';
+    return preg_replace($pattern, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>', $text);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -269,9 +276,9 @@ function embedLink($url) {
   <?php if (!empty($feedbacksArray[0])): ?>
     <section>
       <h2 class="titulo-linha">Feedbacks</h2>
-      <ul>
+      <ul class="lista-feedbacks">
         <?php foreach ($feedbacksArray as $feedback): ?>
-          <li><?= htmlspecialchars(trim($feedback)) ?></li>
+          <li><?= linkify(htmlspecialchars(trim($feedback))) ?></li>
         <?php endforeach; ?>
       </ul>
     </section>

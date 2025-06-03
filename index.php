@@ -99,7 +99,9 @@ $stmt->close();
   <main>
     <div id="grid-introducao">
       <div id="titulo">
+        <div class="linha-titulo"></div>
         <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
+
       </div>
       <div class="introducao-texto">
         <div class="texto">
@@ -123,7 +125,9 @@ $stmt->close();
 
     <div id="grid-destaques">
             <div id="titulo">
+              <div class="linha-titulo"></div>
                 <h1 class="titulo-pagina-inicial">Destaques</h1>
+
             </div>
             <div class="galeria">
               <div class="galeria-container">
@@ -138,6 +142,7 @@ $stmt->close();
 
     <!-------------AGENDA------------->
     <div id="titulo-agenda">
+      <div class="linha-titulo"></div>
       <h1 class="titulo-pagina-inicial">Agenda</h1>
     </div>
     <div id="grid-agenda">
