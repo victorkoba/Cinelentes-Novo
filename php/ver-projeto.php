@@ -158,7 +158,7 @@ function embedLink($url) {
       <p><?= nl2br(htmlspecialchars($projeto['descricao'])) ?></p>
       <p><strong>Data de Realização:</strong> <?= date("d/m/Y", strtotime($projeto['data_criacao'])) ?></p>
     </div>
-    <div class="projeto-video">
+    <div class="projeto-video-ver">
       <?php if (!empty($fotosArray[0])): ?>
         <img src="<?= htmlspecialchars(trim($fotosArray[0])) ?>" width="300" alt="Imagem de destaque">
       <?php endif; ?>

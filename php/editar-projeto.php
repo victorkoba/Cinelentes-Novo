@@ -156,39 +156,77 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
           <textarea id="conteudo" name="conteudo" required><?= htmlspecialchars($projeto['descricao']) ?></textarea>
       </div>
       <div class="projeto-video">
-        <h2>Foto de Capa</h2>
         <?php if (!empty($fotosArray[0])): ?>
-            <img src="<?= htmlspecialchars(trim($fotosArray[0])) ?>" width="300" alt="Imagem de destaque">
-            <label><input type="checkbox" name="excluir_capa" value="1"> Excluir</label>
+          <img src="<?= htmlspecialchars(trim($fotosArray[0])) ?>" alt="Imagem de destaque" id="imgCapaPreview">
+          <div class="overlay" onclick="document.getElementById('inputCapa').click();">
+            Substituir Imagem
           </div>
-          <?php endif; ?>
+        <?php endif; ?>
+        <input type="file" name="nova_capa" id="inputCapa" accept="image/*" onchange="previewCapa(this)">
       </div>
+
+      <script>
+        function previewCapa(input) {
+          const file = input.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              document.getElementById('imgCapaPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+      </script>
     </div>
   </section>
 
-  <section>
-    <h2 class="titulo-linha">Fotos</h2>
-      <div class="container-fotos">
-        <div class="grid-fotos">
-        <?php
-        $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
-        $stmt = $conexao->prepare($sqlFotos);
-        $stmt->bind_param("i", $projeto['id_acervo']);
-        $stmt->execute();
-        $result = $stmt->get_result();
-  
-        while ($fotos = $result->fetch_assoc()):
-        ?>
-          <div class="foto-grid-item">
-            <img class="img-fotos" width="300" src="exibir-foto.php?id=<?= $fotos['id_fotos'] ?>" />
-            <label><input type="checkbox" name="excluir_fotos[]" value="<?= htmlspecialchars(trim($fotoNome)) ?>"> Excluir</label>
+<section>
+  <h2 class="titulo-linha">Fotos</h2>
+  <div class="container-fotos">
+    <div class="grid-fotos">
+      <?php
+      $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
+      $stmt = $conexao->prepare($sqlFotos);
+      $stmt->bind_param("i", $projeto['id_acervo']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      while ($fotos = $result->fetch_assoc()):
+        $fotoId = $fotos['id_fotos'];
+      ?>
+        <div class="foto-grid-item">
+          <img class="img-fotos" src="exibir-foto.php?id=<?= $fotoId ?>" alt="Foto do projeto">
+
+          <div class="foto-overlay">
+            <label>
+              <input type="checkbox" name="excluir_fotos[]" value="<?= $fotoId ?>" hidden>
+              <button type="button" class="btn-excluir" onclick="removerFoto(this)">Excluir</button>
+            </label>
+
+            <!-- Botão estilizado de substituição -->
+            <label class="btn-substituir">
+              Substituir
+              <input class="input-substituir" type="file" name="substituir_fotos[<?= $fotoId ?>]" accept="image/*">
+            </label>
           </div>
-        <?php endwhile; $stmt->close(); ?>
-      </div>
         </div>
-      </div>
-  </section>
-  <input type="file" name="fotos[]" multiple accept="image/*" />
+      <?php endwhile; $stmt->close(); ?>
+    </div>
+  </div>
+</section>
+
+<script>
+  function removerFoto(button) {
+    const checkbox = button.closest('label').querySelector('input[type="checkbox"]');
+    checkbox.checked = true;
+
+    const fotoItem = button.closest('.foto-grid-item');
+    fotoItem.style.opacity = "0.4"; // Feedback visual
+    button.textContent = "Marcada";
+    button.disabled = true;
+  }
+</script>
+
     <label for="habilidades">Habilidades</label>
     <textarea id="habilidades" name="habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
 
