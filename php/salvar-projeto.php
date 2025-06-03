@@ -91,6 +91,7 @@ function salvarMultiplosArquivosBinarios($campo) {
 // Uploads
 $videos = salvarMultiplosArquivosBinarios('videos');
 $curta = salvarMultiplosArquivosBinarios('curta');
+$fotos = salvarMultiplosArquivosBinarios('fotos')
 
 // 1. Inserção na tabela acervos
 $sql = "INSERT INTO acervos (titulo, descricao, foto_capa_acervo, musicas, habilidades, feedback, edicao) 
@@ -126,7 +127,7 @@ if ($stmt->execute()) {
     // Inserir arquivos nas tabelas específicas
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);
-    inserirArquvio($conexao, "fotos_acervo", $acervo_id, $fotos);
+    inserirArquivo($conexao, "fotos_acervo", $acervo_id, $fotos);
 
     header("Location: pagina-inicial-adm.php");
     exit;

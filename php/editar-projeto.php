@@ -30,8 +30,9 @@ if (!empty($projeto['fotos_acervo'])) {
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/editar-projeto.css">
+  <link rel="stylesheet" href="../style/ver-projeto.css">
 </head>
-<body>
+<body class="body-pagina-inicial">
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -125,24 +126,30 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
 });
 </script>
 
-<main class="main-container">
-  <h1 class="titulo-pagina">Editar Projeto</h1>
-
+<main class="main-projeto">
   <form id="form-evento" method="POST" action="atualizar-projeto.php" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?= htmlspecialchars($projeto['id_acervo']) ?>" />
-
-    <label for="titulo">Título:</label>
-    <input type="text" id="titulo" name="titulo" value="<?= htmlspecialchars($projeto['titulo']) ?>" required />
-
-    <label for="conteudo">Descrição:</label>
-    <textarea id="conteudo" name="conteudo" required><?= htmlspecialchars($projeto['descricao']) ?></textarea>
-
-    <label for="edicao">Edição:</label>
-    <select id="edicao" name="edicao" required>
-      <?php foreach ([2023, 2024, 2025] as $ano): ?>
-        <option value="<?= $ano ?>" <?= $projeto['edicao'] == $ano ? 'selected' : '' ?>><?= $ano ?></option>
-      <?php endforeach; ?>
-    </select>
+  
+  <section>
+    <div class="projeto-topo">
+      <div class="projeto-texto">
+        <h1 class="titulo-pagina">Editar Projeto</h1>
+        <label for="edicao">Edição:</label>
+        <select id="edicao" name="edicao" required>
+          <?php foreach ([2023, 2024, 2025] as $ano): ?>
+            <option value="<?= $ano ?>" <?= $projeto['edicao'] == $ano ? 'selected' : '' ?>><?= $ano ?></option>
+          <?php endforeach; ?>
+        </select>
+      
+          <input type="hidden" name="id" value="<?= htmlspecialchars($projeto['id_acervo']) ?>" />
+      
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" name="titulo" value="<?= htmlspecialchars($projeto['titulo']) ?>" required />
+      
+          <label for="conteudo">Descrição:</label>
+          <textarea id="conteudo" name="conteudo" required><?= htmlspecialchars($projeto['descricao']) ?></textarea>
+      </div>
+    </div>
+  </section>
 
     <label for="habilidades">Habilidades:</label>
     <textarea id="habilidades" name="habilidades"><?= htmlspecialchars($projeto['habilidades']) ?></textarea>
