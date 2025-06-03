@@ -124,22 +124,14 @@
   z-index: 1;
 }
 
-.galeria-controls-previous::before {
-  transform: translate(-50%, -50%) rotate(1035deg); /* ← seta apontando para a esquerda */
+.galeria-controls-previous {
+  left: -0px; /* Ajusta a posição do botão anterior */
+  transform: translateX(-50%) rotate(135deg); /* Rotaciona para a esquerda */
 }
-
-.galeria-controls-previous:hover::before {
-  transform: translate(calc(-50% - 10px), -50%) rotate(1035deg);
+.galeria-controls-next {
+  right: -0px; /* Ajusta a posição do botão próximo */
+  transform: translateX(50%) rotate(-45deg); /* Rotaciona para a direita */
 }
-
-.galeria-controls-next::before {
-  transform: translate(-50%, -50%) rotate(-950deg); /* → seta apontando para a direita */
-}
-
-.galeria-controls-next:hover::before {
-  transform: translate(calc(-50% + 10px), -50%) rotate(-950deg);
-}
-
 
 /* Navegação inferior */
 .galeria-nav {
