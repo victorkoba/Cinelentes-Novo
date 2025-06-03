@@ -99,9 +99,7 @@ $stmt->close();
   <main>
     <div id="grid-introducao">
       <div id="titulo">
-        <div class="linha-titulo"></div>
         <h1 class="titulo-pagina-inicial">O que é o Cinelentes?</h1>
-
       </div>
       <div class="introducao-texto">
         <div class="texto">
@@ -124,25 +122,32 @@ $stmt->close();
     </div>
 
     <div id="grid-destaques">
-            <div id="titulo">
-              <div class="linha-titulo"></div>
-                <h1 class="titulo-pagina-inicial">Destaques</h1>
+  <div id="titulo">
+    <h1 class="titulo-pagina-inicial">Destaques</h1>
+  </div>
 
-            </div>
-            <div class="galeria">
-              <div class="galeria-container">
-                <img class="galeria-itens galeria-item-1" src="./img/img-mes-povos-originarios-2024.jpg"  data-index="1" alt="" a>
-                <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg"  data-index="2" alt="">
-                <img  class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg"  data-index="3" alt="" >
-                <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto1.jpg"  data-index="4" alt="">
-                <img class="galeria-itens galeria-item-5" src="./img/img-mes-cultura-coreana.jpg"  data-index="5" alt="">
-              </div>
-  <div class="galeria-controls"></div></div>
+  <div class="galeria">
+    <div class="galeria-container">
+      <img class="galeria-itens galeria-item-1" src="./img/img-povos-originarios.jpg" data-index="0" data-legenda="Mês dos Povos Originários " alt="">
+      <img class="galeria-itens galeria-item-2" src="./img/img-mes-cultura-coreana.jpg" data-index="1" data-legenda="Mês da Cultura Coreana" alt="">
+      <img class="galeria-itens galeria-item-3" src="./img/img-inclusao.jpg" data-index="2" data-legenda="Inclusão e Diversidade" alt="">
+      <img class="galeria-itens galeria-item-4" src="./img/img-mes-mulher-foto3.jpg" data-index="3" data-legenda="Mês da Mulher" alt="">
+      <img class="galeria-itens galeria-item-5" src="./img/img-mes-comunicacao-nao-violenta-2024.jpg" data-index="4" data-legenda="Mês da Comunicação Não Violenta" alt="">
+    </div>
+
+<div id="legenda" style="text-align:center; margin-top:10px; font-weight:bold; font-size:1.6rem;">Legenda da imagem</div>
+
+
+<div class="galeria-controls"></div></div>
       </div>
+
+
+  </div>
+</div>
+
 
     <!-------------AGENDA------------->
     <div id="titulo-agenda">
-      <div class="linha-titulo"></div>
       <h1 class="titulo-pagina-inicial">Agenda</h1>
     </div>
     <div id="grid-agenda">

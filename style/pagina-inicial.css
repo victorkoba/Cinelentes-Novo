@@ -125,22 +125,20 @@
 }
 
 .galeria-controls-previous::before {
-  transform: translate(-50%, -50%) rotate(135deg);
+  transform: translate(-50%, -50%) rotate(1035deg); /* ← seta apontando para a esquerda */
 }
 
 .galeria-controls-previous:hover::before {
-  transform: translate(calc(-50% - 10px), -50%) rotate(135deg);
+  transform: translate(calc(-50% - 10px), -50%) rotate(1035deg);
 }
 
 .galeria-controls-next::before {
-  transform: translate(-50%, -50%) rotate(-45deg);
-  left: 50%;
+  transform: translate(-50%, -50%) rotate(-950deg); /* → seta apontando para a direita */
 }
 
 .galeria-controls-next:hover::before {
-  transform: translate(calc(-50% + 10px), -50%) rotate(-45deg);
+  transform: translate(calc(-50% + 10px), -50%) rotate(-950deg);
 }
-
 
 
 /* Navegação inferior */
