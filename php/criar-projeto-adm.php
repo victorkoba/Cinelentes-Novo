@@ -101,8 +101,8 @@ include 'conexao.php';
 
 <main class="main-container">
   <div class="titulo-secao">
+  <div class="linha-titulo"></div>
     <h1 class="titulo-pagina">Criar Projeto</h1>
-    <div class="linha-preta"></div>
   </div>
   
 
@@ -144,8 +144,8 @@ include 'conexao.php';
 
     <section class="secao-conteudo">
       <div class="titulo-secao">
+          <div class="linha-titulo"></div>
         <h2>Adicionar Fotos</h2>
-        <div class="linha-preta"></div>
       </div>
       <div class="cards-container">
         <div class="content-card" id="fotos-card">
@@ -163,8 +163,9 @@ include 'conexao.php';
         </div>
       </div>
       <div class="titulo-secao">
+          <div class="linha-titulo"></div>
+
         <h2>Adicionar Vídeos</h2>
-        <div class="linha-preta"></div>
       </div>
       <div class="cards-container">
       <div class="content-card" id="videos-card">
@@ -182,8 +183,9 @@ include 'conexao.php';
         </div>
       </div>
       <div class="titulo-secao">
+          <div class="linha-titulo"></div>
+
         <h2>Adicionar Curta-Metragem</h2>
-        <div class="linha-preta"></div>
       </div>
       <div class="cards-container">
       <div class="content-card" id="curta-card">
@@ -204,8 +206,9 @@ include 'conexao.php';
 
     <section class="secao-musicas">
       <div class="titulo-secao">
+          <div class="linha-titulo"></div>
+
         <h2>Músicas</h2>
-        <div class="linha-preta"></div>
       </div>
         <!-- MÚSICA 1 -->
         <div class="musica-item">
@@ -334,8 +337,9 @@ include 'conexao.php';
 
     <section class="secao-habilidades">
       <div class="titulo-secao">
+          <div class="linha-titulo"></div>
+
         <h2>Habilidades desenvolvidas</h2>
-        <div class="linha-preta"></div>
       </div>
       <textarea
         name="habilidades"
@@ -347,8 +351,9 @@ include 'conexao.php';
 
     <section class="secao-feedback">
       <div class="titulo-secao">
+          <div class="linha-titulo"></div>
+
         <h2>Deixe seu Feedback</h2>
-        <div class="linha-preta"></div>
       </div>
       <textarea
         name="feedback"

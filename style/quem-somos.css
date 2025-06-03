@@ -50,7 +50,7 @@ main {
 .titulo-desenvolvedores {
     font-size: 28px;
     margin-bottom: 24px;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid#cbbf9f;
     display: inline-block;
     padding-bottom: 8px;
 }

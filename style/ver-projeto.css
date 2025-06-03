@@ -42,6 +42,22 @@ a {
   margin-bottom: 1rem;
 }
 
+.linha-titulo {
+  width: 6px;
+  height: 45px;
+  background-color: #cbbf9f; /* Cor da linha */
+  margin: 10px 0; /* opcional, só pra espaçar */
+  margin-top: -2px;
+  
+}
+
+.titulo-linha{
+  margin-top: -40px;
+  margin-left: 20px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
 .projeto-texto p {
   font-size: 1.1rem;
   line-height: 1.7;

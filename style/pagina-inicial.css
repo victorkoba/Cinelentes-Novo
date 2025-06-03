@@ -124,24 +124,14 @@
   z-index: 1;
 }
 
-.galeria-controls-previous::before {
-  transform: translate(-50%, -50%) rotate(135deg);
+.galeria-controls-previous {
+  left: -0px; /* Ajusta a posição do botão anterior */
+  transform: translateX(-50%) rotate(135deg); /* Rotaciona para a esquerda */
 }
-
-.galeria-controls-previous:hover::before {
-  transform: translate(calc(-50% - 10px), -50%) rotate(135deg);
+.galeria-controls-next {
+  right: -0px; /* Ajusta a posição do botão próximo */
+  transform: translateX(50%) rotate(-45deg); /* Rotaciona para a direita */
 }
-
-.galeria-controls-next::before {
-  transform: translate(-50%, -50%) rotate(-45deg);
-  left: 50%;
-}
-
-.galeria-controls-next:hover::before {
-  transform: translate(calc(-50% + 10px), -50%) rotate(-45deg);
-}
-
-
 
 /* Navegação inferior */
 .galeria-nav {
@@ -376,7 +366,7 @@
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 1);
   z-index: 999;
 }
 
@@ -1107,11 +1097,11 @@
     position: absolute; /* Certifica-se de que a seta esteja centralizada */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(135deg); /* Posição correta da seta */
+    transform: translate(-50%, -50%) rotate(5deg); /* Posição correta da seta */
   }
 
   .galeria-controls-next::before {
-    transform: translate(-50%, -50%) rotate(-45deg); /* Posição correta da seta */
+    transform: translate(-50%, -50%) rotate(-5deg); /* Posição correta da seta */
   }
 
   /* Remove o efeito hover que movia a seta, pois não temos texto agora */
