@@ -1,7 +1,9 @@
 
-#main-pagina-inicial{
-  height: 100vh;
+#main-pagina-inicial {
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
 
 /* Estilos da galeria/carrossel */
 .galeria {
@@ -26,7 +28,8 @@
   transition: all 0.3s ease-in-out;
   z-index: 0;
   border-radius: 15px;
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
 }
 
 .galeria-item-1 {
@@ -184,6 +187,12 @@
   margin-bottom: 20px;
   width: 390px;
 }
+/* Títulos com margem para não ficarem sobrepostos */
+#titulo-destaque {
+  margin-top: 80px;
+  z-index: 1;
+  position: relative;
+}
 
 
 .titulo-pagina-inicial {
@@ -251,7 +260,8 @@
 
 .agenda-card {
   margin-bottom: 35px;
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
   background-color: #000;
   border-radius: 16px;
   color: white;
@@ -325,7 +335,8 @@
   position: fixed;
   top: 0;
   right: -100%;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   height: 100%;
   background-color: #111;
   color: white;
@@ -336,15 +347,31 @@
   overflow-y: auto;
 }
 
+@media (max-width: 768px) {
+  .modal-agenda {
+    padding: 20px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-agenda {
+    padding: 15px 10px;
+  }
+}
+
+
 #modal-agenda {
   display: none;
   position: fixed;
   top: 0;
   right: 0;
-  width: 30%;
+  width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
 }
+
+
 
 .modal-agenda.ativo {
   right: 0;
@@ -556,22 +583,50 @@
   }
 
   .agenda-eventos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-    padding: 10px 20px;
-    margin: 0 auto;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 10px 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
 
   .agenda-card {
-    width: 100%;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  width: 100%;
+  max-width: 450px;
+  background-color: #000;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin-bottom: 35px;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .agenda-card {
+    grid-template-columns: 0.25fr 1fr;
     font-size: 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    padding: 12px;
   }
+}
+
+@media (max-width: 480px) {
+  .agenda-card {
+    grid-template-columns: 1fr;
+    font-size: 14px;
+    padding: 12px 10px;
+  }
+}
+
 
   #titulo,
   #titulo-destaque,
@@ -638,11 +693,17 @@
   }
 
   .agenda-eventos {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
-    padding: 10px;
-    margin: 0 auto;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 10px 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
 
   .agenda-card {
     font-size: 14px;
@@ -879,5 +940,75 @@
   footer a {
     display: inline-block;
     margin: 6px 8px 0 8px;
+  }
+}
+@media (max-width: 768px) {
+  .galeria-container {
+    height: auto;
+    max-width: 95%;
+    flex-direction: column;
+  }
+
+  .galeria-itens {
+    width: 260px;
+    height: 150px;
+    position: absolute;
+  }
+
+  .galeria-item-1,
+  .galeria-item-2,
+  .galeria-item-3,
+  .galeria-item-4,
+  .galeria-item-5 {
+    left: 50% !important;
+    transform: translateX(-50%) scale(0.9);
+    opacity: 0.8;
+  }
+
+  .galeria-item-3 {
+    width: 300px;
+    height: 180px;
+    z-index: 2;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  .galeria-controls {
+    gap: 100px;
+    top: -160px;
+  }
+
+  .galeria-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .galeria-container {
+    height: auto;
+    max-width: 100%;
+  }
+
+  .galeria-itens {
+    width: 200px;
+    height: 120px;
+  }
+
+  .galeria-item-3 {
+    width: 240px;
+    height: 140px;
+  }
+
+  .galeria-controls {
+    gap: 60px;
+    top: -140px;
+  }
+
+  .galeria-controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
   }
 }
