@@ -1012,3 +1012,305 @@
     font-size: 24px;
   }
 }
+/* Responsividade para tablets e telas menores */
+/* Tablets */
+@media (max-width: 768px) {
+  .galeria-container {
+    height: 350px; /* Reduzindo a altura para telas de tablet */
+    max-width: 100%; /* Garante que o container ocupe a largura total disponível */
+    overflow: hidden; /* Esconde qualquer transbordamento */
+    position: relative; /* Garante que os controles possam se posicionar em relação a ele */
+  }
+
+  .galeria-itens {
+    width: 280px; /* Ajusta a largura dos itens */
+    height: 180px; /* Ajusta a altura dos itens */
+  }
+
+  .galeria-item-1,
+  .galeria-item-5 {
+    opacity: 0.2; /* Torna os itens das extremidades mais transparentes */
+  }
+
+  .galeria-item-2,
+  .galeria-item-4 {
+    width: 330px; /* Ajusta a largura dos itens secundários */
+    height: 220px; /* Ajusta a altura dos itens secundários */
+  }
+
+  .galeria-item-3 {
+    width: 380px; /* Ajusta a largura do item central */
+    height: 270px; /* Ajusta a altura do item central */
+  }
+
+  /* Ajustando o posicionamento dos itens para telas menores */
+  .galeria-item-1 {
+    left: 10%;
+  }
+
+  .galeria-item-2 {
+    left: 28%;
+  }
+
+  .galeria-item-3 {
+    left: 50%;
+  }
+
+  .galeria-item-4 {
+    left: 72%;
+  }
+
+  .galeria-item-5 {
+    left: 90%;
+  }
+
+  .galeria-controls {
+    /* Mudanças para posicionar os botões abaixo do carrossel */
+    position: relative; /* Volta para relative ou mantem, mas sem interferir no fluxo do container */
+    top: auto; /* Remove o top fixo */
+    bottom: -60px; /* Move para baixo do container. Ajuste este valor conforme necessário */
+    left: 50%; /* Mantém centralizado horizontalmente */
+    transform: translateX(-50%); /* Ajusta a centralização */
+    width: 150px; /* Ajusta a largura para conter apenas os botões */
+    display: flex; /* Garante que os botões fiquem lado a lado */
+    justify-content: space-between; /* Espaço entre os botões */
+    gap: 0; /* Remove o gap fixo */
+    z-index: 5; /* Garante que estejam acima de outros elementos se necessário */
+  }
+
+  .galeria-controls button {
+    font-size: 40px; /* Diminui o tamanho da seta */
+    color: #fff; /* Torna as setas visíveis (brancas) */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adiciona uma sombra para melhor visibilidade */
+    background-color: rgba(0, 0, 0, 0.3); /* Fundo semi-transparente para os botões */
+    border-radius: 50%; /* Botões redondos */
+    width: 50px; /* Ajusta o tamanho do botão */
+    height: 50px; /* Ajusta o tamanho do botão */
+    /* Remove qualquer texto que possa aparecer dentro do botão */
+    text-indent: -9999px; /* Oculta o texto movendo-o para fora da tela */
+    overflow: hidden; /* Garante que o texto oculto não cause problemas */
+  }
+
+  .galeria-controls-previous::before,
+  .galeria-controls-next::before {
+    border-color: #fff; /* Altera a cor das setas para branco */
+    content: ''; /* Garante que não haja texto extra */
+    position: absolute; /* Certifica-se de que a seta esteja centralizada */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(135deg); /* Posição correta da seta */
+  }
+
+  .galeria-controls-next::before {
+    transform: translate(-50%, -50%) rotate(-45deg); /* Posição correta da seta */
+  }
+
+  /* Remove o efeito hover que movia a seta, pois não temos texto agora */
+  .galeria-controls-previous:hover::before {
+    transform: translate(-50%, -50%) rotate(135deg);
+  }
+
+  .galeria-controls-next:hover::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .galeria-nav {
+    bottom: -100px; /* Ajusta a navegação inferior para ficar abaixo dos botões também */
+    position: absolute; /* Certifica-se de que a navegação também seja posicionada corretamente */
+  }
+
+  /* Seção de introdução e outros elementos */
+  .introducao-texto {
+    grid-template-columns: 1fr;
+    margin: 0 30px;
+    text-align: center;
+  }
+
+  #img-idealizadores {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .imagem {
+    text-align: center;
+    margin: 20px auto;
+  }
+
+  .agenda-eventos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 10px 20px;
+    margin: 0 auto;
+  }
+
+  .agenda-card {
+    width: 100%;
+    font-size: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
+  #titulo,
+  #titulo-destaque,
+  #titulo-agenda {
+    margin-left: 30px;
+    width: auto;
+    margin-top: 30px; /* Ajusta a margem superior para o título */
+  }
+
+  .conteudo-introducao {
+    width: auto;
+  }
+
+  .container-form {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #f1f1f1;
+    font-size: 14px;
+  }
+
+  footer p {
+    margin: 5px 0;
+  }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+  .galeria-container {
+    height: 250px; /* Altura menor para celular */
+  }
+
+  .galeria-itens {
+    width: 200px; /* Itens ainda menores */
+    height: 130px;
+  }
+
+  .galeria-item-1,
+  .galeria-item-5 {
+    opacity: 0.1; /* Quase invisíveis */
+  }
+
+  .galeria-item-2,
+  .galeria-item-4 {
+    width: 250px;
+    height: 160px;
+  }
+
+  .galeria-item-3 {
+    width: 300px;
+    height: 200px;
+  }
+
+  /* Ajustando o posicionamento dos itens para celulares */
+  .galeria-item-1 {
+    left: 5%;
+  }
+
+  .galeria-item-2 {
+    left: 20%;
+  }
+
+  .galeria-item-3 {
+    left: 50%;
+  }
+
+  .galeria-item-4 {
+    left: 80%;
+  }
+
+  .galeria-item-5 {
+    left: 95%;
+  }
+
+  .galeria-controls {
+    /* Ajustes para celular */
+    width: 120px; /* Largura menor para os botões */
+    bottom: -50px; /* Ajusta a distância abaixo do carrossel */
+  }
+
+  .galeria-controls button {
+    font-size: 30px; /* Menor ainda */
+    width: 40px;
+    height: 40px;
+  }
+
+  .galeria-nav {
+    bottom: -90px; /* Ajusta a navegação inferior para celular */
+  }
+
+  .titulo-pagina-inicial {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px; /* Garante que o título não fique colado ao topo */
+  }
+
+  /* Restante do CSS que você já tinha para 480px permanece */
+  .modal-agenda {
+    width: 100%;
+    padding: 20px 15px;
+  }
+
+  .data-modal .dia {
+    font-size: 20px;
+  }
+
+  .data-modal .mes {
+    font-size: 14px;
+  }
+
+  #modal-descricao {
+    font-size: 14px;
+  }
+
+  .botao-criar-projeto {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .input-form {
+    width: 100%;
+  }
+
+  .agenda-eventos {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  .agenda-card {
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #000000;
+  }
+
+  .data-agenda {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0;
+    width: 100%;
+    height: auto;
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  footer {
+    padding: 15px;
+    font-size: 13px;
+    background-color: #f1f1f1;
+  }
+}
