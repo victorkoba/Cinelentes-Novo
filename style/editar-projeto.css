@@ -192,65 +192,73 @@ form textarea {
   color: #333;
 }
 
+.container-fotos {
+  width: 100%;
+  padding: 20px;
+}
+
 .grid-fotos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
 }
 
 .foto-grid-item {
-  position: relative;
-  width: 300px;
-  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .img-fotos {
   width: 100%;
-  height: 100%;
+  height: auto;
+  border-radius: 8px;
   object-fit: cover;
-  border-radius: 8px;
-  transition: 0.3s ease;
-  display: block;
 }
 
-.foto-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.55);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.musica-item {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
+  flex-direction: column;
+  align-items: stretch;
+  background: #f8f8f8;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
 }
 
-.foto-grid-item:hover .foto-overlay {
-  opacity: 1;
+.musica-item iframe {
+  display: block;
+  width: 100%;
+  border: none;
+}
+
+.musica-botao {
+  padding: 10px;
+  text-align: center;
+  background: #fff;
+}
+
+/* Botão embaixo */
+.btn-abaixo-foto {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .btn-excluir {
   background-color: #e63946;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 14px;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .btn-excluir:hover {
-  background-color: #c82333;
-}
-
-.foto-grid-item.marcada .img-fotos {
-  filter: brightness(60%);
-  transition: filter 0.3s ease;
+  background-color: #c9303e;
 }
 
 
