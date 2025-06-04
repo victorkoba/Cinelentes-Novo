@@ -25,10 +25,15 @@ html {
 }
 
 a.link-animado {
-  position: relative;
+    position: relative;
   text-decoration: none;
   color: rgb(245, 233, 212);
-  margin-right: 25px;
+    
+}
+
+.dropdown a.link-animado {
+    margin-right: 0;
+    
 }
 
 a.link-animado:hover {
@@ -76,7 +81,7 @@ a.link-animado:hover::after {
   background-color: #000;
   margin-top: 10px;
   min-width: 160px;
-  box-shadow: rgba(245, 233, 212, 0.5);
+box-shadow: 0 4px 8px rgba(245, 233, 212, 0.5);
   z-index: 1;
 }
 
@@ -235,11 +240,13 @@ footer {
   transform-origin: 1px;
 }
 
-nav#nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+#nav-menu {
+  display: flex;         /* organiza em linha */
+  justify-content: center; /* centraliza horizontalmente */
+  align-items: center;   /* alinha verticalmente */
+  gap: 40px;             /* define o espaçamento igual entre os itens */
 }
+
 
 .acervo-item img {
   width: 100%;
