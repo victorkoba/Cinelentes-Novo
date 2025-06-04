@@ -204,71 +204,76 @@ include 'conexao.php';
       </div>
     </section>
 
-    <section class="secao-musicas">
-      <div class="titulo-secao">
-          <div class="linha-titulo"></div>
+<section class="secao-musicas">
+  <div class="titulo-secao">
+    <div class="linha-titulo"></div>
+    <h2>Músicas</h2>
+  </div>
 
-        <h2>Músicas</h2>
-      </div>
-        <!-- MÚSICA 1 -->
-        <div class="musica-item">
-          <input
-            type="url"
-            name="musica1"
-            placeholder="Link do YouTube ou MP3"
-            class="input-musica option-edicao"
-            oninput="ativarBotaoMultimidia(this, 'play-musica1', 'musica1-container')"
-          />
-          <button
-            type="button"
-            id="play-musica1"
-            class="botao-play"
-            onclick="alternarMultimidia(this, 'musica1-container')"
-            disabled
-          >
-            <span class="icone-play" role="img" aria-label="Ícone de play">▶</span> 
+  <div id="container-musicas">
+    <!-- MÚSICAS INICIAIS -->
+    <div class="musica-item">
+      <input
+        type="url"
+        name="musica1"
+        placeholder="Link do YouTube ou MP3"
+        class="input-musica option-edicao"
+        oninput="ativarBotaoMultimidia(this, 'play-musica1', 'musica1-container')"
+      />
+      <button
+        type="button"
+        id="play-musica1"
+        class="botao-play"
+        onclick="alternarMultimidia(this, 'musica1-container')"
+        disabled
+      >
+        <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
+      </button>
+      <div class="link-preview" id="musica1-container"></div>
+    </div>
 
-          </button>
-          <div class="link-preview" id="musica1-container"></div>
-        </div>
-        <div class="musica-item">
-          <input
-            type="url"
-            name="musica2"
-            placeholder="Link do YouTube ou MP3"
-            class="input-musica option-edicao"
-            oninput="ativarBotaoMultimidia(this, 'play-musica2', 'musica2-container')"
-          />
-          <button
-            type="button"
-            id="play-musica2"
-            class="botao-play"
-            onclick="alternarMultimidia(this, 'musica2-container')"
-            disabled
-          >
-            <span class="icone-play" role="img" aria-label="Ícone de play">▶</span> 
-          </button>
-          <div class="link-preview" id="musica2-container"></div>
-        </div>
-        <div class="musica-item">
-          <input
-            type="url"
-            name="musica3"
-            placeholder="Link do YouTube ou MP3"
-            class="input-musica option-edicao"
-            oninput="ativarBotaoMultimidia(this, 'play-musica3', 'musica3-container')"
-          />
-          <button
-            type="button"
-            id="play-musica3"
-            class="botao-play"
-            onclick="alternarMultimidia(this, 'musica3-container')"
-            disabled
-          >
-            <span class="icone-play" role="img" aria-label="Ícone de play">▶</span> 
-          </button>
-          <div class="link-preview" id="musica3-container"></div>
-        </div>
+    <div class="musica-item">
+      <input
+        type="url"
+        name="musica2"
+        placeholder="Link do YouTube ou MP3"
+        class="input-musica option-edicao"
+        oninput="ativarBotaoMultimidia(this, 'play-musica2', 'musica2-container')"
+      />
+      <button
+        type="button"
+        id="play-musica2"
+        class="botao-play"
+        onclick="alternarMultimidia(this, 'musica2-container')"
+        disabled
+      >
+        <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
+      </button>
+      <div class="link-preview" id="musica2-container"></div>
+    </div>
+
+    <div class="musica-item">
+      <input
+        type="url"
+        name="musica3"
+        placeholder="Link do YouTube ou MP3"
+        class="input-musica option-edicao"
+        oninput="ativarBotaoMultimidia(this, 'play-musica3', 'musica3-container')"
+      />
+      <button
+        type="button"
+        id="play-musica3"
+        class="botao-play"
+        onclick="alternarMultimidia(this, 'musica3-container')"
+        disabled
+      >
+        <span class="icone-play" role="img" aria-label="Ícone de play">▶</span>
+      </button>
+      <div class="link-preview" id="musica3-container"></div>
+    </div>
+  </div>
+
+  <button type="button" id="btn-adicionar-musica">+ Adicionar mais música</button>
 <script>
   function getYoutubeEmbedUrl(url) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/);
@@ -332,6 +337,47 @@ include 'conexao.php';
       botao.dataset.status = "parado";
     }
   }
+    // contador para nome/id dos novos inputs e botões
+  let contadorMusicas = 3;
+
+  document.getElementById('btn-adicionar-musica').addEventListener('click', function () {
+    contadorMusicas++;
+
+    // cria o elemento musica-item
+    const musicaItem = document.createElement('div');
+    musicaItem.className = 'musica-item';
+
+    // cria o input url
+    const input = document.createElement('input');
+    input.type = 'url';
+    input.name = 'musica' + contadorMusicas;
+    input.placeholder = 'Link do YouTube ou MP3';
+    input.className = 'input-musica option-edicao';
+    // adiciona evento oninput
+    input.setAttribute('oninput', `ativarBotaoMultimidia(this, 'play-musica${contadorMusicas}', 'musica${contadorMusicas}-container')`);
+
+    // cria o botão play
+    const botao = document.createElement('button');
+    botao.type = 'button';
+    botao.id = 'play-musica' + contadorMusicas;
+    botao.className = 'botao-play';
+    botao.disabled = true;
+    botao.setAttribute('onclick', `alternarMultimidia(this, 'musica${contadorMusicas}-container')`);
+    botao.innerHTML = '<span class="icone-play" role="img" aria-label="Ícone de play">▶</span>';
+
+    // cria o container do preview
+    const preview = document.createElement('div');
+    preview.id = 'musica' + contadorMusicas + '-container';
+    preview.className = 'link-preview';
+
+    // adiciona os elementos no div musica-item
+    musicaItem.appendChild(input);
+    musicaItem.appendChild(botao);
+    musicaItem.appendChild(preview);
+
+    // adiciona musica-item no container
+    document.getElementById('container-musicas').appendChild(musicaItem);
+  });
 </script>
 </section>
 

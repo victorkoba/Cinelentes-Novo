@@ -52,7 +52,6 @@ while ($row = $resultCurtas->fetch_assoc()) {
   $curtas[] = $row;
 }
 
-// Agora sim, fora do while, processamos músicas
 $musicasArray = [];
 if (!empty($projeto['musicas'])) {
   $decoded = json_decode($projeto['musicas'], true);
@@ -83,12 +82,12 @@ function embedLink($url) {
   // Default (embed direto, sem garantias)
   return $url;
 }
-?>
-<?php
+
 function linkify($text) {
     $pattern = '/(https?:\/\/[^\s]+)/i';
     return preg_replace($pattern, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>', $text);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -219,30 +218,29 @@ function linkify($text) {
       </div>
     </section>
     
-  <!-- MÚSICAS -->
    <?php if (!empty($musicasArray)): ?>
   <section>
     <h2 class="titulo-linha">Músicas</h2>
-    <div class="grid-musicas">
-      <?php foreach ($musicasArray as $link): ?>
-        <div class="musica-item">
-          <iframe 
-            width="100%" height="220" 
-            src="<?= htmlspecialchars(embedLink($link)) ?>" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-        </div>
-      <?php endforeach; ?>
-    </div>
+<div class="grid-fotos">
+  <?php foreach ($musicasArray as $indice => $link): ?>
+    <?php if (!empty($link) && !empty(embedLink($link))): ?>
+      <div class="musica-item card-midia">
+        <iframe 
+          width="100%" height="220" 
+          src="<?= htmlspecialchars(embedLink($link)) ?>" 
+          frameborder="0" allowfullscreen>
+        </iframe>
+      </div>
+    <?php endif; ?>
+  <?php endforeach; ?>
+</div>
   </section>
 <?php endif; ?>
 
  <!-- CURTA -->
   <section>
 
-    <h2 class="titulo-linha">Curtas</h2>
+    <h2 class="titulo-linha">Curta-Metragem</h2>
     <div class="grid-curtas">
       <?php
   $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";

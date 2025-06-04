@@ -219,7 +219,7 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
 
 <section>
   <h2 class="titulo-linha">Fotos</h2>
-
+  <div class="container-fotos-editar">
   <!-- Botão para adicionar novas imagens -->
   <div class="adicionar-fotos-container">
     <label class="btn-adicionar-imagens">
@@ -228,30 +228,28 @@ document.getElementById("botao-logout").addEventListener("click", function (e) {
     </label>
     <div id="nomesSelecionados" class="nomes-imagens-selecionadas"></div>
   </div>
+</div>
+<div class="grid-fotos">
+  <?php
+  $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
+  $stmt = $conexao->prepare($sqlFotos);
+  $stmt->bind_param("i", $projeto['id_acervo']);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-<div class="container-fotos">
-  <div class="grid-fotos">
-    <?php
-    $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
-    $stmt = $conexao->prepare($sqlFotos);
-    $stmt->bind_param("i", $projeto['id_acervo']);
-    $stmt->execute();
-    $result = $stmt->get_result();
+  while ($fotos = $result->fetch_assoc()):
+    $fotoId = $fotos['id_fotos'];
+  ?>
+    <div class="foto-grid-item">
+      <img class="img-fotos" src="exibir-foto.php?id=<?= $fotoId ?>" alt="Foto do projeto">
 
-    while ($fotos = $result->fetch_assoc()):
-      $fotoId = $fotos['id_fotos'];
-    ?>
-      <div class="foto-grid-item">
-        <img class="img-fotos" src="exibir-foto.php?id=<?= $fotoId ?>" alt="Foto do projeto">
-
-        <!-- Botão abaixo da imagem -->
-        <label class="btn-abaixo-foto">
-          <input type="checkbox" name="excluir_fotos[]" value="<?= $fotoId ?>" hidden>
-          <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
-        </label>
-      </div>
-    <?php endwhile; $stmt->close(); ?>
-  </div>
+      <!-- Botão abaixo da imagem -->
+      <label class="btn-abaixo-foto">
+        <input type="checkbox" name="excluir_fotos[]" value="<?= $fotoId ?>" hidden>
+        <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
+      </label>
+    </div>
+  <?php endwhile; $stmt->close(); ?>
 </div>
 </section>
 
@@ -295,71 +293,100 @@ function alternarExclusao(button) {
 
 <section>
   <h2 class="titulo-linha">Vídeos</h2>
-  
-  <div class="adicionar-fotos-container">
-    <label class="btn-adicionar-imagens">
-      + Adicionar novos vídeos
-      <input class="input-adicionar-imagens" type="file" name="videos[]" accept="video/mp4" multiple>
-    </label>
-  </div>
-  
-  <div class="container-fotos">
-    <div class="grid-fotos">
-      <?php
-      $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
-      $stmt = $conexao->prepare($sqlVideos);
-      $stmt->bind_param("i", $projeto['id_acervo']);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      while ($video = $result->fetch_assoc()):
-        $videoId = $video['id_videos'];
-      ?>
-        <div class="foto-grid-item card-midia"> <!-- mantive foto-grid-item para a estilização -->
-          <video controls width="500" >
-            <source src="exibir-video.php?id=<?= $videoId ?>" type="video/mp4">
-            Seu navegador não suporta vídeo.
-          </video>
-          <div class="foto-over">
-            <label>
-              <input type="checkbox" name="excluir_videos[]" value="<?= $videoId ?>" hidden>
-              <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
-            </label>
-          </div>
-        </div>
-      <?php endwhile; $stmt->close(); ?>
+  <div class="container-fotos-editar">
+    <div class="adicionar-fotos-container">
+      <label class="btn-adicionar-imagens">
+        + Adicionar novos vídeos
+        <input class="input-adicionar-imagens" type="file" name="videos[]" accept="video/mp4" multiple>
+      </label>
     </div>
+  </div>
+  <div class="grid-fotos">
+    <?php
+    $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
+    $stmt = $conexao->prepare($sqlVideos);
+    $stmt->bind_param("i", $projeto['id_acervo']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($video = $result->fetch_assoc()):
+      $videoId = $video['id_videos'];
+    ?>
+      <div class="foto-grid-item card-midia"> <!-- mantive foto-grid-item para a estilização -->
+        <video controls width="500" >
+          <source src="exibir-video.php?id=<?= $videoId ?>" type="video/mp4">
+          Seu navegador não suporta vídeo.
+        </video>
+        <div class="foto-over">
+          <label>
+            <input type="checkbox" name="excluir_videos[]" value="<?= $videoId ?>" hidden>
+            <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
+          </label>
+        </div>
+      </div>
+    <?php endwhile; $stmt->close(); ?>
   </div>
 </section>
 
 <!-- MÚSICAS -->
+<script>
+function adicionarCampoMusica() {
+  const div = document.createElement("div");
+  div.innerHTML = '<input type="url" name="novas_musicas[]" placeholder="Cole o link da música">';
+  document.getElementById("novas-musicas").appendChild(div);
+}
+
+function alternarExclusao(botao) {
+  const checkbox = botao.closest("label").querySelector("input[type=checkbox]");
+  checkbox.checked = !checkbox.checked;
+  botao.classList.toggle("selecionado"); // Estilize como quiser
+}
+</script>
    <?php if (!empty($musicasArray)): ?>
   <section>
     <h2 class="titulo-linha">Músicas</h2>
-    <div class="adicionar-fotos-container">
-    <label class="btn-adicionar-imagens">
-      + Adicionar novas músicas
-<input class="input-adicionar-imagens" type="text" name="novas_musicas[]" multiple placeholder="Cole os links aqui, separados por vírgula">    </label>
+    <div id="novas-musicas">
+  <label>Adicionar nova música (link):</label>
+  <div class="campo-musica">
+    <input type="url" name="novas_musicas[]" placeholder="Cole o link da música">
   </div>
-    <div class="grid-musicas">
-<?php foreach ($musicasArray as $indice => $link): ?>
-  <div class="musica-item card-midia">
-    <iframe 
-      width="100%" height="220" 
-      src="<?= htmlspecialchars(embedLink($link)) ?>" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-<div class="musica-botao">
-  <label>
-    <input type="checkbox" name="excluir_musicas[]" value="<?= $indice ?>" hidden>
-    <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
-  </label>
+  <button type="button" class="btn-adicionar-imagens">+ Adicionar outra música</button>
 </div>
-  </div>
-<?php endforeach; ?>
-    </div>
+
+<script>
+  document.getElementById('btn-add-musica').addEventListener('click', function () {
+    const container = document.createElement('div');
+    container.classList.add('campo-musica');
+
+    const input = document.createElement('input');
+    input.type = 'url';
+    input.name = 'novas_musicas[]';
+    input.placeholder = 'Cole o link da música';
+
+    container.appendChild(input);
+    document.getElementById('novas-musicas').insertBefore(container, this);
+  });
+</script>
+
+<div class="grid-fotos">
+  <?php foreach ($musicasArray as $indice => $link): ?>
+    <?php if (!empty($link) && !empty(embedLink($link))): ?>
+      <div class="musica-item card-midia">
+        <iframe 
+          width="100%" height="220" 
+          src="<?= htmlspecialchars(embedLink($link)) ?>" 
+          frameborder="0" allowfullscreen>
+        </iframe>
+        <div class="musica-botao">
+          <label>
+            <input type="checkbox" name="excluir_musicas[]" value="<?= $indice ?>" hidden>
+            <button type="button" class="btn-excluir" onclick="alternarExclusao(this)">Excluir</button>
+          </label>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php endforeach; ?>
+</div>
   </section>
 <?php endif; ?>
 
@@ -399,16 +426,15 @@ function adicionarCampoMusica() {
 </script>
 
 <section>
-  <h2 class="titulo-linha">Curtas</h2>
-
-  <!-- Botão para adicionar novos curtas -->
-  <div class="adicionar-fotos-container">
-    <label class="btn-adicionar-imagens">
-      + Adicionar novos curtas
-      <input class="input-adicionar-imagens" type="file" name="curtas[]" accept="video/mp4" multiple>
-    </label>
+  <h2 class="titulo-linha">Curta-Metragem</h2>
+  <div class="container-fotos-editar">
+    <div class="adicionar-fotos-container">
+      <label class="btn-adicionar-imagens">
+        + Adicionar novos curtas
+        <input class="input-adicionar-imagens" type="file" name="curtas[]" accept="video/mp4" multiple>
+      </label>
+    </div>
   </div>
-
   <div class="grid-fotos">
     <?php
     $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
@@ -435,6 +461,7 @@ function adicionarCampoMusica() {
     <?php endwhile; $stmt->close(); ?>
   </div>
 </section>
+
 
       <section>
         <h2 class="titulo-linha">Habilidades</h2>

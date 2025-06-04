@@ -21,15 +21,50 @@ $habilidades = limpar($_POST['habilidades'] ?? '');
 $feedback = limpar($_POST['feedback'] ?? '');
 $edicao = intval($_POST['edicao'] ?? 0);
 
+// 1. Buscar músicas existentes do banco
+$sqlMusicas = $conexao->prepare("SELECT musicas FROM acervos WHERE id_acervo = ?");
+$sqlMusicas->bind_param("i", $id);
+$sqlMusicas->execute();
+$resultMusicas = $sqlMusicas->get_result();
 $musicasArray = [];
-if (!empty($projeto['musicas'])) {
-  $decoded = json_decode($projeto['musicas'], true);
-  if (is_array($decoded)) {
-    $musicasArray = $decoded;
-  } else {
-    $musicasArray = array_filter(array_map('trim', preg_split('/[\r\n,]+/', $projeto['musicas'])));
-  }
+
+if ($row = $resultMusicas->fetch_assoc()) {
+    $musicasRaw = $row['musicas'];
+    if (!empty($musicasRaw)) {
+        $decoded = json_decode($musicasRaw, true);
+        if (is_array($decoded)) {
+            $musicasArray = $decoded;
+        } else {
+            $musicasArray = array_filter(array_map('trim', preg_split('/[\r\n,]+/', $musicasRaw)));
+        }
+    }
 }
+$sqlMusicas->close();
+
+// 2. Remover músicas marcadas
+if (!empty($_POST['excluir_musicas']) && is_array($_POST['excluir_musicas'])) {
+    foreach ($_POST['excluir_musicas'] as $indice) {
+        unset($musicasArray[$indice]);
+    }
+    $musicasArray = array_values($musicasArray); // reindexar
+}
+
+// 3. Adicionar novas músicas
+if (!empty($_POST['novas_musicas']) && is_array($_POST['novas_musicas'])) {
+    foreach ($_POST['novas_musicas'] as $nova) {
+        $nova = trim($nova);
+        if (!empty($nova)) {
+            $musicasArray[] = $nova;
+        }
+    }
+}
+
+// 4. Atualizar o campo 'musicas' no banco
+$musicasJson = json_encode($musicasArray);
+$updateMusicas = $conexao->prepare("UPDATE acervos SET musicas = ? WHERE id_acervo = ?");
+$updateMusicas->bind_param("si", $musicasJson, $id);
+$updateMusicas->execute();
+$updateMusicas->close();
 
 // Upload de nova capa (opcional)
 // $foto_capa_acervo = $_POST['foto_capa_atual'] ?? '';

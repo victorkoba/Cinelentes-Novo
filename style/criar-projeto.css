@@ -219,6 +219,26 @@ a {
   padding-bottom: 0.5rem;
 }
 
+#btn-adicionar-musica {
+  background-color: #000;
+  width: 240px;
+  display: flex;
+  align-items: center;
+  color: #f5e9d4;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: 600;
+}
+
+#btn-adicionar-musica:hover {
+  background-color: #333;
+  transform: scale(1.05)
+}
+
 .card-header h3 {
   margin: 0;
   font-size: 1.2rem;
