@@ -267,26 +267,32 @@ function linkify($text) {
   <!-- HABILIDADES -->
   <?php if (!empty($habilidadesArray[0])): ?>
     <section>
-      <h2 class="titulo-linha">Habilidades Desenvolvidas</h2>
-      <ul>
-        <?php foreach ($habilidadesArray as $habilidade): ?>
-          <li><?= htmlspecialchars(trim($habilidade)) ?></li>
-        <?php endforeach; ?>
-      </ul>
-    </section>
+  <h2 class="titulo-linha">Habilidades Desenvolvidas</h2>
+  <div class="grid-habilidades">
+    <?php foreach ($habilidadesArray as $habilidade): ?>
+      <div class="card-habilidade"><?= htmlspecialchars(trim($habilidade)) ?></div>
+    <?php endforeach; ?>
+  </div>
+</section>
   <?php endif; ?>
 
   <!-- FEEDBACKS -->
   <?php if (!empty($feedbacksArray[0])): ?>
-    <section>
-      <h2 class="titulo-linha">Feedbacks</h2>
-      <ul class="lista-feedbacks">
-        <?php foreach ($feedbacksArray as $feedback): ?>
-          <li><?= linkify(htmlspecialchars(trim($feedback))) ?></li>
-        <?php endforeach; ?>
-      </ul>
-    </section>
-  <?php endif; ?>
+  <section>
+    <h2 class="titulo-linha">Feedbacks</h2>
+    <div class="grid-feedbacks">
+      <?php foreach ($feedbacksArray as $feedback): 
+        $url = htmlspecialchars(trim($feedback));
+      ?>
+        <a class="card-feedback" href="<?= $url ?>" target="_blank" rel="noopener noreferrer">
+          Clique aqui para ver o feedback sobre o evento
+        </a>
+      <?php endforeach; ?>
+    </div>
+  </section>
+<?php endif; ?>
+
+
 
   <div style="text-align: center; margin-top: 2rem;">
     <a class="btn-voltar-card" href="../index.php">Voltar</a>
