@@ -358,3 +358,121 @@ nav#nav-menu {
     width: auto;
   }
 }
+
+  /* A logo inicialmente estará posicionada fora da tela e com opacidade 0 */
+  .logo img {
+    position: relative;
+    opacity: 0;
+    left: -200px; /* Logo começa deslocada para a esquerda */
+    animation: slideIn 1s forwards; /* Animação de 1 segundo */
+  }
+
+  /* Definindo a animação de deslizamento e aumento de opacidade */
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      left: -200px; /* Logo começa fora da tela à esquerda */
+    }
+    100% {
+      opacity: 1;
+      left: 0; /* Logo vai para a posição normal no centro da tela */
+    }
+  }
+
+  /* Animação para o formulário de login */
+  .container-login {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideUp 1s ease-out forwards; /* Animação do slide e fade-in */
+  }
+
+  /* Animação de deslizamento para o formulário */
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animação dos campos de entrada (email e senha) */
+  .input-inform {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+  }
+
+  .input-inform:nth-child(1) {
+    animation-delay: 0.3s; /* Delayed animation para o primeiro campo */
+  }
+
+  .input-inform:nth-child(2) {
+    animation-delay: 0.6s; /* Delayed animation para o segundo campo */
+  }
+
+  /* Animação de fade-in para os inputs */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+
+  /* Animação de hover no botão de login */
+  .botao-entrar {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .botao-entrar:hover {
+    transform: scale(1.05); /* Aumenta levemente o botão */
+    background-color: #e50914; /* Muda a cor do botão ao passar o mouse */
+  }
+
+/* Animação para o formulário de redefinir senha */
+.container-redefinir-senha {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: slideUp 1s ease-out forwards; /* Animação do slide e fade-in */
+}
+
+/* Animação de deslizamento para o formulário */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animação dos campos de entrada (email, senha, nova senha) */
+.input-inform-redefinir {
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+.input-inform-redefinir:nth-child(1) {
+  animation-delay: 0.3s; /* Delayed animation para o primeiro campo */
+}
+
+.input-inform-redefinir:nth-child(2) {
+  animation-delay: 0.6s; /* Delayed animation para o segundo campo */
+}
+
+/* Animação de fade-in para os inputs */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
