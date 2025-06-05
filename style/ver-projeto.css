@@ -194,23 +194,30 @@ section h2 {
 }
 
 /* Botão Voltar */
-.btn-voltar-card {
-  display: inline-block;
-  background-color: #f5e9d4;
-  color: #121212;
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  text-decoration: none;
+.botao-voltar {
+  background-color: #000;
+  color: #f5e9d4;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s, transform 0.2s;
   font-weight: 600;
-  margin-top: 3rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.4s, transform 0.2s;
 }
 
-.btn-voltar-card:hover {
-  background-color: #e5d7bb;
-  transform: scale(1.05);
+.botao-voltar:hover {
+  background-color: #333;
+  transform: scale(1.05)
 }
+
+.alinhamento-botao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .grid-musicas {
   display: flex;
   flex-wrap: wrap;

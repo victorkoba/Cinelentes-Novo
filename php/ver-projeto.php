@@ -99,6 +99,7 @@ function linkify($text) {
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/ver-projeto.css">
   <script src="../main/main.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
 
 </head>
 <body class="body-pagina-inicial">
@@ -162,7 +163,6 @@ function linkify($text) {
     <div class="projeto-texto">
       <h1><?= htmlspecialchars($projeto['titulo']) ?></h1>
       <p><?= nl2br(htmlspecialchars($projeto['descricao'])) ?></p>
-      <p><strong>Data de Realização:</strong> <?= date("d/m/Y", strtotime($projeto['data_criacao'])) ?></p>
     </div>
     <div class="projeto-video-ver">
       <?php if (!empty($fotosArray[0])): ?>
@@ -172,130 +172,139 @@ function linkify($text) {
   </div>
 
   <!-- FOTOS -->
-    <section>
-      <h2 class="titulo-linha">Fotos</h2>
-      <div class="container-fotos">
-        <div class="grid-fotos">
-        <?php
-        $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
-        $stmt = $conexao->prepare($sqlFotos);
-        $stmt->bind_param("i", $projeto['id_acervo']);
-        $stmt->execute();
-        $result = $stmt->get_result();
-  
-        while ($fotos = $result->fetch_assoc()):
-        ?>
+  <?php
+  $sqlFotos = "SELECT id_fotos, nome_arquivo FROM fotos_acervo WHERE acervo_id = ?";
+  $stmt = $conexao->prepare($sqlFotos);
+  $stmt->bind_param("i", $projeto['id_acervo']);
+  $stmt->execute();
+  $resultFotos = $stmt->get_result();
+
+  if ($resultFotos->num_rows > 0):
+  ?>
+  <section>
+    <h2 class="titulo-linha">Fotos</h2>
+    <div class="container-fotos">
+      <div class="grid-fotos">
+        <?php while ($fotos = $resultFotos->fetch_assoc()): ?>
           <div class="foto-grid-item">
             <img class="img-fotos" width="300" src="exibir-foto.php?id=<?= $fotos['id_fotos'] ?>" />
           </div>
-        <?php endwhile; $stmt->close(); ?>
+        <?php endwhile; ?>
       </div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </section>
+  <?php endif; $stmt->close(); ?>
 
   <!-- VÍDEOS -->
-    <section>
-      <h2 class="titulo-linha">Vídeos</h2>
-      <div class="container-fotos">
-        <div class="grid-fotos">
-        <?php
-        $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
-        $stmt = $conexao->prepare($sqlVideos);
-        $stmt->bind_param("i", $projeto['id_acervo']);
-        $stmt->execute();
-        $result = $stmt->get_result();
-  
-        while ($video = $result->fetch_assoc()):
-        ?>
-            <video width="500" class="img-fotos" controls width="320">
-              <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
-              Seu navegador não suporta vídeo.
-            </video>
-        <?php endwhile; $stmt->close(); ?>
+  <?php
+  $sqlVideos = "SELECT id_videos, nome_arquivo FROM videos_acervo WHERE acervo_id = ?";
+  $stmt = $conexao->prepare($sqlVideos);
+  $stmt->bind_param("i", $projeto['id_acervo']);
+  $stmt->execute();
+  $resultVideos = $stmt->get_result();
+
+  if ($resultVideos->num_rows > 0):
+  ?>
+  <section>
+    <h2 class="titulo-linha">Vídeos</h2>
+    <div class="container-fotos">
+      <div class="grid-fotos">
+        <?php while ($video = $resultVideos->fetch_assoc()): ?>
+          <video width="500" class="img-fotos" controls>
+            <source src="exibir-video.php?id=<?= $video['id_videos'] ?>" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+        <?php endwhile; ?>
       </div>
-        </div>
-      </div>
-    </section>
-    
-   <?php if (!empty($musicasArray)): ?>
+    </div>
+  </section>
+  <?php endif; $stmt->close(); ?>
+
+  <!-- MÚSICAS -->
+  <?php
+  $temMusicas = false;
+  foreach ($musicasArray as $link) {
+    if (!empty($link) && !empty(embedLink($link))) {
+      $temMusicas = true;
+      break;
+    }
+  }
+  if ($temMusicas):
+  ?>
   <section>
     <h2 class="titulo-linha">Músicas</h2>
-<div class="grid-fotos">
-  <?php foreach ($musicasArray as $indice => $link): ?>
-    <?php if (!empty($link) && !empty(embedLink($link))): ?>
-      <div class="musica-item card-midia">
-        <iframe 
-          width="100%" height="220" 
-          src="<?= htmlspecialchars(embedLink($link)) ?>" 
-          frameborder="0" allowfullscreen>
-        </iframe>
-      </div>
-    <?php endif; ?>
-  <?php endforeach; ?>
-</div>
+    <div class="grid-fotos">
+      <?php foreach ($musicasArray as $link): ?>
+        <?php if (!empty($link) && !empty(embedLink($link))): ?>
+          <div class="musica-item card-midia">
+            <iframe width="100%" height="220" src="<?= htmlspecialchars(embedLink($link)) ?>" frameborder="0" allowfullscreen></iframe>
+          </div>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </div>
   </section>
-<?php endif; ?>
+  <?php endif; ?>
 
- <!-- CURTA -->
-  <section>
-
-    <h2 class="titulo-linha">Curta-Metragem</h2>
-    <div class="grid-curtas">
-      <?php
+  <!-- CURTAS -->
+  <?php
   $sqlCurtas = "SELECT id_curtas, nome_arquivo FROM curtas_acervo WHERE acervo_id = ?";
   $stmt = $conexao->prepare($sqlCurtas);
   $stmt->bind_param("i", $projeto['id_acervo']);
   $stmt->execute();
-  $result = $stmt->get_result();
-  
-  while ($curta = $result->fetch_assoc()):
-    ?>
-    <div class="card-midia">
-      <video controls>
-        <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
-        Seu navegador não suporta vídeo.
-      </video>
-    </div>
-    <?php endwhile; $stmt->close(); ?>
-  </div>
-</section>
+  $resultCurtas = $stmt->get_result();
 
+  if ($resultCurtas->num_rows > 0):
+  ?>
+  <section>
+    <h2 class="titulo-linha">Curta-Metragem</h2>
+    <div class="grid-curtas">
+      <?php while ($curta = $resultCurtas->fetch_assoc()): ?>
+        <div class="card-midia">
+          <video controls>
+            <source src="exibir-curta.php?id=<?= $curta['id_curtas'] ?>" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+        </div>
+      <?php endwhile; ?>
+    </div>
+  </section>
+  <?php endif; $stmt->close(); ?>
 
   <!-- HABILIDADES -->
   <?php if (!empty($habilidadesArray[0])): ?>
     <section>
-  <h2 class="titulo-linha">Habilidades Desenvolvidas</h2>
-  <div class="grid-habilidades">
-    <?php foreach ($habilidadesArray as $habilidade): ?>
-      <div class="card-habilidade"><?= htmlspecialchars(trim($habilidade)) ?></div>
-    <?php endforeach; ?>
-  </div>
-</section>
+      <h2 class="titulo-linha">Habilidades Desenvolvidas</h2>
+      <div class="grid-habilidades">
+        <?php foreach ($habilidadesArray as $habilidade): ?>
+          <div class="card-habilidade"><?= htmlspecialchars(trim($habilidade)) ?></div>
+        <?php endforeach; ?>
+      </div>
+    </section>
   <?php endif; ?>
 
   <!-- FEEDBACKS -->
   <?php if (!empty($feedbacksArray[0])): ?>
-  <section>
-    <h2 class="titulo-linha">Feedbacks</h2>
-    <div class="grid-feedbacks">
-      <?php foreach ($feedbacksArray as $feedback): 
-        $url = htmlspecialchars(trim($feedback));
-      ?>
-        <a class="card-feedback" href="<?= $url ?>" target="_blank" rel="noopener noreferrer">
-          Clique aqui para ver o feedback sobre o evento
-        </a>
-      <?php endforeach; ?>
-    </div>
-  </section>
-<?php endif; ?>
-
-
-
-  <div style="text-align: center; margin-top: 2rem;">
-    <a class="btn-voltar-card" href="../index.php">Voltar</a>
+    <section>
+      <h2 class="titulo-linha">Feedbacks</h2>
+      <div class="grid-feedbacks">
+        <?php foreach ($feedbacksArray as $feedback): 
+          $url = htmlspecialchars(trim($feedback));
+        ?>
+          <a class="card-feedback" href="<?= $url ?>" target="_blank" rel="noopener noreferrer">
+            Clique aqui para ver o feedback sobre o evento
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  <?php endif; ?>
+  <div class="alinhamento-botao">
+    <a href="../index.php" class="botao-voltar">
+        <i class="fas fa-arrow-left"></i> Voltar
+      </a>
   </div>
+
 </main>
+
 
   <footer class="footer-container">
     <div class="footer-topo">

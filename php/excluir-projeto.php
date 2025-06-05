@@ -8,8 +8,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-// Se tiver uma tabela que armazena a foto de capa no servidor, delete o arquivo antes (opcional)
-
 // Deletar fotos associadas
 $stmt = $conexao->prepare("DELETE FROM fotos_acervo WHERE acervo_id = ?");
 $stmt->bind_param("i", $id);
@@ -28,14 +26,37 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
-// Agora sim, deletar o projeto (acervo)
+// Deletar o projeto
 $stmt = $conexao->prepare("DELETE FROM acervos WHERE id_acervo = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->close();
 
-echo "<script>
-    alert('Projeto excluído com sucesso!');
-    window.location.href = 'pagina-inicial-adm.php';
-</script>";
+$conexao->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Projeto Excluído</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso!',
+            text: 'Projeto excluído com sucesso!',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = 'pagina-inicial-adm.php';
+        });
+    </script>
+</body>
+</html>

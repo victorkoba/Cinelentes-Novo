@@ -1,6 +1,7 @@
 <?php
 include 'verificar-login.php';
 include 'conexao.php';
+$sucesso = isset($_GET['sucesso']) && $_GET['sucesso'] == 1;
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -431,6 +432,21 @@ include 'conexao.php';
     });
   }
 </script> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php if ($sucesso): ?>
+<script>
+  Swal.fire({
+    icon: 'success',
+    title: 'Projeto criado com sucesso!',
+    confirmButtonText: 'OK'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = 'pagina-inicial-adm.php';
+    }
+  });
+</script>
+<?php endif; ?>
+
     </section>
   </form>
 </main>

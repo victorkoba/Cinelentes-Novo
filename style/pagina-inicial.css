@@ -4,7 +4,6 @@
   overflow-x: hidden;
 }
 
-
 /* Estilos da galeria/carrossel */
 .galeria {
   width: 100%;
@@ -85,8 +84,6 @@
   width: auto;
   top: -230px;
 }
-
-
 
 .galeria-controls button {
   background: transparent;
@@ -592,8 +589,6 @@
   box-sizing: border-box;
 }
 
-
-
   .agenda-card {
   display: grid;
   grid-template-columns: 0.3fr 1fr;
@@ -889,128 +884,6 @@
   padding: 15px;
 }
 
-@media (max-width: 768px) {
-  .agenda-card {
-    width: 100%;
-    grid-template-columns: 0.25fr 1fr; /* mantém colunas */
-    font-size: 15px;
-    padding: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .agenda-card {
-    grid-template-columns: 1fr; /* só uma coluna */
-    font-size: 14px;
-    padding: 12px 10px;
-  }
-
-  .data-agenda {
-    width: auto;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-  }
-}
-@media (max-width: 768px) {
-  footer {
-    padding: 20px 15px;
-    font-size: 14px;
-  }
-
-  footer a {
-    margin: 0 6px;
-  }
-}
-
-/* Responsividade: celulares pequenos */
-@media (max-width: 480px) {
-  footer {
-    padding: 15px 10px;
-    font-size: 13px;
-  }
-
-  footer p {
-    margin: 4px 0;
-  }
-
-  footer a {
-    display: inline-block;
-    margin: 6px 8px 0 8px;
-  }
-}
-@media (max-width: 768px) {
-  .galeria-container {
-    height: auto;
-    max-width: 95%;
-    flex-direction: column;
-  }
-
-  .galeria-itens {
-    width: 260px;
-    height: 150px;
-    position: absolute;
-  }
-
-  .galeria-item-1,
-  .galeria-item-2,
-  .galeria-item-3,
-  .galeria-item-4,
-  .galeria-item-5 {
-    left: 50% !important;
-    transform: translateX(-50%) scale(0.9);
-    opacity: 0.8;
-  }
-
-  .galeria-item-3 {
-    width: 300px;
-    height: 180px;
-    z-index: 2;
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-
-  .galeria-controls {
-    gap: 100px;
-    top: -160px;
-  }
-
-  .galeria-controls button {
-    width: 50px;
-    height: 50px;
-    font-size: 28px;
-  }
-}
-
-@media (max-width: 480px) {
-  .galeria-container {
-    height: auto;
-    max-width: 100%;
-  }
-
-  .galeria-itens {
-    width: 200px;
-    height: 120px;
-  }
-
-  .galeria-item-3 {
-    width: 240px;
-    height: 140px;
-  }
-
-  .galeria-controls {
-    gap: 60px;
-    top: -140px;
-  }
-
-  .galeria-controls button {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-  }
-}
 /* Responsividade para tablets e telas menores */
 /* Tablets */
 @media (max-width: 768px) {
@@ -1062,56 +935,65 @@
   .galeria-item-5 {
     left: 90%;
   }
+  
+/* BOTÃO RESPONSIVO */
 
   .galeria-controls {
-    /* Mudanças para posicionar os botões abaixo do carrossel */
-    position: relative; /* Volta para relative ou mantem, mas sem interferir no fluxo do container */
-    top: auto; /* Remove o top fixo */
-    bottom: -60px; /* Move para baixo do container. Ajuste este valor conforme necessário */
-    left: 50%; /* Mantém centralizado horizontalmente */
-    transform: translateX(-50%); /* Ajusta a centralização */
-    width: 150px; /* Ajusta a largura para conter apenas os botões */
-    display: flex; /* Garante que os botões fiquem lado a lado */
-    justify-content: space-between; /* Espaço entre os botões */
-    gap: 0; /* Remove o gap fixo */
-    z-index: 5; /* Garante que estejam acima de outros elementos se necessário */
-  }
+  position: relative;
+  top: auto;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  z-index: 5;
+}
 
-  .galeria-controls button {
-    font-size: 40px; /* Diminui o tamanho da seta */
-    color: #fff; /* Torna as setas visíveis (brancas) */
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adiciona uma sombra para melhor visibilidade */
-    background-color: rgba(0, 0, 0, 0.3); /* Fundo semi-transparente para os botões */
-    border-radius: 50%; /* Botões redondos */
-    width: 50px; /* Ajusta o tamanho do botão */
-    height: 50px; /* Ajusta o tamanho do botão */
-    /* Remove qualquer texto que possa aparecer dentro do botão */
-    text-indent: -9999px; /* Oculta o texto movendo-o para fora da tela */
-    overflow: hidden; /* Garante que o texto oculto não cause problemas */
-  }
+.galeria-controls button {
+  font-size: 40px;
+  color: #000000;
+  text-shadow: none; 
+  background-color: transparent; 
+  border-radius: 50%;
+  width: 50px; 
+  height: 50px; 
+  text-indent: -9999px;
+  overflow: hidden; 
+  border: 2px solid #000; /* Opcional: borda preta para indicar o botão */
+  position: relative; /* Necessário para ::before funcionar corretamente */
+}
 
-  .galeria-controls-previous::before,
-  .galeria-controls-next::before {
-    border-color: #fff; /* Altera a cor das setas para branco */
-    content: ''; /* Garante que não haja texto extra */
-    position: absolute; /* Certifica-se de que a seta esteja centralizada */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(5deg); /* Posição correta da seta */
-  }
+.galeria-controls-previous::before,
+.galeria-controls-next::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border: solid #000; 
+  border-width: 0 4px 4px 0;
+  padding: 3px;
+  display: inline-block;
+}
 
-  .galeria-controls-next::before {
-    transform: translate(-50%, -50%) rotate(-5deg); /* Posição correta da seta */
-  }
+.galeria-controls-previous::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
 
-  /* Remove o efeito hover que movia a seta, pois não temos texto agora */
-  .galeria-controls-previous:hover::before {
-    transform: translate(-50%, -50%) rotate(135deg);
-  }
+.galeria-controls-next::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
 
-  .galeria-controls-next:hover::before {
-    transform: translate(-50%, -50%) rotate(-45deg);
-  }
+.galeria-controls-previous:hover::before,
+.galeria-controls-next:hover::before {
+  filter: brightness(0.8);
+}
+/* FIM DA RESPONSIVIDADE BOTÃO */
+
 
   .galeria-nav {
     bottom: -100px; /* Ajusta a navegação inferior para ficar abaixo dos botões também */

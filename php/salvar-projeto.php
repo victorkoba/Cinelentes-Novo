@@ -129,7 +129,7 @@ if ($stmt->execute()) {
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);
     inserirArquivo($conexao, "fotos_acervo", $acervo_id, $fotos);
 
-    header("Location: pagina-inicial-adm.php");
+    header("Location: criar-projeto-adm.php?sucesso=1");
     exit;
 } else {
     echo "Erro ao salvar projeto: " . $stmt->error;
