@@ -4,8 +4,8 @@ include 'conexao.php';
 include 'login_helper.php';
 
 $erroLogin = false;
+$login_sucesso = false;
 
-// Proteção contra força bruta
 if (!isset($_SESSION['tentativas'])) {
     $_SESSION['tentativas'] = 0;
 }
@@ -34,20 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['id_usuario'] = $adm['id_adm'];
                 $_SESSION['tentativas'] = 0;
 
-                // Adiciona sucesso de login à sessão
-                $_SESSION['login_sucesso'] = true;
+                // Aqui, sinaliza que o login foi sucesso e exibe o alerta na mesma página
+                $login_sucesso = true;
 
-                header('Location: pagina-inicial-adm.php');
-                exit;
+                // NÃO faz header redirecionando para pagina-inicial-adm.php aqui
+                // Redirecionaremos via JS após SweetAlert
             } else {
                 $_SESSION['tentativas']++;
                 registrarTentativaLogin($email);
-                redirectComErro(1);
+                header("Location: login.php?erro=1");
+                exit;
             }
         } else {
             $_SESSION['tentativas']++;
             registrarTentativaLogin($email);
-            redirectComErro(1);
+            header("Location: login.php?erro=1");
+            exit;
         }
     }
 
@@ -65,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="../style/style.css"/>
   <link rel="stylesheet" href="../style/login-redefinir-senha.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="body-login">
   <div class="card-login">
@@ -99,21 +101,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
 
           <a href="redefinir-senha.php" class="bot-esqueceu-senha">Esqueceu a senha?</a>
-
-          <?php if (isset($_GET['erro']) && $_GET['erro'] == 1): ?>
-            <p class="erro-login">Email ou senha incorretos.</p>
-          <?php endif; ?>
         </form>
       </div>
     </div>
   </div>
 
-  <script>
-    document.querySelector('.login-form').addEventListener('submit', function () {
-      const botao = document.getElementById('botao-entrar');
-      botao.disabled = true;
-      botao.innerText = 'Entrando...';
-    });
-  </script>
+  <?php if ($login_sucesso): ?>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+          icon: 'success',
+          title: 'Login realizado com sucesso!',
+          confirmButtonText: 'Entrar',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then(() => {
+          // Redireciona para a página inicial após o usuário fechar o alerta
+          window.location.href = "pagina-inicial-adm.php";
+        });
+      });
+    </script>
+  <?php endif; ?>
+
+  <?php if (isset($_GET['erro']) && $_GET['erro'] == 1): ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro no login',
+        text: 'Email ou senha incorretos.',
+        confirmButtonColor: '#d33'
+      });
+    </script>
+  <?php endif; ?>
 </body>
 </html>
