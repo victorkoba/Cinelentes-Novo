@@ -33,7 +33,7 @@
         </div>
       </div>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
-      <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+      <a id="botao-logout" href="logout.php" class="button-logout">SAIR</a>
     </nav>
   </header>
   <script>

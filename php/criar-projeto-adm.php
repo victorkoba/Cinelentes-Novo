@@ -46,7 +46,7 @@ $sucesso = isset($_GET['sucesso']) && $_GET['sucesso'] == 1;
         </div>
       </div>
       <a href="cadastro.php" class="link-animado">CADASTRO ADMININSTRADOR</a>
-      <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+      <a id="botao-logout" href="logout.php" class="button-logout">SAIR</a>
   </header>
   <script>
     const hamburguer = document.getElementById('hamburguer');
