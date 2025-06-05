@@ -282,7 +282,8 @@
   padding: 12px 25px;   
   width: 40px;         
   height: auto;       
-  border-radius: 6px;  
+  border-radius: 6px;
+  margin-right: 16px;
 }
 
 
@@ -300,9 +301,10 @@
 
 .conteudo-agenda {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 16px 20px;
 }
+
 
 .titulo-agenda {
   display: flex;
@@ -938,22 +940,20 @@
   
 /* BOTÃO RESPONSIVO */
 
-  .galeria-controls {
+.galeria-controls {
   position: relative;
-  top: auto;
-  bottom: -60px;
+  top: -170px; /* Apenas leve sobreposição se quiser que fique colado */
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
   display: flex;
-  justify-content: space-between;
-  gap: 0;
-  z-index: 5;
+  justify-content: center;
+  gap: 300px; /* Diminui o espaço entre os botões */
+  z-index: 10;
 }
 
 .galeria-controls button {
   font-size: 40px;
-  color: #000000;
+  color: #ffffff;
   text-shadow: none; 
   background-color: transparent; 
   border-radius: 50%;
@@ -961,7 +961,6 @@
   height: 50px; 
   text-indent: -9999px;
   overflow: hidden; 
-  border: 2px solid #000; /* Opcional: borda preta para indicar o botão */
   position: relative; /* Necessário para ::before funcionar corretamente */
 }
 
@@ -974,7 +973,7 @@
   transform: translate(-50%, -50%);
   width: 12px;
   height: 12px;
-  border: solid #000; 
+  border: solid #ffffff; 
   border-width: 0 4px 4px 0;
   padding: 3px;
   display: inline-block;
