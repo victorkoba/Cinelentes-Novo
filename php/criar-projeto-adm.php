@@ -138,7 +138,7 @@ $sucesso = isset($_GET['sucesso']) && $_GET['sucesso'] == 1;
       <div class="upload-final-video">
         <p class="option-edicao">Faça o upload de uma imagem que ficará do lado do título e da descrição, além disso essa imagem que ficará na capa do card na página de edições.</p>
         <button type="button" class="botao-upload" data-type="video" data-target="final-video">Upload do Arquivo</button>
-        <input accept="image/*" type="file" name="foto_capa_acervo" id="final-video" style="display:none" />
+        <input accept="image/*" type="file" name="foto_capa_acervo" id="final-video" style="display:none" required/>
         <div id="final-video-name" class="file-name"></div>
       </div>
     </section>
@@ -409,9 +409,8 @@ $sucesso = isset($_GET['sucesso']) && $_GET['sucesso'] == 1;
         class="textarea-feedback option-edicao"
       ></textarea>
       <div class="alinhamento-confirmar">
-      <div class="alinhamento-confirmar">
-  <button type="button" onclick="confirmarEnvio()"  class="botao-confirmar">Criar Projeto</button>
-</div>
+        <button type="button" onclick="confirmarEnvio()"  class="botao-confirmar">Criar Projeto</button>
+      </div>
 
 <!-- SCRIPT DO SWEETALERT -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

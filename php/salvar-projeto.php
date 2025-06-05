@@ -1,16 +1,4 @@
 <?php
-// Ativa mensagens de erro para debug
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-// Conecta com o banco
-include('conexao.php');
-
-// Verifica se veio via POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    die('Acesso inválido.');
-}
-
 // Função simples para limpar texto
 function limpar($texto) {
     return trim(htmlspecialchars($texto));
@@ -29,11 +17,21 @@ $musicas = json_encode([
     $_POST['musica2'] ?? '',
     $_POST['musica3'] ?? ''
 ]);
+?>
 
-// Verifica campos obrigatórios
-if (!$titulo || !$conteudo || !$edicao) {
-    die('Preencha todos os campos obrigatórios.');
+<?php
+// Ativa mensagens de erro para debug
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Conecta com o banco
+include('conexao.php');
+
+// Verifica se veio via POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die('Acesso inválido.');
 }
+
 
 // Função para salvar 1 arquivo binário
 function salvarArquivoBinario($campo) {
@@ -48,7 +46,7 @@ $foto_capa_acervo = salvarImagemCapa('foto_capa_acervo', 'foto_capa_acervo_');
 function salvarImagemCapa($campo, $prefixo = '') {
     global $diretorio;
     $caminho = '';
-
+    
     if (isset($_FILES[$campo]) && $_FILES[$campo]['error'] === 0) {
         // Verifica se o tipo MIME é de imagem
         $tipo = mime_content_type($_FILES[$campo]['tmp_name']);
@@ -61,21 +59,21 @@ function salvarImagemCapa($campo, $prefixo = '') {
             }
         }
     }
-
+    
     return $caminho;
 }
 
 // Função para salvar múltiplos arquivos binários
 function salvarMultiplosArquivosBinarios($campo) {
     $arquivos = [];
-
+    
     if (isset($_FILES[$campo]) && is_array($_FILES[$campo]['name'])) {
         for ($i = 0; $i < count($_FILES[$campo]['name']); $i++) {
             if ($_FILES[$campo]['error'][$i] === 0) {
                 $conteudo = file_get_contents($_FILES[$campo]['tmp_name'][$i]);
                 $tipo = mime_content_type($_FILES[$campo]['tmp_name'][$i]);
                 $nomeOriginal = $_FILES[$campo]['name'][$i];
-
+                
                 $arquivos[] = [
                     'nome' => $nomeOriginal,
                     'tipo' => $tipo,
@@ -102,33 +100,33 @@ $stmt->bind_param("ssssssi", $titulo, $conteudo, $foto_capa_acervo, $musicas, $h
 if ($stmt->execute()) {
     $acervo_id = $stmt->insert_id; // ID do acervo recém-criado
     echo "Acervo salvo com sucesso!<br>";
-
+    
     // Função para inserir um arquivo em uma tabela (fotos, vídeos ou curtas)
     function inserirArquivo($conexao, $tabela, $acervo_id, $arquivos) {
-    $sql = "INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)";
-    $stmt = $conexao->prepare($sql);
-    
-    foreach ($arquivos as $arquivo) {
-        $nome = $arquivo['nome'];
-        $tipo = $arquivo['tipo'];
-        $dados = $arquivo['dados']; // binário puro
-
-        // Inicializa o parâmetro blob como null (temporário)
-        $null = NULL;
-        $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null);
-
-        // Envia os dados binários reais
-        $stmt->send_long_data(3, $dados); // 3 = índice do blob
-        $stmt->execute();
+        $sql = "INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)";
+        $stmt = $conexao->prepare($sql);
+        
+        foreach ($arquivos as $arquivo) {
+            $nome = $arquivo['nome'];
+            $tipo = $arquivo['tipo'];
+            $dados = $arquivo['dados']; // binário puro
+            
+            // Inicializa o parâmetro blob como null (temporário)
+            $null = NULL;
+            $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null);
+            
+            // Envia os dados binários reais
+            $stmt->send_long_data(3, $dados); // 3 = índice do blob
+            $stmt->execute();
+        }
+        
+        $stmt->close();
     }
-
-    $stmt->close();
-}
     // Inserir arquivos nas tabelas específicas
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);
     inserirArquivo($conexao, "fotos_acervo", $acervo_id, $fotos);
-
+    
     header("Location: criar-projeto-adm.php?sucesso=1");
     exit;
 } else {
@@ -138,3 +136,41 @@ if ($stmt->execute()) {
 $stmt->close();
 $conexao->close();
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Preencha todos os campos necessários</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <?php
+    if (
+    !$titulo || 
+    !$conteudo || 
+    !$edicao || 
+    !isset($_FILES['foto_capa_acervo']) || 
+    $_FILES['foto_capa_acervo']['error'] !== 0
+) {
+    echo '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: "warning",
+            title: "Campos obrigatórios",
+            text: "Preencha todos os campos obrigatórios e envie a foto de capa!",
+            confirmButtonText: "OK"
+        }).then(() => {
+            window.location.href = "criar-projeto-adm.php";
+        });
+    </script>';
+    exit;
+}
+    ?>
+</body>
+</html>
