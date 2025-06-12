@@ -101,27 +101,27 @@ if ($stmt->execute()) {
     $acervo_id = $stmt->insert_id; // ID do acervo recém-criado
     echo "Acervo salvo com sucesso!<br>";
     
-    // Função para inserir um arquivo em uma tabela (fotos, vídeos ou curtas)
-    function inserirArquivo($conexao, $tabela, $acervo_id, $arquivos) {
-        $sql = "INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)";
-        $stmt = $conexao->prepare($sql);
-        
-        foreach ($arquivos as $arquivo) {
-            $nome = $arquivo['nome'];
-            $tipo = $arquivo['tipo'];
-            $dados = $arquivo['dados']; // binário puro
-            
-            // Inicializa o parâmetro blob como null (temporário)
-            $null = NULL;
-            $stmt->bind_param("issb", $acervo_id, $nome, $tipo, $null);
-            
-            // Envia os dados binários reais
-            $stmt->send_long_data(3, $dados); // 3 = índice do blob
-            $stmt->execute();
-        }
-        
-        $stmt->close();
+function inserirArquivo($conexao, $tabela, $acervo_id, $arquivos) {
+    $sql = "INSERT INTO $tabela (acervo_id, nome_arquivo, tipo_arquivo, dados) VALUES (?, ?, ?, ?)";
+    $stmt = $conexao->prepare($sql);
+
+    if (!$stmt) {
+        die("Erro ao preparar SQL para $tabela: " . $conexao->error);
     }
+
+    foreach ($arquivos as $arquivo) {
+        $nome = $arquivo['nome'];
+        $tipo = $arquivo['tipo'];
+        $dados = $arquivo['dados'];
+
+        $null = NULL;
+        $stmt->bind_param("sssb", $acervo_id, $nome, $tipo, $null);
+        $stmt->send_long_data(3, $dados);
+        $stmt->execute();
+    }
+
+    $stmt->close();
+}
     // Inserir arquivos nas tabelas específicas
     inserirArquivo($conexao, "videos_acervo", $acervo_id, $videos);
     inserirArquivo($conexao, "curtas_acervo", $acervo_id, $curta);

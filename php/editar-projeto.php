@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
     </div>
     <a href="cadastro.php" class="link-animado">CADASTRO ADMINISTRADOR</a>
-    <a id="botao-logout" href="logout.php" class="button-logout">Logout</a>
+    <a id="botao-logout" href="logout.php" class="button-logout">SAIR</a>
   </nav>
 </header>
 
