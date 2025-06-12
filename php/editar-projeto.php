@@ -74,6 +74,7 @@ function linkify($text) {
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/editar-projeto.css">
+  <link rel="icon" href="../img/favicon.ico" type="image/png">
   <link rel="stylesheet" href="../style/ver-projeto.css">
 </head>
 <body class="body-pagina-inicial">

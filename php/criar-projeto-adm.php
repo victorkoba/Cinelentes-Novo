@@ -10,6 +10,7 @@ $sucesso = isset($_GET['sucesso']) && $_GET['sucesso'] == 1;
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cinelentes</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <link rel="icon" href="../img/favicon.ico" type="image/png">
   <link rel="stylesheet" href="../style/criar-projeto.css" />
   <link rel="stylesheet" href="../style/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

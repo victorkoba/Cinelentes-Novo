@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/quem-somos.css">
     <script src="../js/main.js"></script>
+    <link rel="icon" href="../img/favicon.ico" type="image/png">
 </head>
 <body class="body-pagina-inicial">
 

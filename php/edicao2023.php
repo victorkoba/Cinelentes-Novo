@@ -7,6 +7,7 @@
   <title>Cinelentes</title>
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/edicoes.css">
+  <link rel="icon" href="../img/favicon.ico" type="image/png">
   <script src="../js/main.js"></script>
 </head>
 

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cinelentes</title>
   <link rel="stylesheet" href="../style/style.css">
+  <link rel="icon" href="../img/favicon.ico" type="image/png">
   <link rel="stylesheet" href="../style/edicoes.css">
   <script src="../js/main.js"></script>
 </head>

@@ -41,6 +41,7 @@ $conexao->close();
     <meta charset="UTF-8">
     <title>Projeto Excluído</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="../img/favicon.ico" type="image/png">
     <style>
         body{
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

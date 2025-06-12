@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/edicoes.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="../img/favicon.ico" type="image/png">
     <script src="../js/main.js"></script>
 </head>
 <body class="body-pagina-inicial">

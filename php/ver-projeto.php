@@ -99,7 +99,8 @@ function linkify($text) {
   <link rel="stylesheet" href="../style/style.css">
   <link rel="stylesheet" href="../style/ver-projeto.css">
   <script src="../main/main.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="../img/favicon.ico" type="image/png">
 
 </head>
 <body class="body-pagina-inicial">
